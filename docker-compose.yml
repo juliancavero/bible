@@ -1,0 +1,63 @@
+version: "3.8"
+
+services:
+  # Servicio para la base de datos MySQL
+  dbdb:
+    image: mysql:8.0
+    environment:
+      - MYSQL_USER=admin
+      - MYSQL_PASSWORD=admin
+      - MYSQL_DATABASE=test
+      - MYSQL_ROOT_PASSWORD=root
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+
+  # Servicio para la aplicación front principal
+  bib-front:
+    build:
+      context: ./bib-front
+    volumes:
+      - ./bib-front:/app
+      - /app/node_modules
+    ports:
+      - "3000:3000"
+    command: npm run dev
+    depends_on:
+      - dbdb
+
+  # Servicio para la aplicación front backoffice
+  bib-office:
+    build:
+      context: ./bib-office
+    volumes:
+      - ./bib-office:/app
+      - /app/node_modules
+    ports:
+      - "3100:3100"
+    command: npm run dev
+    depends_on:
+      - dbdb
+
+  # Servicio para el backend NestJS
+  bib-back:
+    build:
+      context: ./bib-back
+    volumes:
+      - ./bib-back:/app
+      - /app/node_modules
+    ports:
+      - "3200:3200"
+    command: npm run start:dev
+    environment:
+      - MYSQL_HOST=dbdb
+      - MYSQL_PORT=3306
+      - MYSQL_USER=admin
+      - MYSQL_PASSWORD=admin
+      - MYSQL_DATABASE=test
+    depends_on:
+      - dbdb
+
+volumes:
+  mysql-data:
