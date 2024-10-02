@@ -9,7 +9,7 @@ type MarkdownProps = {
 const Markdown = ({ indent = true, children }: MarkdownProps) => {
   return (
     <ReactMarkdown
-      className={`prose dark:prose-invert !max-w-none text-black dark:text-zinc-200 ${
+      className={`prose dark:prose-invert !max-w-none dark:text-zinc-200 ${
         indent && "indent-6"
       }`}
       children={children}

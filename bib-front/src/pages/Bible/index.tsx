@@ -25,7 +25,7 @@ const BiblePage = () => {
 
       <PaddingBox className="flex flex-col gap-3">
         {(favChapters.length > 0 || continueReadingChapter) && (
-          <div className="bg-white dark:bg-primary-darkforeground grid grid-cols md:grid-cols-2 items-stretch gap-2 p-2 rounded-md">
+          <div className="bg-background grid grid-cols md:grid-cols-2 items-stretch gap-2 p-2 rounded-md">
             {favChapters && favChapters.length > 0 && (
               <FavouriteBibleBooks favouriteChapters={favChapters} />
             )}

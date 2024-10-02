@@ -46,6 +46,7 @@ const useQuestions = () => {
 
   return {
     open,
+    setOpen,
     storedQuestions,
     handleQuestionSubmit,
     handleStoredQuestionClick,

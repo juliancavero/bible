@@ -36,15 +36,15 @@ const SaintsBook = () => {
           </DividerBox>
           <div className="flex flex-col items-center gap-1">
             <Button className="w-full" onClick={goToTodaysSaint}>
-              <ButtonText>Texto completo - {saint.name}</ButtonText>
+              <ButtonText>Leer texto completo</ButtonText>
             </Button>
             <BodyText>o bien...</BodyText>
             <Button
-              className="w-full"
+              className="w-50"
               onClick={goToAllSaints}
               variant={"secondary"}
             >
-              <ButtonText>Ver el Santoral completo</ButtonText>
+              <ButtonText size="lg">Ver todo el Santoral</ButtonText>
             </Button>
           </div>
         </>

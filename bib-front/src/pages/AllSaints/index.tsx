@@ -4,19 +4,10 @@ import IndexBar from "@/components/Containers/IndexBar";
 import MainContainer from "@/components/Containers/MainContainer";
 import PaddingBox from "@/components/Containers/PaddingBox";
 import Star from "@/components/Icons/Star";
+import Calendar from "@/components/Inputs/Calendar";
 import BodyText from "@/components/Text/BodyText";
 import StrongText from "@/components/Text/StrongText";
-import { Button } from "@/components/ui/button";
-import { Calendar } from "@/components/ui/calendar";
 import { Input } from "@/components/ui/input";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
-import { cn } from "@/lib/utils";
-import { CalendarIcon } from "@heroicons/react/24/outline";
-import { format } from "date-fns";
 import useAllSaints from "./useAllSaints";
 
 const AllSaintsPage = () => {
@@ -39,29 +30,7 @@ const AllSaintsPage = () => {
           <PaddingBox multiplier={2} className="flex flex-col gap-3">
             <div className="mb-2 flex flex-col items-start gap-3 md:flex-row md:justify-between md:items-center">
               <BodyText>Elige la fecha que quieres consultar.</BodyText>
-              <Popover>
-                <PopoverTrigger asChild>
-                  <Button
-                    variant={"outline"}
-                    className={cn(
-                      "w-[280px] justify-start text-left font-normal",
-                      !date && "text-muted-foreground"
-                    )}
-                  >
-                    <CalendarIcon className="mr-2 h-4 w-4" />
-                    {date ? format(date, "PPP") : <span>Día / Mes</span>}
-                  </Button>
-                </PopoverTrigger>
-                <PopoverContent className="w-auto p-0">
-                  <Calendar
-                    mode="single"
-                    // labels={{}} traducciones
-                    selected={date}
-                    onSelect={setDate}
-                    initialFocus
-                  />
-                </PopoverContent>
-              </Popover>
+              <Calendar date={date} setDate={setDate} />
             </div>
 
             {dayMonthSaints ? (

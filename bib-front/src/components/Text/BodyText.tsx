@@ -4,13 +4,7 @@ type BodyTextProps = {
 };
 
 const BodyText = ({ children, className }: BodyTextProps) => {
-  return (
-    <h3
-      className={`text-md tracking-tight text-black dark:text-zinc-200 ${className}`}
-    >
-      {children}
-    </h3>
-  );
+  return <h3 className={`text-md tracking-tight ${className}`}>{children}</h3>;
 };
 
 export default BodyText;

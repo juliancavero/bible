@@ -7,6 +7,7 @@ import Image from "@/components/Misc/Image";
 import BodyText from "@/components/Text/BodyText";
 import ButtonText from "@/components/Text/ButtonText";
 import Link from "@/components/Text/Link";
+import Markdown from "@/components/Text/Markdown";
 import StrongText from "@/components/Text/StrongText";
 import { Button } from "@/components/ui/button";
 import { fakeTodaysQuote } from "@/fakeData";
@@ -28,7 +29,7 @@ const TodaysQuote = () => {
               src="https://t3.ftcdn.net/jpg/04/60/01/36/360_F_460013622_6xF8uN6ubMvLx0tAJECBHfKPoNOR5cRa.jpg"
               alt="quote"
             />
-            <BodyText>{fakeTodaysQuote}</BodyText>
+            <Markdown indent>{fakeTodaysQuote}</Markdown>
           </TextBox>
           <Link onClick={goToTodaysQuote}>Seguir leyendo</Link>
         </PaddingBox>

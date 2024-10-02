@@ -5,15 +5,20 @@ import MainContainer from "@/components/Containers/MainContainer";
 import PaddingBox from "@/components/Containers/PaddingBox";
 import BodyText from "@/components/Text/BodyText";
 import StrongText from "@/components/Text/StrongText";
-import { CircularProgress, Dialog, styled, Zoom } from "@mui/material";
-import { TransitionProps } from "@mui/material/transitions";
-import { forwardRef } from "react";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+} from "@/components/ui/dialog";
+import { Loader2 } from "lucide-react";
 import MakeQuestion from "./components/MakeQuestion";
 import useQuestions from "./useQuestions";
 
 const QuestionsPage = () => {
   const {
     open,
+    setOpen,
     storedQuestions,
     handleQuestionSubmit,
     handleStoredQuestionClick,
@@ -58,41 +63,21 @@ const QuestionsPage = () => {
           </Card>
         </PaddingBox>
       </MainContainer>
-      <Dialog
-        open={open}
-        transitionDuration={500}
-        TransitionComponent={ZoomTransition}
-      >
-        <Card>
-          <PaddingBox>
+      <Dialog open={open} onOpenChange={setOpen}>
+        <DialogContent className="w-screen h-screen">
+          <DialogHeader>
             <StrongText>Enviando consulta</StrongText>
-          </PaddingBox>
-          <PaddingBox>
-            <Center>
-              <CircularProgress size={100} />
-            </Center>
-          </PaddingBox>
-        </Card>
+          </DialogHeader>
+          <DialogDescription className="flex justify-center">
+            <Loader2
+              size={100}
+              className="animate-spin text-indigo-800 dark:text-indigo-200"
+            />
+          </DialogDescription>
+        </DialogContent>
       </Dialog>
     </>
   );
 };
 
 export default QuestionsPage;
-
-const ZoomTransition = forwardRef(function Transition(
-  props: TransitionProps & {
-    children: React.ReactElement;
-  },
-  ref
-) {
-  return <Zoom ref={ref} {...props} />;
-});
-
-const Center = styled("div")({
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
-  width: "250px",
-  height: "250px",
-});
