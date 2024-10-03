@@ -25,9 +25,10 @@ const TodaysQuote = () => {
         <PaddingBox>
           <TextBox>
             <Image
-              className="float-left mr-2"
               src="https://t3.ftcdn.net/jpg/04/60/01/36/360_F_460013622_6xF8uN6ubMvLx0tAJECBHfKPoNOR5cRa.jpg"
               alt="quote"
+              type="home"
+              className="float-left"
             />
             <Markdown indent>{fakeTodaysQuote}</Markdown>
           </TextBox>
@@ -39,11 +40,7 @@ const TodaysQuote = () => {
           <ButtonText>Lee la enseñanza de la cita de hoy</ButtonText>
         </Button>
         <BodyText>o bien...</BodyText>
-        <Button
-          variant={"secondary"}
-          className="w-full"
-          onClick={goToAllQuotes}
-        >
+        <Button variant={"secondary"} className="" onClick={goToAllQuotes}>
           <ButtonText>Todas las enseñanzas</ButtonText>
         </Button>
       </div>

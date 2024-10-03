@@ -7,10 +7,27 @@ type Saint = {
   text: string;
   day: number;
   month: number;
+  isMain: boolean;
+  image?: FileList;
 };
 
 const putSaint = async (saint: Saint): Promise<Saint> => {
-  const response = await axiosInstance.put<Saint>("/saints/" + saint.id, saint);
+  const { id, name, text, day, month, isMain, image } = saint;
+  const formData = new FormData();
+  formData.append("name", name);
+  formData.append("text", text);
+  formData.append("day", day.toString());
+  formData.append("month", month.toString());
+  formData.append("isMain", isMain.toString());
+  if (image) {
+    formData.append("file", image[0]);
+  }
+
+  const response = await axiosInstance.put<Saint>("/saints/" + id, formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
   return response.data;
 };
 

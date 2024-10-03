@@ -1,6 +1,8 @@
 import MainPaper from "@/components/Containers/MainPaper";
 import LongTextField from "@/components/Inputs/LongTextField";
+import { ForwardSelect } from "@/components/Inputs/Select";
 import Markdown from "@/components/Text/Markdown";
+import { months } from "@/utils/calendar";
 import {
   Button,
   FormControlLabel,
@@ -12,15 +14,8 @@ import {
 import useEditSaint from "./useEditSaint";
 
 const EditSaintPage = () => {
-  const {
-    register,
-    handleSubmit,
-    errors,
-    onSubmit,
-    text,
-    onReplaceAllNumbersClick,
-    onReplaceAllNextLineClick,
-  } = useEditSaint();
+  const { register, handleSubmit, errors, onSubmit, text, image } =
+    useEditSaint();
 
   return (
     <MainPaper>
@@ -58,25 +53,21 @@ const EditSaintPage = () => {
                 helperText={errors.day?.message}
               />
             </Grid>
-            <Grid item xs={9}>
-              <div style={{ display: "flex", gap: 8 }}>
-                <Button variant="outlined" onClick={onReplaceAllNumbersClick}>
-                  Reemplazar todos los números por superíndices
-                </Button>
-                <Button variant="outlined" onClick={onReplaceAllNextLineClick}>
-                  Reemplazar todos los saltos de línea por dos espacios
-                </Button>
-              </div>
+            <Grid item xs={3}>
+              <ForwardSelect
+                options={months}
+                {...register("month", {
+                  required: "Este campo es requerido",
+                  valueAsNumber: true,
+                })}
+                error={!!errors.month}
+                helperText={errors.month?.message}
+              />
+            </Grid>
+            <Grid item xs={6}>
+              <input {...register("image")} type="file" />
             </Grid>
           </Grid>
-          <TextField
-            fullWidth
-            label="Mes"
-            type="number"
-            {...register("month", { required: "Este campo es requerido" })}
-            error={!!errors.month}
-            helperText={errors.month?.message}
-          />
           <FormControlLabel
             control={<input type="checkbox" {...register("isMain")} />}
             label="Principal"
@@ -86,7 +77,14 @@ const EditSaintPage = () => {
           </Button>
         </StyledBox>
       </form>
-      <Markdown children={text} />
+      <Grid container spacing={3} style={{ marginTop: 5 }}>
+        <Grid item xs={9}>
+          <Markdown children={text} />
+        </Grid>
+        <Grid item xs={3}>
+          {image && <img src={image} alt="Saint" style={{ width: "100%" }} />}
+        </Grid>
+      </Grid>
     </MainPaper>
   );
 };

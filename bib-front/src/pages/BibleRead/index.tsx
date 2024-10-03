@@ -28,9 +28,7 @@ const BibleReadPage = () => {
   return (
     <MainContainer>
       <IndexBar sticky>
-        <Button variant={"link"} onClick={onBack}>
-          <HorizontalArrow />
-        </Button>
+        <HorizontalArrow withButton onClick={onBack} />
         <StrongText>{bookName || "" + chapter || ""}</StrongText>
       </IndexBar>
       <PaddingBox multiplier={3}>

@@ -4,6 +4,7 @@ import MainContainer from "@/components/Containers/MainContainer";
 import PaddingBox from "@/components/Containers/PaddingBox";
 import { HorizontalArrow } from "@/components/Icons/Arrows";
 import Star from "@/components/Icons/Star";
+import Image from "@/components/Misc/Image";
 import Markdown from "@/components/Text/Markdown";
 import StrongText from "@/components/Text/StrongText";
 import { Button } from "@/components/ui/button";
@@ -31,11 +32,8 @@ const SaintDetailsPage = () => {
         </PaddingBox>
         <Card>
           {data ? (
-            <div key={data.id}>
-              <PaddingBox
-                multiplier={2}
-                className="flex flex-row items-center justify-between"
-              >
+            <div key={data.id} className="px-2">
+              <div className="flex flex-row items-center justify-between md:mb-3">
                 <StrongText className="italic capitalize">
                   {data.name}
                 </StrongText>
@@ -44,10 +42,18 @@ const SaintDetailsPage = () => {
                     <Star filled={isFavourite} />
                   </Button>
                 </div>
-              </PaddingBox>
-              <PaddingBox multiplier={2}>
+              </div>
+              <div className="flex flex-col items-center md:block">
+                {data.image && (
+                  <Image
+                    src={data.image}
+                    alt={data.name}
+                    type="details"
+                    className="float-none md:float-right"
+                  />
+                )}
                 <Markdown indent={false} children={data.text} />
-              </PaddingBox>
+              </div>
             </div>
           ) : (
             <PaddingBox>

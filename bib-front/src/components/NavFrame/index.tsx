@@ -1,12 +1,11 @@
 import { Outlet } from "react-router-dom";
-import BottomTabs from "../BottomTabs";
+import { BottomTabs, LeftTabs } from "../BottomTabs";
 
 const NavFrame = () => {
   return (
     <Principal>
-      <FlexContainer>
-        <Outlet />
-      </FlexContainer>
+      <LeftTabs />
+      <Outlet />
       <BottomTabs />
     </Principal>
   );
@@ -18,19 +17,19 @@ type CommonProps = {
   children: React.ReactNode;
 };
 
-const FlexContainer = ({ children }: CommonProps) => {
+/* const FlexContainer = ({ children }: CommonProps) => {
   return (
     <div className="flex flex-col items-center justify-center flex-grow">
       {children}
     </div>
   );
-};
+}; */
 
 const Principal = ({ children }: CommonProps) => {
   return (
     <div
       className="
-    flex flex-col 
+    flex flex-col md:flex-row
     h-full min-h-screen
     bg-primary dark:bg-gray-900
     "
@@ -39,24 +38,3 @@ const Principal = ({ children }: CommonProps) => {
     </div>
   );
 };
-
-/* const FlexContainer = styled("div")({
-  display: "flex",
-  flexDirection: "column",
-  alignItems: "center",
-  justifyContent: "center",
-  flexGrow: 1,
-});
-
-const Principal = styled("div")({
-  display: "flex",
-  flexDirection: "column",
-  height: "100%",
-  minHeight: "100vh",
-  maxWidth: "1200px",
-  margin: "0 auto",
-  width: "100%",
-  padding: 0,
-  backgroundColor: "#f0f7fe",
-});
- */

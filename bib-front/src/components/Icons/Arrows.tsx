@@ -4,19 +4,6 @@ import {
   ChevronDownIcon,
   ChevronUpIcon,
 } from "@heroicons/react/24/outline";
-import { Button } from "../ui/button";
-
-const IconButton = ({
-  children,
-  onClick,
-}: {
-  children: React.ReactNode;
-  onClick?: () => void;
-}) => (
-  <Button size={"icon"} variant={"link"} onClick={onClick}>
-    {children}
-  </Button>
-);
 
 const ArrowLeft = (
   <ArrowLeftIcon className="stroke-2 h-6 w-6 text-black dark:text-zinc-200" />
@@ -44,9 +31,9 @@ const HorizontalArrow = ({
 }: ArrowIconProps) => {
   if (withButton) {
     return (
-      <IconButton onClick={onClick}>
+      <div onClick={onClick}>
         <>{dir === "left" ? ArrowLeft : ArrowRight}</>
-      </IconButton>
+      </div>
     );
   }
   return <>{dir === "left" ? ArrowLeft : ArrowRight}</>;
@@ -65,9 +52,9 @@ const VerticalArrow = ({
 }: VerticalArrowIconProps) => {
   if (withButton) {
     return (
-      <IconButton onClick={onClick}>
+      <div onClick={onClick}>
         <>{dir === "up" ? ChevronUp : ChevronDown}</>
-      </IconButton>
+      </div>
     );
   }
   return <>{dir === "up" ? ChevronUp : ChevronDown}</>;

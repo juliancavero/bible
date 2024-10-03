@@ -1,5 +1,6 @@
+import { CloudinaryService } from '@/cloudinary/cloudinary.service';
 import { PaginatedResponse } from '@/common/paginatedResponse';
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Like, Repository } from 'typeorm';
 import { AllSaintsParamsDTO } from './dto/allSaintsParams.dto';
@@ -12,6 +13,8 @@ export class SaintsService {
   constructor(
     @InjectRepository(Saint)
     private saintsRepository: Repository<Saint>,
+    @Inject()
+    private cloudinaryService: CloudinaryService,
   ) {}
 
   async getAll(params: AllSaintsParamsDTO): Promise<PaginatedResponse<Saint>> {
@@ -61,6 +64,10 @@ export class SaintsService {
     return await this.saintsRepository.find();
   }
 
+  async countAll(): Promise<number> {
+    return await this.saintsRepository.count();
+  }
+
   async getById(id: number): Promise<Saint> {
     return await this.saintsRepository.findOneBy({
       id: id,
@@ -82,7 +89,10 @@ export class SaintsService {
     });
   }
 
-  async createOne(body: CreateSaintDTO): Promise<Saint> {
+  async createOne(
+    body: CreateSaintDTO,
+    file: Express.Multer.File,
+  ): Promise<Saint> {
     const { day, month, name, text, isMain } = body;
     const saint = new Saint();
 
@@ -90,7 +100,12 @@ export class SaintsService {
     saint.month = month;
     saint.text = text;
     saint.name = name;
-    saint.isMain = isMain;
+    saint.isMain = isMain === 'true';
+
+    if (file) {
+      const cloudinaryResponse = await this.cloudinaryService.uploadFile(file);
+      saint.image = cloudinaryResponse.secure_url;
+    }
 
     if (isMain) {
       await this.unMainAllSaints(month, day);
@@ -111,7 +126,11 @@ export class SaintsService {
     );
   }
 
-  async updateOne(id: number, body: CreateSaintDTO): Promise<Saint> {
+  async updateOne(
+    id: number,
+    body: CreateSaintDTO,
+    file: Express.Multer.File,
+  ): Promise<Saint> {
     const { day, month, name, text, isMain } = body;
 
     const saint = await this.saintsRepository.findOneBy({
@@ -122,7 +141,12 @@ export class SaintsService {
     saint.month = month;
     saint.text = text;
     saint.name = name;
-    saint.isMain = isMain;
+    saint.isMain = isMain === 'true';
+
+    if (file) {
+      const cloudinaryResponse = await this.cloudinaryService.uploadFile(file);
+      saint.image = cloudinaryResponse.secure_url;
+    }
 
     if (isMain) {
       await this.unMainAllSaints(month, day);

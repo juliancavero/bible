@@ -24,6 +24,7 @@ const HomePage = () => {
     onCalendarChapterClick,
     bookChapters,
     bookName,
+    stats,
     missingChapters,
     handlePreviousBook,
     handleNextBook,
@@ -61,8 +62,12 @@ const HomePage = () => {
                 <CenteredCard>
                   <CardContent>
                     <VerticalFlexBox>
-                      <Typography variant="h5">X</Typography>
-                      <Typography variant="body1">X</Typography>
+                      <Typography variant="h5">
+                        {stats?.saints.total}
+                      </Typography>
+                      <Typography variant="body1">
+                        Total de Santos Registrados
+                      </Typography>
                     </VerticalFlexBox>
                   </CardContent>
                 </CenteredCard>
@@ -71,8 +76,12 @@ const HomePage = () => {
                 <CenteredCard>
                   <CardContent>
                     <VerticalFlexBox>
-                      <Typography variant="h5">X</Typography>
-                      <Typography variant="body1">X</Typography>
+                      <Typography variant="h5">
+                        {stats?.saints.completedDays.toFixed(2)}%
+                      </Typography>
+                      <Typography variant="body1">
+                        Porcentaje del año completo
+                      </Typography>
                     </VerticalFlexBox>
                   </CardContent>
                 </CenteredCard>
@@ -83,8 +92,24 @@ const HomePage = () => {
                 <CenteredCard>
                   <CardContent>
                     <VerticalFlexBox>
-                      <Typography variant="h5">x</Typography>
-                      <Typography variant="body1">X</Typography>
+                      <Typography variant="h5">
+                        {stats?.saints.withImage}
+                      </Typography>
+                      <Typography variant="body1">Santos con imágen</Typography>
+                    </VerticalFlexBox>
+                  </CardContent>
+                </CenteredCard>
+              </Grid>
+              <Grid item xs={12}>
+                <CenteredCard>
+                  <CardContent>
+                    <VerticalFlexBox>
+                      <Typography variant="h5">
+                        {stats?.saints.completedDays.toFixed(2)}%
+                      </Typography>
+                      <Typography variant="body1">
+                        Porcentaje del año completo
+                      </Typography>
                     </VerticalFlexBox>
                   </CardContent>
                 </CenteredCard>
@@ -124,8 +149,12 @@ const HomePage = () => {
                   <CardContent>
                     <VerticalFlexBox>
                       <VerticalFlexBox>
-                        <Typography variant="h5">X</Typography>
-                        <Typography variant="body1">X</Typography>
+                        <Typography variant="h5">
+                          {stats?.chapters.total}
+                        </Typography>
+                        <Typography variant="body1">
+                          Total de capítulos registrados
+                        </Typography>
                       </VerticalFlexBox>
                     </VerticalFlexBox>
                   </CardContent>
@@ -135,20 +164,12 @@ const HomePage = () => {
                 <CenteredCard>
                   <CardContent>
                     <VerticalFlexBox>
-                      <Typography variant="h5">X</Typography>
-                      <Typography variant="body1">X</Typography>
-                    </VerticalFlexBox>
-                  </CardContent>
-                </CenteredCard>
-              </Grid>
-            </Grid>
-            <Grid item md={4} xs={12} container spacing={3}>
-              <Grid item xs={12}>
-                <CenteredCard>
-                  <CardContent>
-                    <VerticalFlexBox>
-                      <Typography variant="h5">x</Typography>
-                      <Typography variant="body1">X</Typography>
+                      <Typography variant="h5">
+                        {stats?.chapters.completed.toFixed(2)}%
+                      </Typography>
+                      <Typography variant="body1">
+                        Porcentaje del libro completo
+                      </Typography>
                     </VerticalFlexBox>
                   </CardContent>
                 </CenteredCard>

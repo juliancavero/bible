@@ -3,5 +3,6 @@ export class CreateSaintDTO {
   month: number;
   name: string;
   text: string;
-  isMain: boolean;
+  isMain: string;
+  image?: File;
 }

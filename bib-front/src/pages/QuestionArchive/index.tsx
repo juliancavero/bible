@@ -4,7 +4,6 @@ import MainContainer from "@/components/Containers/MainContainer";
 import PaddingBox from "@/components/Containers/PaddingBox";
 import { HorizontalArrow } from "@/components/Icons/Arrows";
 import StrongText from "@/components/Text/StrongText";
-import { Button } from "@/components/ui/button";
 import MakeQuestion from "../Questions/components/MakeQuestion";
 import ChatBox from "./components/ChatBox";
 import useQuestionAnswers from "./useQuestionAnswers";
@@ -14,9 +13,7 @@ const QuestionAnswersPage = () => {
   return (
     <MainContainer>
       <IndexBar>
-        <Button variant={"link"} onClick={goBack}>
-          <HorizontalArrow />
-        </Button>
+        <HorizontalArrow withButton onClick={goBack} />
         <StrongText>Respuestas</StrongText>
       </IndexBar>
       <PaddingBox>

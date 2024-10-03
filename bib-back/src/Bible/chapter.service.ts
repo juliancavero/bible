@@ -67,6 +67,10 @@ export class ChapterService {
     return result;
   }
 
+  async countAll(): Promise<number> {
+    return await this.chapterRepository.count();
+  }
+
   async getById(id: number): Promise<Chapter> {
     return await this.chapterRepository.findOne({
       where: { id },

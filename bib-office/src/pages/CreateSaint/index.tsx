@@ -15,15 +15,7 @@ import {
 import useCreateSaint from "./useCreateSaint";
 
 const CreateSaintPage = () => {
-  const {
-    register,
-    handleSubmit,
-    errors,
-    onSubmit,
-    text,
-    onReplaceAllNumbersClick,
-    onReplaceAllNextLineClick,
-  } = useCreateSaint();
+  const { register, handleSubmit, errors, onSubmit, text } = useCreateSaint();
   return (
     <MainPaper>
       <Typography variant="h3" marginBottom={3}>
@@ -61,7 +53,7 @@ const CreateSaintPage = () => {
                 helperText={errors.day?.message}
               />
             </Grid>
-            <Grid item xs={9}>
+            <Grid item xs={3}>
               <ForwardSelect
                 options={months}
                 {...register("month", {
@@ -72,15 +64,10 @@ const CreateSaintPage = () => {
                 helperText={errors.month?.message}
               />
             </Grid>
+            <Grid item xs={6}>
+              <input {...register("image")} type="file" />
+            </Grid>
           </Grid>
-          <div style={{ display: "flex", gap: 8 }}>
-            <Button variant="outlined" onClick={onReplaceAllNumbersClick}>
-              Reemplazar todos los números por superíndices
-            </Button>
-            <Button variant="outlined" onClick={onReplaceAllNextLineClick}>
-              Reemplazar todos los saltos de línea por dos espacios
-            </Button>
-          </div>
           <FormControlLabel
             control={<Checkbox {...register("isMain")} />}
             label="Principal"

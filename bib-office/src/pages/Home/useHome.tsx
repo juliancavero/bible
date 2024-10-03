@@ -1,5 +1,6 @@
 import useGetMissingChapterDates from "@/api/Chapters/useGetMissingSaintDates";
 import useGetMissingSaintDates from "@/api/Saints/useGetMissingSaintDates";
+import useGetStats from "@/api/Stats/useGetStats";
 import { BibleContext } from "@/context/custom/bible";
 import useNav from "@/hooks/useNav";
 import { daysPerMonth, months } from "@/utils/calendar";
@@ -10,6 +11,7 @@ const useHome = () => {
   const { bibleBooks } = useContext(BibleContext);
   const { data: saintDates } = useGetMissingSaintDates();
   const { data: chapterDates } = useGetMissingChapterDates();
+  const { data: stats } = useGetStats();
   const todaysMonth = new Date().getMonth() + 1;
   const [renderMonth, setRenderMonth] = useState(todaysMonth);
   const [renderBook, setRenderBook] = useState(bibleBooks[0].path);
@@ -91,6 +93,7 @@ const useHome = () => {
     renderBook,
     bookChapters,
     bookName,
+    stats,
     missingChapters,
     handlePreviousBook,
     handleNextBook,

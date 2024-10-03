@@ -8,7 +8,10 @@ import {
   Post,
   Put,
   Query,
+  UploadedFile,
+  UseInterceptors,
 } from '@nestjs/common';
+import { FileInterceptor } from '@nestjs/platform-express';
 import { AllSaintsParamsDTO } from './dto/allSaintsParams.dto';
 import { CreateSaintDTO } from './dto/createSaint.dto';
 import { Saint } from './saint.entity';
@@ -47,16 +50,22 @@ export class SaintsController {
   }
 
   @Post('/')
-  createSaint(@Body() createSaintDto: CreateSaintDTO): Promise<Saint> {
-    return this.saintsService.createOne(createSaintDto);
+  @UseInterceptors(FileInterceptor('file'))
+  createSaint(
+    @Body() createSaintDto: CreateSaintDTO,
+    @UploadedFile() file: Express.Multer.File,
+  ): Promise<Saint> {
+    return this.saintsService.createOne(createSaintDto, file);
   }
 
   @Put('/:id')
+  @UseInterceptors(FileInterceptor('file'))
   updateSaint(
     @Param('id') id: number,
     @Body() createSaintDto: CreateSaintDTO,
+    @UploadedFile() file: Express.Multer.File,
   ): Promise<Saint> {
-    return this.saintsService.updateOne(id, createSaintDto);
+    return this.saintsService.updateOne(id, createSaintDto, file);
   }
 
   @Delete('/:id')

@@ -52,7 +52,7 @@ const QuestionsPage = () => {
                 return (
                   <BiColorListItem
                     onClick={() => handleStoredQuestionClick(question.id)}
-                    colored={index % 2 === 0}
+                    colored={index % 2 !== 0}
                     key={index}
                   >
                     {question.text}

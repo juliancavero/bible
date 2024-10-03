@@ -23,6 +23,7 @@ const useCreateSaint = () => {
     day: number;
     month: number;
     isMain: boolean;
+    image?: FileList;
   }>({
     defaultValues: {
       name: "",
@@ -30,16 +31,17 @@ const useCreateSaint = () => {
       day: Number(day) || 1,
       month: Number(month) || 1,
       isMain: false,
+      image: undefined,
     },
   });
-
-  console.log(day, month);
 
   const onSubmit = async (data: {
     name: string;
     text: string;
     day: number;
     month: number;
+    isMain: boolean;
+    image?: FileList;
   }) => {
     const response = await mutateAsync(data);
     if (response) {

@@ -37,7 +37,7 @@ const tabs = [
   },
 ];
 
-const BottomTabs = () => {
+export const BottomTabs = () => {
   const { goTo, activeTab } = useNav();
 
   return (
@@ -48,15 +48,7 @@ const BottomTabs = () => {
           active={activeTab === tab.path}
           onClick={() => goTo(tab.path)}
         >
-          <Button
-            className={`${
-              activeTab === tab.path
-                ? "text-white"
-                : "text-black dark:text-zinc-200"
-            }`}
-            variant={"link"}
-            size={"icon"}
-          >
+          <Button variant={"icon"} size={"icon"}>
             {tab.icon}
           </Button>
           <Span active={activeTab === tab.path}>{tab.name}</Span>
@@ -66,7 +58,26 @@ const BottomTabs = () => {
   );
 };
 
-export default BottomTabs;
+export const LeftTabs = () => {
+  const { goTo, activeTab } = useNav();
+
+  return (
+    <LeftMenu>
+      {tabs.map((tab) => (
+        <Tab
+          key={tab.name}
+          active={activeTab === tab.path}
+          onClick={() => goTo(tab.path)}
+        >
+          <Button variant={"icon"} size={"icon"}>
+            {tab.icon}
+          </Button>
+          <Span active={activeTab === tab.path}>{tab.name}</Span>
+        </Tab>
+      ))}
+    </LeftMenu>
+  );
+};
 
 type BottomBoxProps = {
   children: React.ReactNode;
@@ -74,7 +85,15 @@ type BottomBoxProps = {
 
 const BottomBox = ({ children }: BottomBoxProps) => {
   return (
-    <div className="flex flex-row justify-around items-center gap-2 p-1 bg-gray-100 border-t border-gray-300 sticky bottom-0 z-50">
+    <div className="block md:hidden flex flex-row justify-around items-center gap-2 p-1 bg-gray-100 border-t border-gray-300 sticky bottom-0 z-50">
+      {children}
+    </div>
+  );
+};
+
+const LeftMenu = ({ children }: BottomBoxProps) => {
+  return (
+    <div className="min-w-60 hidden md:block flex flex-col justify-around items-center gap-2 p-1 bg-background-alternate border-t border-gray-300 sticky top-0 left-0">
       {children}
     </div>
   );
@@ -89,10 +108,8 @@ type TabProps = {
 const Tab = ({ active, children, onClick }: TabProps) => {
   return (
     <div
-      className={`flex flex-row items-center justify-center gap-2 p-1 w-full rounded-sm bg-gray-100 border-t border-gray-300 z-50 cursor-pointer ${
-        active
-          ? "bg-indigo-300 text-white dark:bg-indigo-800 dark:text-zinc-200"
-          : "bg-white text-black dark:bg-gray-800 dark:text-zinc-200"
+      className={`text-black dark:text-zinc-100 flex flex-row items-center justify-center md:justify-start gap-2 p-1 w-full rounded-sm border-t border-gray-300 z-50 cursor-pointer ${
+        active ? "bg-primary" : "bg-background"
       }`}
       onClick={onClick}
     >
@@ -108,11 +125,7 @@ type SpanProps = {
 
 const Span = ({ children, active }: SpanProps) => {
   return (
-    <span
-      className={`text-lg hidden md:block ${
-        active ? "text-white font-bold" : "text-black dark:text-zinc-200"
-      }`}
-    >
+    <span className={`text-lg hidden md:block ${active ? "font-bold" : ""}`}>
       {children}
     </span>
   );

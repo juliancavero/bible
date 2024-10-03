@@ -17,28 +17,18 @@ const SettingsPage = () => {
       </IndexBar>
       <PaddingBox>
         <StyledPaper>
-          <SettingsItem>
-            <BodyText>Idioma</BodyText>
-          </SettingsItem>
-          <SettingsItem>
-            <BodyText>Tema</BodyText>
-          </SettingsItem>
-          <SettingsItem>
-            <BodyText>La Biblia</BodyText>
-          </SettingsItem>
+          <SettingsItem>Idioma</SettingsItem>
+          <SettingsItem>Tema</SettingsItem>
+          <SettingsItem>La Biblia</SettingsItem>
           <SettingsItem
             onClick={() => deleteItem(LocalStorageKeys.STORED_QUESTIONS)}
           >
-            <BodyText>Delete localstorage questions</BodyText>
+            Delete localstorage questions
           </SettingsItem>
           <SettingsItem
             onClick={() => setTheme(theme === "light" ? "dark" : "light")}
           >
-            <BodyText>
-              {theme === "light"
-                ? "Cambiar a Dark Mode"
-                : "Cambiar a Light Mode"}
-            </BodyText>
+            {theme === "light" ? "Cambiar a Dark Mode" : "Cambiar a Light Mode"}
           </SettingsItem>
         </StyledPaper>
       </PaddingBox>

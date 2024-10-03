@@ -52,7 +52,7 @@ const AllSaintsPage = () => {
                         <BiColorListItem
                           onClick={() => onSaintSelected(saint)}
                           key={index}
-                          colored={index % 2 === 0}
+                          colored={index % 2 !== 0}
                         >
                           {saint.name}
                         </BiColorListItem>
@@ -82,7 +82,7 @@ const AllSaintsPage = () => {
                   <BiColorListItem
                     onClick={() => onSaintSelected(saint)}
                     key={index}
-                    colored={index % 2 === 0}
+                    colored={index % 2 !== 0}
                   >
                     {saint.name}
                   </BiColorListItem>
@@ -102,7 +102,7 @@ const AllSaintsPage = () => {
                 return (
                   <BiColorListItem
                     onClick={() => onSaintSelected(saint)}
-                    colored={index % 2 === 0}
+                    colored={index % 2 !== 0}
                     key={index}
                   >
                     {saint.name}

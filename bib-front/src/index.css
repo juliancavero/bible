@@ -24,7 +24,7 @@
     --card-foreground: 240 10% 3.9%;
     --popover: 0 0% 100%;
     --popover-foreground: 240 10% 3.9%;
-    --primary: 226 100% 93.9%;
+    --primary: 60 35% 92%;
     --primary-foreground: 0 0% 0%;
     --primary-dark: 226 100% 93.9%;
     --primary-dark-foreground: 215 15% 25%;
@@ -58,7 +58,7 @@
     --card-foreground: 0 0% 98%;
     --popover: 240 10% 3.9%;
     --popover-foreground: 0 0% 98%;
-    --primary: 245 58% 51%;
+    --primary: 245 48% 51%;
     --primary-foreground: 255 100% 100%;
     --secondary: 262 41% 32%;
     --secondary-foreground: 0 0% 98%;
@@ -77,6 +77,9 @@
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%;
   }
+  /* html {
+     font-size: 18px;
+  } */
 }
 @layer base {
   * {

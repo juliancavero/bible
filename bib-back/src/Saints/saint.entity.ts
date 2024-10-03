@@ -14,6 +14,9 @@ export class Saint {
   @Column()
   name: string;
 
+  @Column({ default: '' })
+  image: string;
+
   @Column({ type: 'longtext' })
   text: string;
 

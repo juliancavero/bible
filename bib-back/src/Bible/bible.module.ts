@@ -8,5 +8,6 @@ import { ChapterService } from './chapter.service';
   imports: [TypeOrmModule.forFeature([Chapter])],
   providers: [ChapterService],
   controllers: [ChapterController],
+  exports: [ChapterService],
 })
 export class BibleModule {}

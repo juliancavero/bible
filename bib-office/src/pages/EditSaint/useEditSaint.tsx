@@ -5,15 +5,16 @@ import {
   replaceNextLineForTwoSpaces,
   replaceNumbersForSuperscript,
 } from "@/utils/textFormatter";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useParams } from "react-router-dom";
 
 const useEditSaint = () => {
-  const { navigate } = useNav();
+  const { refresh } = useNav();
   const { id } = useParams<{ id: string }>();
   const { data } = useGetSaintDetails(id || "");
   const { mutateAsync } = usePutSaint();
+  const [image, setImage] = useState<string>("");
   const {
     register,
     handleSubmit,
@@ -26,6 +27,7 @@ const useEditSaint = () => {
     day: number;
     month: number;
     isMain: boolean;
+    image?: FileList;
   }>({
     defaultValues: {
       name: "",
@@ -33,6 +35,7 @@ const useEditSaint = () => {
       day: 1,
       month: 1,
       isMain: false,
+      image: undefined,
     },
   });
 
@@ -41,13 +44,15 @@ const useEditSaint = () => {
     text: string;
     day: number;
     month: number;
+    isMain: boolean;
+    image?: FileList;
   }) => {
     const response = await mutateAsync({
       id: Number(id),
       ...data,
     });
     if (response) {
-      navigate("/saints");
+      refresh();
     }
   };
 
@@ -66,6 +71,7 @@ const useEditSaint = () => {
       setValue("day", data.day);
       setValue("month", data.month);
       setValue("isMain", data.isMain);
+      data.image && setImage(data.image);
     }
   }, [data]);
 
@@ -77,6 +83,7 @@ const useEditSaint = () => {
     text: watch("text"),
     onReplaceAllNumbersClick,
     onReplaceAllNextLineClick,
+    image,
   };
 };
 

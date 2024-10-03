@@ -6,4 +6,5 @@ export type Saint = {
   text: string;
   createdAt: string;
   isMain: boolean;
+  image?: string;
 };

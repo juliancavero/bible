@@ -12,24 +12,25 @@ import { Button } from "@/components/ui/button";
 import useSaintsBook from "./useSaintsBook";
 
 const SaintsBook = () => {
-  const { data, goToAllSaints, goToTodaysSaint } = useSaintsBook();
-
-  const saint = data && data.find((saint) => saint.isMain);
+  const { renderSaint, goToAllSaints, goToTodaysSaint } = useSaintsBook();
 
   return (
     <Card>
       <StrongText>Santoral hoy</StrongText>
-      {saint ? (
+      {renderSaint ? (
         <>
           <DividerBox>
             <PaddingBox>
               <TextBox>
-                <Image
-                  src="https://t3.ftcdn.net/jpg/04/60/01/36/360_F_460013622_6xF8uN6ubMvLx0tAJECBHfKPoNOR5cRa.jpg"
-                  alt="quote"
-                  className="float-right ml-2"
-                />
-                <Markdown indent={false} children={saint.text} />
+                {renderSaint.image && (
+                  <Image
+                    src={renderSaint.image}
+                    alt={renderSaint.name}
+                    className="float-right"
+                    type="home"
+                  />
+                )}
+                <Markdown indent={false} children={renderSaint.text} />
               </TextBox>
               <Link onClick={goToTodaysSaint}>Seguir leyendo</Link>
             </PaddingBox>

@@ -49,7 +49,7 @@ const FavouriteBibleBooks = ({
           return (
             <BiColorListItem
               onClick={() => onFavClick(fav.bibleBook.path, fav.chapter)}
-              colored={index % 2 === 0}
+              colored={index % 2 !== 0}
               key={index}
             >
               {fav.bibleBook.name} {fav.chapter}

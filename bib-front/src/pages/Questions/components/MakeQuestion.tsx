@@ -1,4 +1,5 @@
 import PaddingBox from "@/components/Containers/PaddingBox";
+import ButtonText from "@/components/Text/ButtonText";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -58,7 +59,9 @@ const MakeQuestion = ({ onSubmit, short = false }: MakeQuestionProps) => {
           />
         </PaddingBox>
         <PaddingBox>
-          <Button type="submit">Enviar</Button>
+          <Button className="w-full" type="submit">
+            <ButtonText>Enviar</ButtonText>
+          </Button>
         </PaddingBox>
       </form>
     </Form>

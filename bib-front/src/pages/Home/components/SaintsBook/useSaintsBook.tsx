@@ -1,6 +1,7 @@
 import useGetMonthDaySaint from "@/api/useGetMonthDaySaint";
 import AppRoutes from "@/context/router/routes";
 import useNav from "@/hooks/useNav";
+import { useMemo } from "react";
 
 const useSaintsBook = () => {
   const today = new Date();
@@ -23,8 +24,15 @@ const useSaintsBook = () => {
     month: "long",
   });
 
+  const renderSaint = useMemo(() => {
+    if (!data) return undefined;
+    const saint = data.find((saint) => saint.isMain);
+    if (!saint) return data[0];
+    return saint;
+  }, [data]);
+
   return {
-    data,
+    renderSaint,
     todaysDate,
     goToAllSaints,
     goToTodaysSaint,

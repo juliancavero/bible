@@ -10,7 +10,7 @@ import TodaysQuote from "./components/TodaysQuote";
 const HomePage = () => {
   return (
     <MainContainer>
-      <IndexBar>
+      <IndexBar sticky>
         <SpaceBetween>
           <StrongText>¡Bienvenido!</StrongText>
           <TodaysDate />
