@@ -105,10 +105,15 @@ const HomePage = () => {
                   <CardContent>
                     <VerticalFlexBox>
                       <Typography variant="h5">
-                        {stats?.saints.completedDays.toFixed(2)}%
+                        {(
+                          ((stats?.saints.withImage || 1) /
+                            (stats?.saints.total || 1)) *
+                          100
+                        ).toFixed(2)}
+                        %
                       </Typography>
                       <Typography variant="body1">
-                        Porcentaje del año completo
+                        Porcentaje de santos con imagen
                       </Typography>
                     </VerticalFlexBox>
                   </CardContent>

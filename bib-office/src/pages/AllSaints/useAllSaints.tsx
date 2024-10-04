@@ -15,11 +15,13 @@ const useAllSaints = () => {
   const [saintId, setSaintId] = useState<number | null>(null);
   const [day, setDay] = useState<string | undefined>(undefined);
   const [month, setMonth] = useState<string | undefined>(undefined);
+  const [withoutImage, setWithoutImage] = useState<boolean>(false);
 
   const { data } = useGetSaints({
     ...state,
     ...(day && { day }),
     ...(month && { month }),
+    ...(withoutImage && { withoutImage }),
   });
 
   const handleSorting = (property: string) => {
@@ -93,6 +95,8 @@ const useAllSaints = () => {
     onClearFilters,
     setPage,
     setLimit,
+    withoutImage,
+    setWithoutImage,
   };
 };
 

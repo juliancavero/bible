@@ -10,6 +10,8 @@ import {
   MoreVert,
 } from "@mui/icons-material";
 import {
+  Checkbox,
+  FormControlLabel,
   Grid,
   IconButton,
   Menu,
@@ -44,6 +46,8 @@ const AllSaintsPage = () => {
     onClearFilters,
     setPage,
     setLimit,
+    setWithoutImage,
+    withoutImage,
   } = useAllSaints();
   return (
     <MainPaper>
@@ -57,6 +61,17 @@ const AllSaintsPage = () => {
         alignItems={"center"}
         spacing={3}
       >
+        <Grid item>
+          <FormControlLabel
+            control={
+              <Checkbox
+                value={withoutImage}
+                onChange={(e, checked) => setWithoutImage(checked)}
+              />
+            }
+            label="Sin imagen"
+          />
+        </Grid>
         <Grid item>
           <TextField
             label="Buscar"

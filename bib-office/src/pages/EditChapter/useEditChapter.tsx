@@ -3,6 +3,8 @@ import usePutChapter from "@/api/Chapters/usePutChapter";
 import { BibleContext } from "@/context/custom/bible";
 import useNav from "@/hooks/useNav";
 import {
+  insertBeginingTitle,
+  insertTitles,
   replaceNextLineForTwoSpaces,
   replaceNumbersForSuperscript,
 } from "@/utils/textFormatter";
@@ -56,6 +58,25 @@ const useEditChapter = () => {
     setValue("text", replaceNextLineForTwoSpaces(watch("text")));
   };
 
+  const onInsertTitlesClick = () => {
+    setValue("text", insertTitles(watch("text")));
+  };
+
+  const onInsertBeginingTitleClick = () => {
+    setValue("text", insertBeginingTitle(watch("text")));
+  };
+
+  const allTextModifiersAtOnce = () => {
+    const text = watch("text");
+
+    const first = replaceNumbersForSuperscript(text);
+    const second = replaceNextLineForTwoSpaces(first);
+    const third = insertTitles(second);
+    const fourth = insertBeginingTitle(third);
+
+    setValue("text", fourth);
+  };
+
   useEffect(() => {
     if (data) {
       setValue("book", data.book);
@@ -71,8 +92,11 @@ const useEditChapter = () => {
     errors,
     onSubmit,
     text: watch("text"),
+    onInsertTitlesClick,
     onReplaceAllNumbersClick,
     onReplaceAllNextLineClick,
+    onInsertBeginingTitleClick,
+    allTextModifiersAtOnce,
   };
 };
 

@@ -13,8 +13,11 @@ const CreateChapterPage = () => {
     errors,
     onSubmit,
     text,
+    onInsertTitlesClick,
     onReplaceAllNumbersClick,
     onReplaceAllNextLineClick,
+    onInsertBeginingTitleClick,
+    allTextModifiersAtOnce,
   } = useCreateChapter();
 
   return (
@@ -37,7 +40,7 @@ const CreateChapterPage = () => {
           <Grid
             container
             spacing={2}
-            justifyContent={"center"}
+            justifyContent={"space-around"}
             alignItems={"center"}
           >
             <Grid item xs={3}>
@@ -52,13 +55,29 @@ const CreateChapterPage = () => {
                 helperText={errors.chapter?.message}
               />
             </Grid>
-            <Grid item xs={9}>
+            <Grid item xs={3}>
+              <Button
+                style={{ width: "50%" }}
+                variant="contained"
+                color="primary"
+                onClick={allTextModifiersAtOnce}
+              >
+                TODO
+              </Button>
+            </Grid>
+            <Grid item xs={6}>
               <div style={{ display: "flex", gap: 8 }}>
                 <Button variant="outlined" onClick={onReplaceAllNumbersClick}>
-                  Reemplazar todos los números por superíndices
+                  SUPERÍNDICES
                 </Button>
                 <Button variant="outlined" onClick={onReplaceAllNextLineClick}>
-                  Reemplazar todos los saltos de línea por dos espacios
+                  DOS ESPACIOS
+                </Button>
+                <Button variant="outlined" onClick={onInsertTitlesClick}>
+                  TÍTULOS
+                </Button>
+                <Button variant="outlined" onClick={onInsertBeginingTitleClick}>
+                  TÍTULO
                 </Button>
               </div>
             </Grid>

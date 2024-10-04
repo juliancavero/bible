@@ -26,6 +26,7 @@ export class SaintsService {
       order = 'desc',
       day = '',
       month = '',
+      withoutImage = false,
     } = params;
 
     const [result, total] = await this.saintsRepository.findAndCount({
@@ -35,6 +36,7 @@ export class SaintsService {
         ...(search && { name: Like(`%${search}%`) }),
         ...(day && { day: Number(day) }),
         ...(month && { month: Number(month) }),
+        ...(withoutImage && { image: Like('') }),
       },
       order: { [order_by]: order.toUpperCase() },
     });
