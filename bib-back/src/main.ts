@@ -8,7 +8,7 @@ async function bootstrap() {
     origin: [
       'http://localhost:3000',
       'http://localhost:3100',
-      'https://bible-tawny.vercel.app/',
+      'https://bible-tawny.vercel.app',
       'https://bible-office.vercel.app',
       // '*',
     ],
