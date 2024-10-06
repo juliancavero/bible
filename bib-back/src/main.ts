@@ -9,9 +9,10 @@ async function bootstrap() {
       'http://localhost:3000',
       'http://localhost:3100',
       'https://*.vercel.app',
+      // '*',
     ],
     //origin: '*', // Permitir todos los orígenes
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Permitir todos los métodos
     //credentials: true, // Permitir credenciales como cookies
   });
   await app.listen(3200);

@@ -17,17 +17,6 @@ import { TeachingsModule } from './Teachings/teachings.module';
 @Module({
   imports: [
     ConfigModule.forRoot(),
-    /* TypeOrmModule.forRoot({
-      type: 'mysql',
-      host: 'sql102.infinityfree.com',
-      //port: 3306,
-      username: 'if0_37457602',
-      password: 'uSj9HXn8iwDUzK',
-      database: 'if0_37457602_test',
-      entities: [Chapter, Teaching, Saint],
-      synchronize: false,
-      autoLoadEntities: false,
-    }), */
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: process.env.MYSQLHOST,
