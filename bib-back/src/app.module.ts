@@ -30,10 +30,10 @@ import { TeachingsModule } from './Teachings/teachings.module';
     }), */
     TypeOrmModule.forRoot({
       type: 'mysql',
-      host: process.env.MYSQL_HOST,
-      port: parseInt(process.env.MYSQL_PORT),
-      username: process.env.MYSQL_USER,
-      password: process.env.MYSQL_PASSWORD,
+      host: process.env.MYSQLHOST,
+      port: parseInt(process.env.MYSQLPORT),
+      username: process.env.MYSQLUSER,
+      password: process.env.MYSQLPASSWORD,
       database: process.env.MYSQL_DATABASE,
       entities: [Chapter, Teaching, Saint],
       synchronize: false,
