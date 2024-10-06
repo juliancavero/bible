@@ -6,8 +6,11 @@ const replaceNextLineForTwoSpaces = (text: string) => {
   return text.replace(/\.\n/g, ".\n\n");
 };
 
-const insertTitles = (text: string) => {
+/* const insertTitles = (text: string) => {
   return text.replace(/(?<=\n\n)(?!(\^(\d+)\^))(.*)/gm, "### $&");
+}; */
+const insertTitles = (text: string) => {
+  return text.replace(/(?<=\n\n)(?!(\^(\d+)\^))(.*)(?=\n\^\d+\^)/gm, "### $&");
 };
 
 const insertBeginingTitle = (text: string) => {
