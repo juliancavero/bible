@@ -9,9 +9,9 @@ async function bootstrap() {
       'http://localhost:3000',
       'http://localhost:3100',
       'https://bible-tawny.vercel.app',
-    ], // Permitir estos orígenes
+    ],
     //origin: '*', // Permitir todos los orígenes
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE', // Métodos permitidos
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     //credentials: true, // Permitir credenciales como cookies
   });
   await app.listen(3200);

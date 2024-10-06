@@ -66,7 +66,7 @@ const AllSaintsPage = () => {
             control={
               <Checkbox
                 value={withoutImage}
-                onChange={(e, checked) => setWithoutImage(checked)}
+                onChange={(_, checked) => setWithoutImage(checked)}
               />
             }
             label="Sin imagen"

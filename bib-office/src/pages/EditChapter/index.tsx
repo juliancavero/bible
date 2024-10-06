@@ -13,11 +13,8 @@ const EditChapterPage = () => {
     handleSubmit,
     errors,
     onSubmit,
-    onInsertTitlesClick,
     onReplaceAllNumbersClick,
     onReplaceAllNextLineClick,
-    onInsertBeginingTitleClick,
-    allTextModifiersAtOnce,
   } = useEditChapter();
 
   return (
