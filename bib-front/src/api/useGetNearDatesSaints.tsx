@@ -1,12 +1,6 @@
 import { Saint } from "@/types/saints";
 import { useQuery } from "@tanstack/react-query";
 import axiosInstance from ".";
-import { Meta } from "./types";
-
-type SaintsResponse = {
-  data: Saint[];
-  meta: Meta;
-};
 
 const getNearDatesSaints = async (
   month: string,
