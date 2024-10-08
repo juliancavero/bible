@@ -1,18 +1,17 @@
 import { BibleModule } from '@/Bible/bible.module';
-import { Chapter } from '@/Bible/chapter.entity';
+import { Chapter } from '@/Bible/Chapters/chapter.entity';
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AIModule } from './AI/ai.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { Teaching } from './Bible/Teachings/teaching.entity';
 import { CloudinaryModule } from './cloudinary/cloudinary.module';
 import { QuestionsModule } from './Questions/questions.module';
 import { Saint } from './Saints/saint.entity';
 import { SaintsModule } from './Saints/saints.module';
 import { StatsModule } from './Stats/stats.module';
-import { Teaching } from './Teachings/teaching.entity';
-import { TeachingsModule } from './Teachings/teachings.module';
 
 @Module({
   imports: [
@@ -25,11 +24,10 @@ import { TeachingsModule } from './Teachings/teachings.module';
       password: process.env.MYSQLPASSWORD,
       database: process.env.MYSQL_DATABASE,
       entities: [Chapter, Teaching, Saint],
-      synchronize: false,
-      autoLoadEntities: false,
+      synchronize: process.env.NODE_ENV === 'dev',
+      autoLoadEntities: process.env.NODE_ENV === 'dev',
     }),
     BibleModule,
-    TeachingsModule,
     SaintsModule,
     QuestionsModule,
     AIModule,

@@ -17,14 +17,6 @@ type CommonProps = {
   children: React.ReactNode;
 };
 
-/* const FlexContainer = ({ children }: CommonProps) => {
-  return (
-    <div className="flex flex-col items-center justify-center flex-grow">
-      {children}
-    </div>
-  );
-}; */
-
 const Principal = ({ children }: CommonProps) => {
   return (
     <div

@@ -9,7 +9,11 @@ import QuestionsPage from "@/pages/Questions";
 import SaintDetailsPage from "@/pages/SaintDetails";
 import SettingsPage from "@/pages/Settings";
 import TodaysQuotePage from "@/pages/TodaysQuote";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import {
+  createBrowserRouter,
+  Navigate,
+  RouterProvider,
+} from "react-router-dom";
 
 const router = createBrowserRouter([
   {
@@ -18,6 +22,10 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
+        element: <Navigate to="/home" />,
+      },
+      {
+        path: "/home",
         element: <HomePage />,
       },
       {

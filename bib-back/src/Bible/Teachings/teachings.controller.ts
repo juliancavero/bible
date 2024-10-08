@@ -32,4 +32,9 @@ export class TeachingsController {
   ): Promise<Teaching> {
     return this.teachingsService.createOne(createTeachingDTo);
   }
+
+  @Post('/generate')
+  generateTeaching(): Promise<Teaching> {
+    return this.teachingsService.generateRandomTeaching();
+  }
 }

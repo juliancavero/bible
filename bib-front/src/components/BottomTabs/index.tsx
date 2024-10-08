@@ -38,14 +38,14 @@ const tabs = [
 ];
 
 export const BottomTabs = () => {
-  const { goTo, activeTab } = useNav();
+  const { goTo, activeTab, location } = useNav();
 
   return (
     <BottomBox>
       {tabs.map((tab) => (
         <Tab
           key={tab.name}
-          active={activeTab === tab.path}
+          active={location.pathname.includes(tab.path)}
           onClick={() => goTo(tab.path)}
         >
           <Button variant={"icon"} size={"icon"}>

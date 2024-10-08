@@ -1,7 +1,7 @@
+import AnimatedLayout from "@/components/Animated/AnimatedLayout";
 import IndexBar from "@/components/Containers/IndexBar";
+import MainContainer from "@/components/Containers/MainContainer";
 import PaddingBox from "@/components/Containers/PaddingBox";
-import FlexContainer from "@/components/Layout/FlexContainer";
-import StrongText from "@/components/Text/StrongText";
 import BibleBooksIndex from "./components/BibleBooksIndex";
 import ContinueReading from "./components/ContinueReading";
 import FavouriteBibleBooks from "./components/FavouriteBibleBooks";
@@ -18,34 +18,35 @@ const BiblePage = () => {
   } = useBible();
 
   return (
-    <FlexContainer className="w-full">
-      <IndexBar sticky>
-        <StrongText>Bible</StrongText>
-      </IndexBar>
-
-      <PaddingBox className="flex flex-col gap-3">
-        {(favChapters.length > 0 || continueReadingChapter) && (
-          <div className="bg-background grid grid-cols md:grid-cols-2 items-stretch gap-2 p-2 rounded-md">
-            {favChapters && favChapters.length > 0 && (
-              <FavouriteBibleBooks favouriteChapters={favChapters} />
+    <MainContainer>
+      <IndexBar sticky text="Biblia" />
+      <AnimatedLayout>
+        <MainContainer>
+          <PaddingBox className="flex flex-col gap-3">
+            {(favChapters.length > 0 || continueReadingChapter) && (
+              <div className="bg-background grid grid-cols md:grid-cols-2 items-stretch gap-2 p-2 rounded-md">
+                {favChapters && favChapters.length > 0 && (
+                  <FavouriteBibleBooks favouriteChapters={favChapters} />
+                )}
+                {continueReadingChapter && (
+                  <ContinueReading
+                    continueReadingChapter={continueReadingChapter}
+                    onContinueReadingClick={onContinueReadingClick}
+                  />
+                )}
+              </div>
             )}
-            {continueReadingChapter && (
-              <ContinueReading
-                continueReadingChapter={continueReadingChapter}
-                onContinueReadingClick={onContinueReadingClick}
-              />
-            )}
-          </div>
-        )}
-        <BibleBooksIndex
-          onChapterSelect={onChapterSelect}
-          bibleBooks={{
-            old: oldBooks,
-            new: newBooks,
-          }}
-        />
-      </PaddingBox>
-    </FlexContainer>
+            <BibleBooksIndex
+              onChapterSelect={onChapterSelect}
+              bibleBooks={{
+                old: oldBooks,
+                new: newBooks,
+              }}
+            />
+          </PaddingBox>
+        </MainContainer>
+      </AnimatedLayout>
+    </MainContainer>
   );
 };
 

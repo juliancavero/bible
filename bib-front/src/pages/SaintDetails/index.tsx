@@ -1,71 +1,106 @@
+import AnimatedLayout from "@/components/Animated/AnimatedLayout";
 import Card from "@/components/Containers/Card";
 import IndexBar from "@/components/Containers/IndexBar";
 import MainContainer from "@/components/Containers/MainContainer";
 import PaddingBox from "@/components/Containers/PaddingBox";
-import { HorizontalArrow } from "@/components/Icons/Arrows";
 import Star from "@/components/Icons/Star";
 import Image from "@/components/Misc/Image";
 import Markdown from "@/components/Text/Markdown";
 import StrongText from "@/components/Text/StrongText";
 import { Button } from "@/components/ui/button";
+import { Skeleton } from "@/components/ui/skeleton";
 import useSaintDetails from "./useSaintDetails";
 
 const SaintDetailsPage = () => {
-  const { data, onBack, todaysDate, isFavourite, toggleFavourite } =
-    useSaintDetails();
+  const {
+    data,
+    onBack,
+    isError,
+    isLoading,
+    todaysDate,
+    isFavourite,
+    toggleFavourite,
+  } = useSaintDetails();
   return (
     <MainContainer>
-      <IndexBar sticky>
-        <HorizontalArrow onClick={onBack} withButton dir="left" />
-        <StrongText>{data ? data.name : "Santoral"}</StrongText>
-      </IndexBar>
-
-      <PaddingBox>
-        <PaddingBox multiplier={2}>
-          <h3 className="text-2xl text-right font-bold capitalize">
-            {todaysDate.toLocaleDateString("es-ES", {
-              month: "long",
-              day: "numeric",
-              weekday: "long",
-            })}
-          </h3>
-        </PaddingBox>
-        <Card>
-          {data ? (
-            <div key={data.id} className="px-2">
-              <div className="flex flex-row items-center justify-between md:mb-3">
-                <StrongText className="italic capitalize">
-                  {data.name}
-                </StrongText>
-                <div>
-                  <Button variant={"link"} onClick={toggleFavourite}>
-                    <Star filled={isFavourite} />
-                  </Button>
-                </div>
-              </div>
-              <div className="flex flex-col items-center md:block">
-                {data.image && (
-                  <Image
-                    src={data.image}
-                    alt={data.name}
-                    type="details"
-                    className="float-none md:float-right"
-                  />
-                )}
-                <Markdown indent={false} children={data.text} />
-              </div>
-            </div>
-          ) : (
-            <PaddingBox>
-              <h1 className="text-xl">
-                No se encontró información para este día.
-              </h1>
+      <IndexBar sticky text={data ? data.name : "Santoral"} onClick={onBack} />
+      <AnimatedLayout>
+        <MainContainer>
+          <PaddingBox>
+            <PaddingBox multiplier={2}>
+              <h3 className="text-2xl text-right font-bold capitalize">
+                {todaysDate.toLocaleDateString("es-ES", {
+                  month: "long",
+                  day: "numeric",
+                  weekday: "long",
+                })}
+              </h3>
             </PaddingBox>
-          )}
-        </Card>
-      </PaddingBox>
+            <Card>
+              {isLoading && <Loading />}
+              {isError && <Error />}
+              {data ? (
+                <div key={data.id} className="px-2">
+                  <div className="flex flex-row items-center justify-between md:mb-3">
+                    <StrongText className="italic capitalize">
+                      {data.name}
+                    </StrongText>
+                    <div>
+                      <Button variant={"link"} onClick={toggleFavourite}>
+                        <Star filled={isFavourite} />
+                      </Button>
+                    </div>
+                  </div>
+                  <div className="flex flex-col items-center md:block">
+                    {data.image && (
+                      <Image
+                        src={data.image}
+                        alt={data.name}
+                        type="details"
+                        className="float-none md:float-right"
+                      />
+                    )}
+                    <Markdown indent={false} children={data.text} />
+                  </div>
+                </div>
+              ) : (
+                <PaddingBox>
+                  <h1 className="text-xl">
+                    No se encontró información para este día.
+                  </h1>
+                </PaddingBox>
+              )}
+            </Card>
+          </PaddingBox>
+        </MainContainer>
+      </AnimatedLayout>
     </MainContainer>
   );
 };
 
 export default SaintDetailsPage;
+
+const Loading = () => {
+  return (
+    <PaddingBox className="flex flex-col gap-3">
+      <Skeleton className="w-full h-8" />
+      <div className="flex justify-center">
+        <Skeleton className="w-3/5 h-48" />
+      </div>
+      <div className="flex flex-col gap-3 w-full">
+        <Skeleton className="w-full h-8" />
+        <Skeleton className="w-full h-8" />
+      </div>
+    </PaddingBox>
+  );
+};
+
+const Error = () => {
+  return (
+    <PaddingBox>
+      <StrongText className="text-center text-amber-300">
+        Hubo un error al cargar este santo. Inténtalo de nuevo más tarde.
+      </StrongText>
+    </PaddingBox>
+  );
+};

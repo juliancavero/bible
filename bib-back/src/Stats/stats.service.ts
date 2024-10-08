@@ -1,4 +1,4 @@
-import { ChapterService } from '@/Bible/chapter.service';
+import { ChapterService } from '@/Bible/Chapters/chapter.service';
 import { SaintsService } from '@/Saints/saints.service';
 import { Inject, Injectable } from '@nestjs/common';
 import { StatsType } from './types';

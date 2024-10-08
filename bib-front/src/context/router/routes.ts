@@ -1,5 +1,5 @@
 enum AppRoutes {
-  HOME = "/",
+  HOME = "/home",
   BIBLE = "/bible",
   SAINTS = "/saints",
   QUOTES = "/quotes",

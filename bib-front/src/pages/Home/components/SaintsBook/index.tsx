@@ -9,14 +9,18 @@ import Link from "@/components/Text/Link";
 import Markdown from "@/components/Text/Markdown";
 import StrongText from "@/components/Text/StrongText";
 import { Button } from "@/components/ui/button";
+import { Skeleton } from "@/components/ui/skeleton";
 import useSaintsBook from "./useSaintsBook";
 
 const SaintsBook = () => {
-  const { renderSaint, goToAllSaints, goToTodaysSaint } = useSaintsBook();
+  const { isError, isLoading, renderSaint, goToAllSaints, goToTodaysSaint } =
+    useSaintsBook();
 
   return (
     <Card>
       <StrongText>Santoral hoy</StrongText>
+      {isLoading && <Loading />}
+      {isError && <Error />}
       {renderSaint ? (
         <>
           <DividerBox>
@@ -64,3 +68,34 @@ const SaintsBook = () => {
 };
 
 export default SaintsBook;
+
+const Loading = () => {
+  return (
+    <DividerBox>
+      <PaddingBox>
+        <div className="flex gap-3">
+          <div className="flex flex-col gap-3 w-2/3">
+            <Skeleton className="w-full h-14" />
+            <Skeleton className="w-full h-14" />
+          </div>
+          <div className="flex w-1/3">
+            <Skeleton className="w-full h-full" />
+          </div>
+        </div>
+      </PaddingBox>
+    </DividerBox>
+  );
+};
+
+const Error = () => {
+  return (
+    <DividerBox>
+      <PaddingBox>
+        <StrongText className="text-center text-amber-300">
+          Hubo un error al cargar el santoral de hoy. Inténtalo de nuevo más
+          tarde.
+        </StrongText>
+      </PaddingBox>
+    </DividerBox>
+  );
+};

@@ -11,7 +11,10 @@ const useBibleRead = () => {
   const { book, chapter } = useParams();
   const { goToBook, goTo } = useNav();
   const { bibleBooks } = useBibleContext();
-  const { data } = useGetChapterDetails(book || "", chapter || "");
+  const { data, isLoading, isError } = useGetChapterDetails(
+    book || "",
+    chapter || ""
+  );
   const { addToFav, favChapters, isChapterFav, removeFromFav } =
     useFavouriteContext();
   const { saveContinueReading } = useContinueReading();
@@ -131,8 +134,10 @@ const useBibleRead = () => {
     onBack,
     onNext,
     chapter,
-    previous,
+    isError,
     thisBook,
+    previous,
+    isLoading,
     onPrevious,
     isFavourite,
     toggleFavourite,

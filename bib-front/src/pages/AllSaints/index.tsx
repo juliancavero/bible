@@ -1,14 +1,20 @@
-import BiColorListItem from "@/components/Containers/BiColorListItem";
+import AnimatedLayout from "@/components/Animated/AnimatedLayout";
 import Card from "@/components/Containers/Card";
 import IndexBar from "@/components/Containers/IndexBar";
 import MainContainer from "@/components/Containers/MainContainer";
 import PaddingBox from "@/components/Containers/PaddingBox";
+import Loader from "@/components/Icons/Loader";
 import Star from "@/components/Icons/Star";
 import Calendar from "@/components/Inputs/Calendar";
 import BodyText from "@/components/Text/BodyText";
-import StrongText from "@/components/Text/StrongText";
+import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import useAllSaints from "./useAllSaints";
+import { CalendarIcon, MagnifyingGlassIcon } from "@heroicons/react/24/outline";
+import { AnimatePresence, motion } from "framer-motion";
+import RenderContiguousDates from "./components/RenderContiguousDates";
+import RenderResultSearchSaints from "./components/RenderResultSearchSaints";
+import RenderSaint from "./components/RenderSaint";
+import useAllSaints, { FilterOptions } from "./useAllSaints";
 
 const AllSaintsPage = () => {
   const {
@@ -17,104 +23,169 @@ const AllSaintsPage = () => {
     favSaints,
     allSaints,
     setSearch,
-    dayMonthSaints,
+    allSaintsParams,
     onSaintSelected,
+    nearDatesSaints,
+    openFilter,
+    onFilterSelect,
   } = useAllSaints();
   return (
     <MainContainer>
-      <IndexBar sticky>
-        <StrongText>Santoral</StrongText>
-      </IndexBar>
-      <PaddingBox className="flex flex-col gap-3">
-        <Card>
-          <PaddingBox multiplier={2} className="flex flex-col gap-3">
-            <div className="mb-2 flex flex-col items-start gap-3 md:flex-row md:justify-between md:items-center">
-              <BodyText>Elige la fecha que quieres consultar.</BodyText>
-              <Calendar date={date} setDate={setDate} />
-            </div>
-
-            {dayMonthSaints ? (
-              <>
-                {dayMonthSaints.length > 0 ? (
-                  <div>
-                    <h1 className="text-lg tracking-tight font-medium pb-3">
-                      El día{" "}
-                      <span className="font-extrabold bg-indigo-100 dark:bg-indigo-800 px-2 py-1 rounded-sm">
-                        {date?.toLocaleDateString("es-ES", {
-                          day: "numeric",
-                          month: "long",
-                        })}
-                      </span>{" "}
-                      se celebra:
-                    </h1>
-                    {dayMonthSaints?.map((saint, index) => {
-                      return (
-                        <BiColorListItem
-                          onClick={() => onSaintSelected(saint)}
-                          key={index}
-                          colored={index % 2 !== 0}
-                        >
-                          {saint.name}
-                        </BiColorListItem>
-                      );
-                    })}
-                  </div>
+      <IndexBar sticky text="Santoral" />
+      <AnimatedLayout>
+        <MainContainer>
+          <PaddingBox>
+            <Card>
+              <AnimatedFilterBar
+                openFilter={openFilter}
+                onFilterSelect={onFilterSelect}
+                date={date}
+                setDate={setDate}
+                setSearch={setSearch}
+              />
+            </Card>
+          </PaddingBox>
+          <PaddingBox className="flex flex-col gap-3">
+            <Card>
+              <PaddingBox multiplier={1} className="flex flex-col gap-2">
+                {allSaints ? (
+                  <RenderResultSearchSaints
+                    saints={allSaints.data}
+                    onSaintSelected={onSaintSelected}
+                    search={allSaintsParams.search || ""}
+                    searchDate={date}
+                  />
+                ) : nearDatesSaints ? (
+                  <RenderContiguousDates
+                    saints={nearDatesSaints}
+                    onSaintSelected={onSaintSelected}
+                  />
                 ) : (
-                  <BodyText>No hay santos para esta fecha</BodyText>
+                  <PaddingBox className="flex justify-center">
+                    <Loader size={60} />
+                  </PaddingBox>
                 )}
-              </>
-            ) : null}
+              </PaddingBox>
+            </Card>
+            <Card>
+              <PaddingBox multiplier={1} className="flex flex-col gap-3">
+                <div className="flex flex-row items-center gap-2">
+                  <Star filled />
+                  <BodyText className="text-xl">Favoritos</BodyText>
+                </div>
+                <PaddingBox multiplier={1} className="flex flex-col gap-2">
+                  {favSaints?.map((saint, index) => {
+                    return (
+                      <div
+                        key={index}
+                        className="cursor-pointer flex"
+                        onClick={() => onSaintSelected(saint)}
+                      >
+                        <RenderSaint saint={saint} inverted={index % 2 !== 0} />
+                      </div>
+                    );
+                  })}
+                </PaddingBox>
+              </PaddingBox>
+            </Card>
           </PaddingBox>
-        </Card>
-        <Card>
-          <PaddingBox multiplier={1} className="flex flex-col gap-3">
-            <BodyText>
-              Introduce el nombre del santo que deseas buscar.
-            </BodyText>
-            <Input
-              placeholder="San/Santa..."
-              onChange={(e) => setSearch(e.target.value)}
-            />
-
-            <div>
-              {allSaints?.data.map((saint, index) => {
-                return (
-                  <BiColorListItem
-                    onClick={() => onSaintSelected(saint)}
-                    key={index}
-                    colored={index % 2 !== 0}
-                  >
-                    {saint.name}
-                  </BiColorListItem>
-                );
-              })}
-            </div>
-          </PaddingBox>
-        </Card>
-        <Card>
-          <PaddingBox multiplier={1} className="flex flex-col gap-3">
-            <div className="flex flex-row items-center gap-2">
-              <Star filled />
-              <BodyText className="text-xl">Favoritos</BodyText>
-            </div>
-            <div>
-              {favSaints.map((saint, index) => {
-                return (
-                  <BiColorListItem
-                    onClick={() => onSaintSelected(saint)}
-                    colored={index % 2 !== 0}
-                    key={index}
-                  >
-                    {saint.name}
-                  </BiColorListItem>
-                );
-              })}
-            </div>
-          </PaddingBox>
-        </Card>
-      </PaddingBox>
+        </MainContainer>
+      </AnimatedLayout>
     </MainContainer>
   );
 };
 
 export default AllSaintsPage;
+
+type AnimatedFilterBarProps = {
+  openFilter: FilterOptions | null;
+  onFilterSelect: (filter: FilterOptions) => void;
+  date: Date | undefined;
+  setDate: (date: Date | undefined) => void;
+  setSearch: (search: string) => void;
+};
+
+const AnimatedFilterBar = ({
+  openFilter,
+  onFilterSelect,
+  date,
+  setDate,
+  setSearch,
+}: AnimatedFilterBarProps) => {
+  return (
+    <div className="flex flex-row justify-around">
+      <AnimatePresence initial={false}>
+        <motion.div
+          initial={false}
+          animate={{
+            width: openFilter === FilterOptions.SEARCH ? "75%" : "25%",
+          }}
+          transition={{ duration: 0.5, type: "easeInOut" }}
+          className={`flex items-center cursor-pointer gap-3`}
+        >
+          <Button
+            onClick={() => onFilterSelect(FilterOptions.SEARCH)}
+            variant="icon"
+          >
+            <MagnifyingGlassIcon
+              className={`${
+                !openFilter || openFilter == FilterOptions.SEARCH
+                  ? "w-10 h-10"
+                  : "w-5 h-5"
+              }`}
+            />
+          </Button>
+          <AnimatePresence mode="wait" initial={false}>
+            {openFilter === FilterOptions.SEARCH && (
+              <motion.div
+                key={FilterOptions.SEARCH}
+                animate={{ width: "100%", opacity: 1 }}
+                exit={{ width: "0%", opacity: 0 }}
+                initial={{ width: "0%", opacity: 0 }}
+                transition={{ duration: 0.5, type: "easeInOut" }}
+              >
+                <Input
+                  placeholder="San/Santa..."
+                  onChange={(e) => setSearch(e.target.value)}
+                />
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </motion.div>
+        <motion.div
+          animate={{
+            width: openFilter === FilterOptions.DATE ? "75%" : "25%",
+          }}
+          transition={{ duration: 0.5, type: "easeInOut" }}
+          className={`flex items-center justify-end cursor-pointer gap-3`}
+        >
+          <AnimatePresence mode="wait" initial={false}>
+            {openFilter === FilterOptions.DATE && (
+              <motion.div
+                key={FilterOptions.DATE}
+                animate={{ width: "100%", opacity: 1 }}
+                exit={{ width: "0%", opacity: 0 }}
+                initial={{ width: "0%", opacity: 0 }}
+                transition={{ duration: 0.5, type: "easeInOut" }}
+              >
+                <Calendar date={date} setDate={setDate} />
+              </motion.div>
+            )}
+          </AnimatePresence>
+          <Button
+            onClick={() => onFilterSelect(FilterOptions.DATE)}
+            variant="icon"
+          >
+            <CalendarIcon
+              className={`${
+                !openFilter || openFilter == FilterOptions.DATE
+                  ? "w-10 h-10"
+                  : "w-5 h-5"
+              }`}
+            />
+          </Button>
+        </motion.div>
+      </AnimatePresence>
+    </div>
+  );
+};

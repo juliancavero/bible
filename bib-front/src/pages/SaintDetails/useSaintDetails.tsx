@@ -7,7 +7,7 @@ import { useParams } from "react-router-dom";
 const useSaintDetails = () => {
   const { id = "" } = useParams();
   const { goBack } = useNav();
-  const { data } = useGetSaintDetails(id);
+  const { data, isLoading, isError } = useGetSaintDetails(id);
   const { favSaints, addToFavSaint, isSaintFav, removeFromFavSaint } =
     useFavouriteContext();
 
@@ -43,6 +43,8 @@ const useSaintDetails = () => {
   return {
     data,
     onBack,
+    isError,
+    isLoading,
     todaysDate,
     isFavourite,
     toggleFavourite,

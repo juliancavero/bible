@@ -9,19 +9,33 @@ type SaintsResponse = {
   meta: Meta;
 };
 
-const getSaints = async (params: RequestParams): Promise<SaintsResponse> => {
+type Params = RequestParams & {
+  day?: string;
+  month?: string;
+};
+
+const getSaints = async (params: Params): Promise<SaintsResponse> => {
+  const { page, limit, order_by, order, search, day, month } = params;
   const response = await axiosInstance.get<SaintsResponse>("/saints", {
-    params,
+    params: {
+      ...(search && { search }),
+      ...(day && { day }),
+      ...(month && { month }),
+      page,
+      limit,
+      ...(order_by && { order_by }),
+      ...(order && { order }),
+    },
   });
   return ResponseMapper(response);
 };
 
-const useGetSaints = (params: RequestParams) => {
-  const { order_by, order, page, limit, search } = params;
+const useGetSaints = (params: Params) => {
+  const { order_by, order, page, limit, search, day, month } = params;
   return useQuery({
     queryFn: () => getSaints(params),
-    queryKey: ["saints", page, limit, order_by, order, search],
-    enabled: !!search,
+    queryKey: ["saints", page, limit, order_by, order, search, day, month],
+    enabled: !!search || (!!day && !!month),
   });
 };
 

@@ -1,13 +1,21 @@
+import { AIModule } from '@/AI/ai.module';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { ChapterController } from './chapter.controller';
-import { Chapter } from './chapter.entity';
-import { ChapterService } from './chapter.service';
+import { ChapterController } from './Chapters/chapter.controller';
+import { Chapter } from './Chapters/chapter.entity';
+import { ChapterService } from './Chapters/chapter.service';
+import { Teaching } from './Teachings/teaching.entity';
+import { TeachingsController } from './Teachings/teachings.controller';
+import { TeachingsService } from './Teachings/teachings.service';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Chapter])],
-  providers: [ChapterService],
-  controllers: [ChapterController],
+  imports: [
+    TypeOrmModule.forFeature([Chapter]),
+    TypeOrmModule.forFeature([Teaching]),
+    AIModule,
+  ],
+  providers: [ChapterService, TeachingsService],
+  controllers: [ChapterController, TeachingsController],
   exports: [ChapterService],
 })
 export class BibleModule {}

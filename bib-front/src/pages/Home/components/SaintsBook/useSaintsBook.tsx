@@ -6,7 +6,7 @@ import { useMemo } from "react";
 const useSaintsBook = () => {
   const today = new Date();
   const { goTo } = useNav();
-  const { data } = useGetMonthDaySaint(
+  const { data, isLoading, isError } = useGetMonthDaySaint(
     (today.getMonth() + 1).toString(),
     today.getDate().toString()
   );
@@ -19,11 +19,6 @@ const useSaintsBook = () => {
     return goTo(AppRoutes.SAINTS);
   };
 
-  const todaysDate = new Date().toLocaleDateString("es-ES", {
-    day: "numeric",
-    month: "long",
-  });
-
   const renderSaint = useMemo(() => {
     if (!data) return undefined;
     const saint = data.find((saint) => saint.isMain);
@@ -32,8 +27,9 @@ const useSaintsBook = () => {
   }, [data]);
 
   return {
+    isError,
+    isLoading,
     renderSaint,
-    todaysDate,
     goToAllSaints,
     goToTodaysSaint,
   };

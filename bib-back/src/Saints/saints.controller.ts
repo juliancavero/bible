@@ -34,7 +34,7 @@ export class SaintsController {
     return this.saintsService.getMissingSaintDates();
   }
 
-  @Get('/:id')
+  @Get('/id/:id')
   getSaintDetails(@Param('id') id: number): Promise<Saint> {
     return this.saintsService.getById(id);
   }
@@ -47,6 +47,14 @@ export class SaintsController {
   @Get('/last')
   getTodays(): Promise<Saint> {
     return this.saintsService.getLastOne();
+  }
+
+  @Get('/date-near')
+  getNearDates(
+    @Query('day') day: number,
+    @Query('month') month: number,
+  ): Promise<Saint[]> {
+    return this.saintsService.getNearDates(day, month);
   }
 
   @Post('/')
