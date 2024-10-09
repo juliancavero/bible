@@ -39,6 +39,7 @@ const AllSaintsPage = () => {
               <AnimatedFilterBar
                 openFilter={openFilter}
                 onFilterSelect={onFilterSelect}
+                search={allSaintsParams.search}
                 date={date}
                 setDate={setDate}
                 setSearch={setSearch}
@@ -100,6 +101,7 @@ export default AllSaintsPage;
 type AnimatedFilterBarProps = {
   openFilter: FilterOptions | null;
   onFilterSelect: (filter: FilterOptions) => void;
+  search: string | undefined;
   date: Date | undefined;
   setDate: (date: Date | undefined) => void;
   setSearch: (search: string) => void;
@@ -108,6 +110,7 @@ type AnimatedFilterBarProps = {
 const AnimatedFilterBar = ({
   openFilter,
   onFilterSelect,
+  search,
   date,
   setDate,
   setSearch,
@@ -116,6 +119,7 @@ const AnimatedFilterBar = ({
     <div className="flex flex-row justify-around">
       <AnimatePresence initial={false}>
         <motion.div
+          key={FilterOptions.SEARCH}
           initial={false}
           animate={{
             width: openFilter === FilterOptions.SEARCH ? "75%" : "25%",
@@ -145,7 +149,9 @@ const AnimatedFilterBar = ({
                 transition={{ duration: 0.5, type: "easeInOut" }}
               >
                 <Input
+                  autoFocus
                   placeholder="San/Santa..."
+                  value={search}
                   onChange={(e) => setSearch(e.target.value)}
                 />
               </motion.div>
@@ -153,6 +159,7 @@ const AnimatedFilterBar = ({
           </AnimatePresence>
         </motion.div>
         <motion.div
+          key={FilterOptions.DATE}
           animate={{
             width: openFilter === FilterOptions.DATE ? "75%" : "25%",
           }}
@@ -168,7 +175,7 @@ const AnimatedFilterBar = ({
                 initial={{ width: "0%", opacity: 0 }}
                 transition={{ duration: 0.5, type: "easeInOut" }}
               >
-                <Calendar date={date} setDate={setDate} />
+                <Calendar date={date} setDate={setDate} autoOpen />
               </motion.div>
             )}
           </AnimatePresence>

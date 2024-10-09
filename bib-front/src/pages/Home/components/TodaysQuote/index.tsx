@@ -27,8 +27,7 @@ const TodaysQuote = () => {
             <Image
               src="https://t3.ftcdn.net/jpg/04/60/01/36/360_F_460013622_6xF8uN6ubMvLx0tAJECBHfKPoNOR5cRa.jpg"
               alt="quote"
-              type="home"
-              className="float-left"
+              className="float-left w-5/12 md:w-1/3 max-w-96"
             />
             <Markdown indent>{fakeTodaysQuote}</Markdown>
           </TextBox>

@@ -53,8 +53,8 @@ const RenderContiguousDates = ({
   return (
     <PaddingBox multiplier={1} className="flex flex-col gap-2">
       {datesExist.today && (
-        <Box className="bg-secondary">
-          <StrongText>Hoy {renderDate(dates.today)}</StrongText>
+        <Box className="bg-primary">
+          <StrongText extra>Hoy {renderDate(dates.today)}</StrongText>
         </Box>
       )}
       {orderedSaints
@@ -71,8 +71,8 @@ const RenderContiguousDates = ({
           );
         })}
       {datesExist.yesterday && (
-        <Box className="bg-secondary mt-5">
-          <StrongText>Ayer {renderDate(dates.yesterday)}</StrongText>
+        <Box className="bg-primary mt-5">
+          <StrongText extra>Ayer {renderDate(dates.yesterday)}</StrongText>
         </Box>
       )}
       {orderedSaints
@@ -90,8 +90,8 @@ const RenderContiguousDates = ({
         })}
 
       {datesExist.tomorrow && (
-        <Box className="bg-secondary mt-5">
-          <StrongText>Mañana {renderDate(dates.tomorrow)}</StrongText>
+        <Box className="bg-primary mt-5">
+          <StrongText extra>Mañana {renderDate(dates.tomorrow)}</StrongText>
         </Box>
       )}
       {orderedSaints
@@ -109,8 +109,8 @@ const RenderContiguousDates = ({
         })}
 
       {datesExist.afterTomorrow && (
-        <Box className="bg-secondary mt-5">
-          <StrongText>
+        <Box className="bg-primary mt-5">
+          <StrongText extra>
             Pasado mañana {renderDate(dates.afterTomorrow)}
           </StrongText>
         </Box>

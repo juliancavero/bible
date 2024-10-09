@@ -59,7 +59,7 @@ const Image = ({ src, inverted = false }: ImageProps) => {
         src ||
         "https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg"
       }
-      className={`${
+      className={`w-full aspect-square object-cover ${
         inverted ? "rounded-tr-lg rounded-br-lg" : "rounded-tl-lg rounded-bl-lg"
       } `}
     />

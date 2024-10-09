@@ -1,7 +1,7 @@
 import useGetSaintDetails from "@/api/useGetSaintDetails";
 import { useFavouriteContext } from "@/context/custom/favourites";
 import useNav from "@/hooks/useNav";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
 
 const useSaintDetails = () => {
@@ -10,6 +10,7 @@ const useSaintDetails = () => {
   const { data, isLoading, isError } = useGetSaintDetails(id);
   const { favSaints, addToFavSaint, isSaintFav, removeFromFavSaint } =
     useFavouriteContext();
+  const [imageOpen, setImageOpen] = useState(false);
 
   const todaysDate = useMemo(() => {
     if (!data) return new Date();
@@ -45,8 +46,10 @@ const useSaintDetails = () => {
     onBack,
     isError,
     isLoading,
+    imageOpen,
     todaysDate,
     isFavourite,
+    setImageOpen,
     toggleFavourite,
   };
 };

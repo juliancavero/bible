@@ -55,7 +55,9 @@ const QuestionsPage = () => {
                       colored={index % 2 !== 0}
                       key={index}
                     >
-                      {question.text}
+                      <BodyText className="line-clamp-3 overflow-hidden">
+                        {question.text}
+                      </BodyText>
                     </BiColorListItem>
                   );
                 })}

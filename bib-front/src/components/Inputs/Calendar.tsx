@@ -9,11 +9,17 @@ type CalendarProps = {
   date: Date | undefined;
   setDate: (date: Date | undefined) => void;
   label?: string;
+  autoOpen?: boolean;
 };
 
-const Calendar = ({ date, setDate, label = "Día / Mes" }: CalendarProps) => {
+const Calendar = ({
+  date,
+  setDate,
+  label = "Día / Mes",
+  autoOpen = false,
+}: CalendarProps) => {
   return (
-    <Popover>
+    <Popover defaultOpen={autoOpen && !date}>
       <PopoverTrigger asChild>
         <Button
           variant={"outline"}
@@ -32,7 +38,7 @@ const Calendar = ({ date, setDate, label = "Día / Mes" }: CalendarProps) => {
           // labels={{}} traducciones
           selected={date}
           onSelect={setDate}
-          initialFocus
+          initialFocus={false}
         />
       </PopoverContent>
     </Popover>

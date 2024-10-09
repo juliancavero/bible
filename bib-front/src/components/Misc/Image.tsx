@@ -2,17 +2,18 @@ type ImageProps = {
   src: string;
   alt?: string;
   className?: string;
-  type?: "home" | "details";
+  fit?: "contain" | "cover";
+  onClick?: () => void;
 };
 
-const Image = ({ src, alt, type = "home", className }: ImageProps) => {
-  const classes = {
-    home: "ml-2 w-5/12 md:w-1/3 max-w-96 my-2 rounded-lg",
-    details: "m-2 w-4/5 md:w-1/3 md:max-w-96 my-2 rounded-lg",
-  };
-
+const Image = ({ src, alt, fit = "cover", onClick, className }: ImageProps) => {
   return (
-    <img className={`${classes[type]} ${className}`} src={src} alt={alt} />
+    <img
+      className={`h-auto m-2 rounded-lg object-${fit} ${className}`}
+      src={src}
+      alt={alt}
+      onClick={onClick}
+    />
   );
 };
 

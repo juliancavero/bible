@@ -9,6 +9,7 @@ import Markdown from "@/components/Text/Markdown";
 import StrongText from "@/components/Text/StrongText";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
+import ImageDetailsDialog from "./components/ImageDetailsDialog";
 import useSaintDetails from "./useSaintDetails";
 
 const SaintDetailsPage = () => {
@@ -17,8 +18,10 @@ const SaintDetailsPage = () => {
     onBack,
     isError,
     isLoading,
+    imageOpen,
     todaysDate,
     isFavourite,
+    setImageOpen,
     toggleFavourite,
   } = useSaintDetails();
   return (
@@ -56,12 +59,20 @@ const SaintDetailsPage = () => {
                       <Image
                         src={data.image}
                         alt={data.name}
-                        type="details"
-                        className="float-none md:float-right"
+                        className="float-none md:float-right w-4/5 md:w-1/3 md:max-w-96"
+                        onClick={() => setImageOpen(true)}
                       />
                     )}
                     <Markdown indent={false} children={data.text} />
                   </div>
+                  {data.image && (
+                    <ImageDetailsDialog
+                      open={imageOpen}
+                      setOpen={setImageOpen}
+                      src={data.image}
+                      alt={data.name}
+                    />
+                  )}
                 </div>
               ) : (
                 <PaddingBox>
