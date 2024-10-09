@@ -39,7 +39,7 @@ const ImageDetailsDialog = ({
         const imageBlob = await fetch(saint.image).then((res) => res.blob());
         await navigator.share({
           title: "Compartir",
-          text,
+          text: text,
           files: [new File([imageBlob], "saint.jpg", { type: "image/jpeg" })],
         });
       } catch (error) {
@@ -51,7 +51,10 @@ const ImageDetailsDialog = ({
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTitle hidden>{saint.name}</DialogTitle>
-      <DialogContent className="w-screen h-screen">
+      <DialogContent
+        className="w-screen h-screen"
+        onOpenAutoFocus={(e) => e.preventDefault()}
+      >
         <DialogDescription className="flex flex-col justify-center items-center gap-5">
           {saint.image && (
             <Image
@@ -61,11 +64,7 @@ const ImageDetailsDialog = ({
             />
           )}
           <div className="flex flex-col gap-2 w-full">
-            <Input
-              autoFocus={false}
-              value={text}
-              onChange={(e) => setText(e.target.value)}
-            />
+            <Input value={text} onChange={(e) => setText(e.target.value)} />
             <Button onClick={onShare} className="w-full">
               Compartir
             </Button>
