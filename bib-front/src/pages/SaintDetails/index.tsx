@@ -65,12 +65,11 @@ const SaintDetailsPage = () => {
                     )}
                     <Markdown indent={false} children={data.text} />
                   </div>
-                  {data.image && (
+                  {data && (
                     <ImageDetailsDialog
                       open={imageOpen}
                       setOpen={setImageOpen}
-                      src={data.image}
-                      alt={data.name}
+                      saint={data}
                     />
                   )}
                 </div>

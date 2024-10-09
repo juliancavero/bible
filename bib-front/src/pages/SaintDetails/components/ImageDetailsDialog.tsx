@@ -5,31 +5,42 @@ import {
   DialogContent,
   DialogDescription,
 } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Saint } from "@/types/saints";
+import { renderDate } from "@/utils/calendar";
 import { DialogTitle } from "@radix-ui/react-dialog";
 import { useState } from "react";
 
 type ImageDetailsDialogProps = {
-  src: string;
-  alt?: string;
+  saint: Saint;
   open: boolean;
   setOpen: (open: boolean) => void;
 };
 
 const ImageDetailsDialog = ({
-  src,
-  alt,
+  saint,
   open,
   setOpen,
 }: ImageDetailsDialogProps) => {
-  const [text] = useState("");
+  const saintDate = new Date(
+    new Date().getFullYear(),
+    saint.month - 1,
+    saint.day
+  );
+  const defaultText = `El día ${renderDate(saintDate)} se celebra ${
+    saint.name
+  }. Aprende más sobre su significado en ${window.location.href}`;
+  const [text, setText] = useState(defaultText);
 
   const onShare = async () => {
     if (navigator.share) {
       try {
+        if (!saint.image) return;
+        const imageBlob = await fetch(saint.image).then((res) => res.blob());
         await navigator.share({
           title: "Compartir",
           text,
-          url: src,
+          files: [new File([imageBlob], "saint.jpg", { type: "image/jpeg" })],
         });
       } catch (error) {
         console.error("Error sharing:", error);
@@ -39,13 +50,26 @@ const ImageDetailsDialog = ({
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTitle hidden>{alt}</DialogTitle>
+      <DialogTitle hidden>{saint.name}</DialogTitle>
       <DialogContent className="w-screen h-screen">
-        <DialogDescription className="flex flex-col justify-center items-center">
-          <Image src={src} alt={alt} fit="contain" />
-          <Button onClick={onShare} className="w-full">
-            Compartir
-          </Button>
+        <DialogDescription className="flex flex-col justify-center items-center gap-5">
+          {saint.image && (
+            <Image
+              src={saint.image}
+              alt={"Image of " + saint.name}
+              fit="contain"
+            />
+          )}
+          <div className="flex flex-col gap-2 w-full">
+            <Input
+              autoFocus={false}
+              value={text}
+              onChange={(e) => setText(e.target.value)}
+            />
+            <Button onClick={onShare} className="w-full">
+              Compartir
+            </Button>
+          </div>
         </DialogDescription>
       </DialogContent>
     </Dialog>
