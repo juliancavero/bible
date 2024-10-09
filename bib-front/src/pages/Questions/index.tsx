@@ -66,7 +66,7 @@ const QuestionsPage = () => {
           </PaddingBox>
         </MainContainer>
         <Dialog open={open} onOpenChange={setOpen}>
-          <DialogContent className="w-screen h-screen">
+          <DialogContent className="w-screen h-dvh">
             <DialogHeader>
               <StrongText>Enviando consulta</StrongText>
             </DialogHeader>
