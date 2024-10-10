@@ -8,13 +8,8 @@ import AchievementsDemo from "./components/AchievementsDemo";
 import useProfile from "./useProfile";
 
 const ProfilePage = () => {
-  const {
-    achievements,
-    theme,
-    changeTheme,
-    deleteQuestions,
-    onAllAchievementsClick,
-  } = useProfile();
+  const { achievements, changeTheme, deleteQuestions, onAllAchievementsClick } =
+    useProfile();
   return (
     <MainContainer>
       <IndexBar sticky text="Perfil" />
