@@ -1,29 +1,27 @@
+import useGetLastTeaching from "@/api/useGetLastTeaching";
 import AppRoutes from "@/context/router/routes";
-import { fakeTodaysQuoteTitle } from "@/fakeData";
 import useNav from "@/hooks/useNav";
 
 const useTodaysQuote = () => {
   const { goTo } = useNav();
+  const { data, isLoading, isError } = useGetLastTeaching();
 
   const goToTodaysQuote = () => {
-    const today = new Date();
+    if (!data) return;
 
-    return goTo(
-      AppRoutes.QUOTES,
-      today.getFullYear(),
-      today.getMonth() + 1,
-      today.getDate()
-    );
+    return goTo(AppRoutes.TEACHINGS, data.id);
   };
 
   const goToAllQuotes = () => {
-    goTo(AppRoutes.QUOTES);
+    goTo(AppRoutes.TEACHINGS);
   };
 
   return {
-    goToAllQuotes,
+    data,
+    isLoading,
+    isError,
     goToTodaysQuote,
-    todaysQuoteTitle: fakeTodaysQuoteTitle,
+    goToAllQuotes,
   };
 };
 

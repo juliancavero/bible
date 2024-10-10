@@ -35,7 +35,9 @@ const SaintsBook = () => {
                 )}
                 <Markdown indent={false} children={renderSaint.text} />
               </TextBox>
-              <Link onClick={goToTodaysSaint}>Seguir leyendo</Link>
+              <Link className="text-right" onClick={goToTodaysSaint}>
+                Seguir leyendo
+              </Link>
             </PaddingBox>
           </DividerBox>
           <div className="flex flex-col items-center gap-1">

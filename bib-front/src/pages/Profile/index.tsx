@@ -1,38 +1,47 @@
 import AnimatedLayout from "@/components/Animated/AnimatedLayout";
+import Card from "@/components/Containers/Card";
 import IndexBar from "@/components/Containers/IndexBar";
 import MainContainer from "@/components/Containers/MainContainer";
 import PaddingBox from "@/components/Containers/PaddingBox";
-import StyledPaper from "@/components/Containers/Paper";
 import BodyText from "@/components/Text/BodyText";
-import { useTheme } from "@/context/theme";
-import useLocalStorage, { LocalStorageKeys } from "@/hooks/useLocalStorage";
+import AchievementsDemo from "./components/AchievementsDemo";
+import useProfile from "./useProfile";
 
-const SettingsPage = () => {
-  const { deleteItem } = useLocalStorage();
-  const { setTheme, theme } = useTheme();
+const ProfilePage = () => {
+  const {
+    achievements,
+    theme,
+    setTheme,
+    deleteQuestions,
+    onAllAchievementsClick,
+  } = useProfile();
   return (
     <MainContainer>
-      <IndexBar sticky text="Ajustes" />
+      <IndexBar sticky text="Perfil" />
       <AnimatedLayout>
         <MainContainer>
-          <PaddingBox>
-            <StyledPaper>
+          <PaddingBox className="flex flex-col gap-3">
+            <Card>
+              <AchievementsDemo
+                achievements={achievements}
+                onAllAchievementsClick={onAllAchievementsClick}
+              />
+            </Card>
+            <Card>
               <SettingsItem>Idioma</SettingsItem>
               <SettingsItem>Tema</SettingsItem>
               <SettingsItem>La Biblia</SettingsItem>
-              <SettingsItem
-                onClick={() => deleteItem(LocalStorageKeys.STORED_QUESTIONS)}
-              >
+              <SettingsItem onClick={deleteQuestions}>
                 Delete localstorage questions
               </SettingsItem>
               <SettingsItem
-                onClick={() => setTheme(theme === "light" ? "dark" : "light")}
+                onClick={() => setTheme(theme !== "dark" ? "dark" : "light")}
               >
-                {theme === "light"
+                {theme !== "dark"
                   ? "Cambiar a Dark Mode"
                   : "Cambiar a Light Mode"}
               </SettingsItem>
-            </StyledPaper>
+            </Card>
           </PaddingBox>
         </MainContainer>
       </AnimatedLayout>
@@ -40,7 +49,7 @@ const SettingsPage = () => {
   );
 };
 
-export default SettingsPage;
+export default ProfilePage;
 
 type SettingsItemProps = {
   children: React.ReactNode;

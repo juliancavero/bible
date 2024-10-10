@@ -2,7 +2,7 @@ import AppRoutes from "@/context/router/routes";
 import useNav from "@/hooks/useNav";
 import { useState } from "react";
 
-const useAllQuotes = () => {
+const useAllTeachings = () => {
   const { goTo } = useNav();
 
   const [date, setDate] = useState<Date>();
@@ -18,4 +18,4 @@ const useAllQuotes = () => {
   };
 };
 
-export default useAllQuotes;
+export default useAllTeachings;

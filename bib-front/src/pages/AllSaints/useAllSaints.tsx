@@ -13,6 +13,8 @@ export enum FilterOptions {
   DATE = "date",
 }
 
+export const PAGINATION_SIZE = 5;
+
 const useAllSaints = () => {
   const { goTo } = useNav();
   const [searchParams, setSearchParams] = useSearchParams();
@@ -22,6 +24,7 @@ const useAllSaints = () => {
 
   const [date, setDate] = useState<Date | undefined>(undefined);
   const [openFilter, setOpenFilter] = useState<FilterOptions | null>(null);
+  const [page, setPage] = useState(0);
 
   const selectedDate = useMemo(() => {
     return {
@@ -39,6 +42,10 @@ const useAllSaints = () => {
     String(new Date().getMonth() + 1),
     String(new Date().getDate())
   );
+
+  const onPageChange = (page: number) => {
+    setPage(page);
+  };
 
   const onSaintSelected = (saint: Saint) => {
     updateSearchParams();
@@ -94,6 +101,8 @@ const useAllSaints = () => {
     nearDatesSaints,
     openFilter,
     onFilterSelect,
+    page,
+    onPageChange,
   };
 };
 

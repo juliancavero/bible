@@ -29,6 +29,7 @@ export type Teaching = {
   chapter: number;
   text: string;
   createdAt: number;
+  image?: string;
 };
 
 export type MissingChapters = {

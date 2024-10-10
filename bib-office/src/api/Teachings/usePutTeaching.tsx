@@ -7,10 +7,23 @@ type CreateTeachingDTO = {
   book: string;
   chapter: number;
   text: string;
+  image?: FileList;
 };
 
-const putTeaching = async (saint: CreateTeachingDTO): Promise<Teaching> => {
-  const response = await axiosInstance.put("/teachings/" + saint.id, saint);
+const putTeaching = async (body: CreateTeachingDTO): Promise<Teaching> => {
+  const { book, chapter, text, image, id } = body;
+  const formData = new FormData();
+  formData.append("book", book);
+  formData.append("chapter", chapter.toString());
+  formData.append("text", text);
+  if (image) {
+    formData.append("file", image[0]);
+  }
+  const response = await axiosInstance.put("/teachings/" + id, formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
   return response.data;
 };
 

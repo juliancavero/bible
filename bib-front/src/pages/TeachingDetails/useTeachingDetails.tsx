@@ -1,10 +1,13 @@
+import useGetTeachingDetails from "@/api/useGetTeachingDetails";
 import AppRoutes from "@/context/router/routes";
-import { fakeTodaysQuote, fakeTodaysQuoteTitle } from "@/fakeData";
 import useNav from "@/hooks/useNav";
+import { renderDate } from "@/utils/calendar";
+import { useMemo } from "react";
 import { useParams } from "react-router-dom";
 
-const useTodaysQuote = () => {
-  const { year = "", month = "", day = "" } = useParams();
+const useTeachingDetails = () => {
+  const { id = "" } = useParams();
+  const { data, isLoading, isError } = useGetTeachingDetails(id);
   const { goTo } = useNav();
   const contiguousDates = {
     previous: {
@@ -19,13 +22,15 @@ const useTodaysQuote = () => {
     },
   };
 
-  const todaysDate = new Date(Number(year), Number(month) - 1, Number(day));
+  const todaysDate = useMemo(() => {
+    return renderDate(new Date());
+  }, []);
 
   const onAnotherDay = (dir: "previous" | "next") => {
     const direction =
       dir === "previous" ? contiguousDates.previous : contiguousDates.next;
 
-    goTo(AppRoutes.QUOTES, direction.year, direction.month, direction.day);
+    goTo(AppRoutes.TEACHINGS, direction.year, direction.month, direction.day);
   };
 
   const onBack = () => {
@@ -33,13 +38,14 @@ const useTodaysQuote = () => {
   };
 
   return {
+    isLoading,
+    isError,
+    data,
     onBack,
     todaysDate,
-    todaysQuote: fakeTodaysQuote,
     onAnotherDay,
-    todaysQuoteTitle: fakeTodaysQuoteTitle,
     contiguousDates,
   };
 };
 
-export default useTodaysQuote;
+export default useTeachingDetails;

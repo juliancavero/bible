@@ -1,14 +1,15 @@
 import NavFrame from "@/components/NavFrame";
-import AllQuotesPage from "@/pages/AllQuotes";
+import AllAchievementsPage from "@/pages/AllAchievements";
 import AllSaintsPage from "@/pages/AllSaints";
+import AllTeachingsPage from "@/pages/AllTeachings";
 import BiblePage from "@/pages/Bible";
 import BibleReadPage from "@/pages/BibleRead";
 import HomePage from "@/pages/Home";
+import ProfilePage from "@/pages/Profile";
 import QuestionAnswersPage from "@/pages/QuestionArchive";
 import QuestionsPage from "@/pages/Questions";
 import SaintDetailsPage from "@/pages/SaintDetails";
-import SettingsPage from "@/pages/Settings";
-import TodaysQuotePage from "@/pages/TodaysQuote";
+import TeachingDetailsPage from "@/pages/TeachingDetails";
 import {
   createBrowserRouter,
   Navigate,
@@ -37,12 +38,12 @@ const router = createBrowserRouter([
         element: <BibleReadPage />,
       },
       {
-        path: "/quotes",
-        element: <AllQuotesPage />,
+        path: "/home/teachings",
+        element: <AllTeachingsPage />,
       },
       {
-        path: "/quotes/:year/:month/:day",
-        element: <TodaysQuotePage />,
+        path: "/home/teachings/:id",
+        element: <TeachingDetailsPage />,
       },
       {
         path: "/saints",
@@ -61,8 +62,12 @@ const router = createBrowserRouter([
         element: <QuestionAnswersPage />,
       },
       {
-        path: "/settings",
-        element: <SettingsPage />,
+        path: "/profile",
+        element: <ProfilePage />,
+      },
+      {
+        path: "/profile/achievements",
+        element: <AllAchievementsPage />,
       },
     ],
   },

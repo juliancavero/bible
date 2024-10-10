@@ -1,11 +1,14 @@
 type CardProps = {
   children?: React.ReactNode;
   className?: string;
+  padding?: number;
 };
 
-const Card = ({ children, className = "" }: CardProps) => {
+const Card = ({ padding = 4, children, className = "" }: CardProps) => {
   return (
-    <div className={`p-4 bg-background rounded-lg shadow-md ${className}`}>
+    <div
+      className={`p-${padding} bg-background rounded-lg shadow-md ${className}`}
+    >
       {children}
     </div>
   );

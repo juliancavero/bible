@@ -2,12 +2,16 @@ import useGetChapterDetails from "@/api/useGetChapterDetails";
 import { useBibleContext } from "@/context/custom/bible";
 import { useFavouriteContext } from "@/context/custom/favourites";
 import AppRoutes from "@/context/router/routes";
+import useAchievements from "@/hooks/useAchievements";
 import useContinueReading from "@/hooks/useContinueReading";
 import useNav from "@/hooks/useNav";
+import useTimer from "@/hooks/useTimer";
 import { useEffect, useMemo } from "react";
 import { useParams } from "react-router-dom";
 
 const useBibleRead = () => {
+  const { addChapter, addTime } = useAchievements();
+  const timer = useTimer(60000, addTime);
   const { book, chapter } = useParams();
   const { goToBook, goTo } = useNav();
   const { bibleBooks } = useBibleContext();
@@ -126,6 +130,12 @@ const useBibleRead = () => {
   useEffect(() => {
     saveBookToContinueLater();
   }, [book, chapter]);
+
+  useEffect(() => {
+    if (data) {
+      addChapter(data.id);
+    }
+  }, [data]);
 
   return {
     book,

@@ -1,5 +1,16 @@
 import { PaginatedResponse } from '@/common/paginatedResponse';
-import { Body, Controller, Get, Post, Query } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Post,
+  Put,
+  Query,
+  UploadedFile,
+  UseInterceptors,
+} from '@nestjs/common';
+import { FileInterceptor } from '@nestjs/platform-express';
 import { AllTeachingsParams } from './dto/allTeachingsParams.dto';
 import { CreateTeachingDTO } from './dto/createTeaching.dto';
 import { Teaching } from './teaching.entity';
@@ -16,24 +27,50 @@ export class TeachingsController {
     return this.teachingsService.getAll(params);
   }
 
-  @Get('/by')
+  @Get('id/:id')
+  getById(@Param('id') id: number) {
+    return this.teachingsService.getById(id);
+  }
+
+  @Get('by')
   getBy(@Query('book') book: string, @Query('chapter') chapter: string) {
     return this.teachingsService.getBy(book, Number(chapter));
   }
 
-  @Get('/today')
+  @Get('today')
   getTodays(): Promise<Teaching> {
     return this.teachingsService.getLastOne();
   }
 
-  @Post('/')
-  createTeaching(
-    @Body() createTeachingDTo: CreateTeachingDTO,
+  @Get('date/:year/:month/:day')
+  getByDate(
+    @Param('year') year: number,
+    @Param('month') month: number,
+    @Param('day') day: number,
   ): Promise<Teaching> {
-    return this.teachingsService.createOne(createTeachingDTo);
+    return this.teachingsService.getByDate(year, month, day);
   }
 
-  @Post('/generate')
+  @Post('/')
+  @UseInterceptors(FileInterceptor('file'))
+  createTeaching(
+    @Body() createTeachingDTo: CreateTeachingDTO,
+    @UploadedFile() file: Express.Multer.File,
+  ): Promise<Teaching> {
+    return this.teachingsService.createOne(createTeachingDTo, file);
+  }
+
+  @Put('/:id')
+  @UseInterceptors(FileInterceptor('file'))
+  updateTeaching(
+    @Param('id') id: number,
+    @Body() createTeachingDTo: CreateTeachingDTO,
+    @UploadedFile() file: Express.Multer.File,
+  ): Promise<Teaching> {
+    return this.teachingsService.updateOne(id, createTeachingDTo, file);
+  }
+
+  @Post('generate')
   generateTeaching(): Promise<Teaching> {
     return this.teachingsService.generateRandomTeaching();
   }

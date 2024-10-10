@@ -31,8 +31,8 @@ const tabs = [
     icon: <ChatBubbleLeftEllipsisIcon />,
   },
   {
-    name: "Ajustes",
-    path: AppRoutes.SETTINGS,
+    name: "Perfil",
+    path: AppRoutes.PROFILE,
     icon: <Cog6ToothIcon />,
   },
 ];

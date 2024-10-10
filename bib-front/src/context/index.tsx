@@ -1,3 +1,4 @@
+import { AchievementsProvider } from "./custom/achievements";
 import { BibleProvider } from "./custom/bible";
 import { FavouriteProvider } from "./custom/favourites";
 import QueryProv from "./query";
@@ -10,7 +11,9 @@ const MainProvider = () => {
       <QueryProv>
         <BibleProvider>
           <FavouriteProvider>
-            <RouterProv />
+            <AchievementsProvider>
+              <RouterProv />
+            </AchievementsProvider>
           </FavouriteProvider>
         </BibleProvider>
       </QueryProv>

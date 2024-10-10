@@ -1,4 +1,5 @@
 import { AIService } from '@/AI/ai.service';
+import { CloudinaryService } from '@/cloudinary/cloudinary.service';
 import { PaginatedResponse } from '@/common/paginatedResponse';
 import { Inject, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -18,6 +19,8 @@ export class TeachingsService {
     private chapterService: ChapterService,
     @Inject(AIService)
     private aiService: AIService,
+    @Inject()
+    private cloudinaryService: CloudinaryService,
   ) {}
 
   async getAll(
@@ -27,7 +30,7 @@ export class TeachingsService {
       page = 1,
       limit = 10,
       search = '',
-      order_by = 'month',
+      order_by = 'book',
       order = 'asc',
     } = params;
 
@@ -50,11 +53,33 @@ export class TeachingsService {
     };
   }
 
+  async getById(id: number): Promise<Teaching> {
+    return await this.teachingRepository.findOneBy({ id: id });
+  }
+
+  async getByDate(year: number, month: number, day: number): Promise<Teaching> {
+    const teaching = await this.teachingRepository.findOne({
+      where: {
+        year: year,
+        month: month,
+        day: day,
+      },
+    });
+
+    if (!teaching) {
+      throw new Error('Teaching not found');
+    }
+
+    return teaching;
+  }
+
   async getLastOne(): Promise<Teaching> {
-    return await this.teachingRepository
-      .createQueryBuilder()
-      .orderBy('createdAt', 'DESC')
-      .getOne();
+    return await this.teachingRepository.findOne({
+      where: {},
+      order: {
+        createdAt: 'DESC',
+      },
+    });
   }
 
   async getBy(book: string, chapter: number): Promise<Teaching[]> {
@@ -64,11 +89,40 @@ export class TeachingsService {
     });
   }
 
-  async createOne(body: CreateTeachingDTO): Promise<Teaching> {
+  async createOne(
+    body: CreateTeachingDTO,
+    file: Express.Multer.File,
+  ): Promise<Teaching> {
     const teaching = new Teaching();
     teaching.book = body.book;
     teaching.chapter = body.chapter;
     teaching.text = body.text;
+
+    if (file) {
+      const cloudinaryResponse = await this.cloudinaryService.uploadFile(file);
+      teaching.image = cloudinaryResponse.secure_url;
+    }
+
+    return await this.teachingRepository.save(teaching);
+  }
+
+  async updateOne(
+    id: number,
+    body: CreateTeachingDTO,
+    file: Express.Multer.File,
+  ): Promise<Teaching> {
+    const teaching = await this.getById(id);
+    if (!teaching) {
+      throw new Error('Teaching not found');
+    }
+    teaching.book = body.book;
+    teaching.chapter = body.chapter;
+    teaching.text = body.text;
+
+    if (file) {
+      const cloudinaryResponse = await this.cloudinaryService.uploadFile(file);
+      teaching.image = cloudinaryResponse.secure_url;
+    }
 
     return await this.teachingRepository.save(teaching);
   }

@@ -1,10 +1,6 @@
 import usePostTeaching from "@/api/Teachings/usePostTeaching";
 import { BibleContext } from "@/context/custom/bible";
 import useNav from "@/hooks/useNav";
-import {
-  replaceNextLineForTwoSpaces,
-  replaceNumbersForSuperscript,
-} from "@/utils/textFormatter";
 import { useContext } from "react";
 import { useForm } from "react-hook-form";
 
@@ -17,16 +13,17 @@ const useCreateTeaching = () => {
     handleSubmit,
     formState: { errors },
     watch,
-    setValue,
   } = useForm<{
     book: string;
     chapter: number;
     text: string;
+    image?: FileList;
   }>({
     defaultValues: {
       book: "",
       chapter: 1,
       text: "",
+      image: undefined,
     },
   });
 
@@ -34,19 +31,12 @@ const useCreateTeaching = () => {
     book: string;
     chapter: number;
     text: string;
+    image?: FileList;
   }) => {
     const response = await mutateAsync(data);
     if (response) {
       refresh();
     }
-  };
-
-  const onReplaceAllNumbersClick = () => {
-    setValue("text", replaceNumbersForSuperscript(watch("text")));
-  };
-
-  const onReplaceAllNextLineClick = () => {
-    setValue("text", replaceNextLineForTwoSpaces(watch("text")));
   };
 
   return {
@@ -56,8 +46,6 @@ const useCreateTeaching = () => {
     errors,
     onSubmit,
     text: watch("text"),
-    onReplaceAllNumbersClick,
-    onReplaceAllNextLineClick,
   };
 };
 

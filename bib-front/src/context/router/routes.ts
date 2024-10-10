@@ -2,9 +2,10 @@ enum AppRoutes {
   HOME = "/home",
   BIBLE = "/bible",
   SAINTS = "/saints",
-  QUOTES = "/quotes",
+  TEACHINGS = "/home/teachings",
   QUESTIONS = "/questions",
-  SETTINGS = "/settings",
+  PROFILE = "/profile",
+  ACHIEVEMENTS = "/profile/achievements",
 }
 
 export default AppRoutes;

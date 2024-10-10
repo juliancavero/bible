@@ -2,14 +2,19 @@ import usePostQuestion from "@/api/usePostQuestion";
 import AppRoutes from "@/context/router/routes";
 import useNav from "@/hooks/useNav";
 import useStoredQuestions from "@/hooks/useStoredquestions";
-import { useState } from "react";
+import { useMemo, useState } from "react";
+import { useSearchParams } from "react-router-dom";
+
+export const PAGINATION_SIZE = 5;
 
 const useQuestions = () => {
   const { goTo } = useNav();
+  const [searchParams, setSearchParams] = useSearchParams();
   const { storeQuestion, getStoredQuestions } = useStoredQuestions();
   const { mutateAsync } = usePostQuestion();
 
   const [open, setOpen] = useState(false);
+  const [page, setPage] = useState(Number(searchParams.get("page")) || 0);
 
   const handleOpen = () => {
     setOpen(true);
@@ -17,6 +22,10 @@ const useQuestions = () => {
 
   const handleClose = () => {
     setOpen(false);
+  };
+
+  const onPageChange = (page: number) => {
+    setPage(page);
   };
 
   const handleQuestionSubmit = async (question: string) => {
@@ -37,12 +46,17 @@ const useQuestions = () => {
   };
 
   const handleStoredQuestionClick = (id: number) => {
+    const params = new URLSearchParams();
+    params.set("page", page.toString());
+    setSearchParams(params);
     goTo(AppRoutes.QUESTIONS, id);
   };
 
-  const storedQuestions = getStoredQuestions().sort((a, b) => {
-    return b.createdAt - a.createdAt;
-  });
+  const storedQuestions = useMemo(() => {
+    return getStoredQuestions().sort((a, b) => {
+      return b.createdAt - a.createdAt;
+    });
+  }, []);
 
   return {
     open,
@@ -50,6 +64,8 @@ const useQuestions = () => {
     storedQuestions,
     handleQuestionSubmit,
     handleStoredQuestionClick,
+    page,
+    onPageChange,
   };
 };
 

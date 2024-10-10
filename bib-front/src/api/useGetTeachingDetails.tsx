@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import axiosInstance from ".";
 
 const getTeaching = async (id: string): Promise<Teaching> => {
-  const response = await axiosInstance.get<Teaching>("/teachings/" + id);
+  const response = await axiosInstance.get<Teaching>("/teachings/id/" + id);
   return response.data;
 };
 

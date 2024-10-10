@@ -6,9 +6,7 @@ export class AIService {
   private openai: OpenAI;
 
   constructor() {
-    this.openai = new OpenAI({
-      apiKey: process.env.OPENAI_API_KEY,
-    });
+    this.openai = new OpenAI({});
   }
 
   async answerQuestion(question: string): Promise<string> {
@@ -33,6 +31,7 @@ export class AIService {
       });
       questionAnswer = response.choices[0].message.content;
     } catch (error) {
+      console.log('API KEY ERROR', process.env.OPENAI_API_KEY);
       questionAnswer = Array.from({ length: 100 }, () =>
         String.fromCharCode(Math.floor(Math.random() * 94) + 33),
       ).join(' ');

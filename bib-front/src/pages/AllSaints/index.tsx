@@ -6,6 +6,7 @@ import PaddingBox from "@/components/Containers/PaddingBox";
 import Loader from "@/components/Icons/Loader";
 import Star from "@/components/Icons/Star";
 import Calendar from "@/components/Inputs/Calendar";
+import CustomPagination from "@/components/Tables/CustomPagination";
 import BodyText from "@/components/Text/BodyText";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -14,7 +15,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import RenderContiguousDates from "./components/RenderContiguousDates";
 import RenderResultSearchSaints from "./components/RenderResultSearchSaints";
 import RenderSaint from "./components/RenderSaint";
-import useAllSaints, { FilterOptions } from "./useAllSaints";
+import useAllSaints, { FilterOptions, PAGINATION_SIZE } from "./useAllSaints";
 
 const AllSaintsPage = () => {
   const {
@@ -28,6 +29,8 @@ const AllSaintsPage = () => {
     nearDatesSaints,
     openFilter,
     onFilterSelect,
+    page,
+    onPageChange,
   } = useAllSaints();
   return (
     <MainContainer>
@@ -35,7 +38,7 @@ const AllSaintsPage = () => {
       <AnimatedLayout>
         <MainContainer>
           <PaddingBox>
-            <Card>
+            <Card padding={2}>
               <AnimatedFilterBar
                 openFilter={openFilter}
                 onFilterSelect={onFilterSelect}
@@ -68,28 +71,48 @@ const AllSaintsPage = () => {
                 )}
               </PaddingBox>
             </Card>
-            <Card>
-              <PaddingBox multiplier={1} className="flex flex-col gap-3">
-                <div className="flex flex-row items-center gap-2">
-                  <Star filled />
-                  <BodyText className="text-xl">Favoritos</BodyText>
-                </div>
-                <PaddingBox multiplier={1} className="flex flex-col gap-2">
-                  {favSaints?.map((saint, index) => {
-                    return (
-                      <div
-                        key={index}
-                        className="cursor-pointer flex"
-                        onClick={() => onSaintSelected(saint)}
-                      >
-                        <RenderSaint saint={saint} inverted={index % 2 !== 0} />
-                      </div>
-                    );
-                  })}
-                </PaddingBox>
-              </PaddingBox>
-            </Card>
           </PaddingBox>
+          {favSaints && favSaints.length > 0 && (
+            <PaddingBox>
+              <Card>
+                <PaddingBox multiplier={1} className="flex flex-col gap-3">
+                  <div className="flex flex-row items-center gap-2">
+                    <Star filled />
+                    <BodyText className="text-xl">Favoritos</BodyText>
+                  </div>
+                  <PaddingBox multiplier={1} className="flex flex-col gap-2">
+                    {favSaints
+                      .slice(
+                        page * PAGINATION_SIZE,
+                        (page + 1) * PAGINATION_SIZE
+                      )
+                      .map((saint, index) => {
+                        return (
+                          <div
+                            key={index}
+                            className="cursor-pointer"
+                            onClick={() => onSaintSelected(saint)}
+                          >
+                            <RenderSaint
+                              saint={saint}
+                              inverted={index % 2 !== 0}
+                            />
+                          </div>
+                        );
+                      })}
+                  </PaddingBox>
+                  {favSaints.length > PAGINATION_SIZE && (
+                    <CustomPagination
+                      page={page}
+                      pageSize={PAGINATION_SIZE}
+                      totalItems={favSaints.length}
+                      pageChange={onPageChange}
+                    />
+                  )}
+                </PaddingBox>
+              </Card>
+            </PaddingBox>
+          )}
         </MainContainer>
       </AnimatedLayout>
     </MainContainer>
@@ -134,7 +157,7 @@ const AnimatedFilterBar = ({
             <MagnifyingGlassIcon
               className={`${
                 !openFilter || openFilter == FilterOptions.SEARCH
-                  ? "w-10 h-10"
+                  ? "w-8 h-8"
                   : "w-5 h-5"
               }`}
             />
@@ -186,7 +209,7 @@ const AnimatedFilterBar = ({
             <CalendarIcon
               className={`${
                 !openFilter || openFilter == FilterOptions.DATE
-                  ? "w-10 h-10"
+                  ? "w-8 h-8"
                   : "w-5 h-5"
               }`}
             />

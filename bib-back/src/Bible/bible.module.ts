@@ -1,4 +1,5 @@
 import { AIModule } from '@/AI/ai.module';
+import { CloudinaryModule } from '@/cloudinary/cloudinary.module';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ChapterController } from './Chapters/chapter.controller';
@@ -13,6 +14,7 @@ import { TeachingsService } from './Teachings/teachings.service';
     TypeOrmModule.forFeature([Chapter]),
     TypeOrmModule.forFeature([Teaching]),
     AIModule,
+    CloudinaryModule,
   ],
   providers: [ChapterService, TeachingsService],
   controllers: [ChapterController, TeachingsController],

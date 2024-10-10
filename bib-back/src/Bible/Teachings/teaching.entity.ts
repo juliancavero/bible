@@ -11,6 +11,18 @@ export class Teaching {
   @Column()
   chapter: number;
 
+  @Column()
+  day: number;
+
+  @Column()
+  month: number;
+
+  @Column()
+  year: number;
+
+  @Column({ default: '' })
+  image: string;
+
   @Column({ type: 'longtext' })
   text: string;
 

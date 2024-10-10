@@ -6,16 +6,8 @@ import { Button, Grid, styled, TextField, Typography } from "@mui/material";
 import useCreateTeaching from "./useCreateTeaching";
 
 const CreateTeachingPage = () => {
-  const {
-    bibleBooks,
-    register,
-    handleSubmit,
-    errors,
-    onSubmit,
-    text,
-    onReplaceAllNumbersClick,
-    onReplaceAllNextLineClick,
-  } = useCreateTeaching();
+  const { bibleBooks, register, handleSubmit, errors, onSubmit, text } =
+    useCreateTeaching();
 
   return (
     <MainPaper>
@@ -26,7 +18,6 @@ const CreateTeachingPage = () => {
       <form onSubmit={handleSubmit(onSubmit)}>
         <StyledBox>
           <ForwardSelect
-            //label="Libro"
             options={bibleBooks.map((book) => ({
               value: book.path,
               label: book.name,
@@ -42,27 +33,29 @@ const CreateTeachingPage = () => {
             justifyContent={"center"}
             alignItems={"center"}
           >
-            <Grid item xs={3}>
-              <TextField
-                fullWidth
-                label="Capítulo"
-                type="number"
-                {...register("chapter", {
-                  required: "Este campo es requerido",
-                })}
-                error={!!errors.chapter}
-                helperText={errors.chapter?.message}
-              />
-            </Grid>
-            <Grid item xs={9}>
-              <div style={{ display: "flex", gap: 8 }}>
-                <Button variant="outlined" onClick={onReplaceAllNumbersClick}>
-                  Reemplazar todos los números por superíndices
-                </Button>
-                <Button variant="outlined" onClick={onReplaceAllNextLineClick}>
-                  Reemplazar todos los saltos de línea por dos espacios
-                </Button>
-              </div>
+            <Grid
+              item
+              xs={12}
+              container
+              justifyContent={"center"}
+              alignItems={"center"}
+              spacing={3}
+            >
+              <Grid item xs={3}>
+                <TextField
+                  fullWidth
+                  label="Capítulo"
+                  type="number"
+                  {...register("chapter", {
+                    required: "Este campo es requerido",
+                  })}
+                  error={!!errors.chapter}
+                  helperText={errors.chapter?.message}
+                />
+              </Grid>
+              <Grid item xs={9}>
+                <input {...register("image")} type="file" />
+              </Grid>
             </Grid>
           </Grid>
           <LongTextField
