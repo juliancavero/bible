@@ -19,13 +19,7 @@ type CommonProps = {
 
 const Principal = ({ children }: CommonProps) => {
   return (
-    <div
-      className="
-    flex flex-col md:flex-row
-    h-full min-h-screen
-    bg-primary dark:bg-gray-900
-    "
-    >
+    <div className="flex flex-col md:flex-row h-full min-h-screen bg-wallpaper">
       {children}
     </div>
   );

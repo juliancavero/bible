@@ -18,10 +18,25 @@ const useProfile = () => {
     goTo(AppRoutes.ACHIEVEMENTS);
   };
 
+  const changeTheme = () => {
+    switch (theme) {
+      case "system":
+        setTheme("light");
+        break;
+      case "light":
+        setTheme("dark");
+        break;
+      case "dark":
+      default:
+        setTheme("light");
+        break;
+    }
+  };
+
   return {
     achievements,
     theme,
-    setTheme,
+    changeTheme,
     deleteQuestions,
     onAllAchievementsClick,
   };

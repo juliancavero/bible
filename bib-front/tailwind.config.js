@@ -3,13 +3,6 @@ export default {
   darkMode: ["class"],
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
-    /* typography: {
-      DEFAULT: {
-        css: {
-          color: theme("colors.foreground"),
-        },
-      },
-    }, */
     extend: {
       lineClamp: {
         10: "10",
@@ -22,6 +15,7 @@ export default {
         sm: "calc(var(--radius) - 4px)",
       },
       colors: {
+        wallpaper: "hsl(var(--wallpaper))",
         background: {
           DEFAULT: "hsl(var(--background))",
           alternate: "hsl(var(--background-alternate))",

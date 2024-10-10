@@ -11,7 +11,7 @@ const ProfilePage = () => {
   const {
     achievements,
     theme,
-    setTheme,
+    changeTheme,
     deleteQuestions,
     onAllAchievementsClick,
   } = useProfile();
@@ -34,13 +34,7 @@ const ProfilePage = () => {
               <SettingsItem onClick={deleteQuestions}>
                 Delete localstorage questions
               </SettingsItem>
-              <SettingsItem
-                onClick={() => setTheme(theme !== "dark" ? "dark" : "light")}
-              >
-                {theme !== "dark"
-                  ? "Cambiar a Dark Mode"
-                  : "Cambiar a Light Mode"}
-              </SettingsItem>
+              <SettingsItem onClick={changeTheme}>Cambiar tema</SettingsItem>
             </Card>
           </PaddingBox>
         </MainContainer>
