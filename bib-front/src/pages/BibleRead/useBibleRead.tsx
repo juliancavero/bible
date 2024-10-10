@@ -151,6 +151,8 @@ const useBibleRead = () => {
     onPrevious,
     isFavourite,
     toggleFavourite,
+
+    timer,
   };
 };
 
