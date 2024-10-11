@@ -4,6 +4,7 @@ export enum LocalStorageKeys {
   CONTINUE_READING = "continue_reading",
   STORED_QUESTIONS = "stored_questions",
   ACHIEVEMENTS = "achievements",
+  PREFERENCES = "preferences",
 }
 
 const useLocalStorage = () => {

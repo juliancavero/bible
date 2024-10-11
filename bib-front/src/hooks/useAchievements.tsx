@@ -51,6 +51,7 @@ const reducerFn = (
       return {
         ...state,
         chaptersRead: [...state.chaptersRead, action.payload],
+        hasReadWholeBible: state.chaptersRead.length + 1 >= 1189,
       };
     case "resetInARow":
       return {

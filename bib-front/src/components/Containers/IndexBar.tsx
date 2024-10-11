@@ -1,4 +1,3 @@
-import { motion } from "framer-motion";
 import { HorizontalArrow } from "../Icons/Arrows";
 import StrongText from "../Text/StrongText";
 
@@ -19,16 +18,7 @@ const IndexBar = ({
         sticky && "sticky top-0 z-10"
       }`}
     >
-      {onClick && (
-        <motion.div
-          initial={{ opacity: 0, width: 0 }}
-          animate={{ opacity: 1, width: "auto" }}
-          exit={{ opacity: 0, width: 0 }}
-          transition={{ duration: 0.2, type: "easeInOut" }}
-        >
-          <HorizontalArrow onClick={onClick} withButton dir="left" />
-        </motion.div>
-      )}
+      {!!onClick && <HorizontalArrow onClick={onClick} withButton dir="left" />}
 
       <StrongText>{text}</StrongText>
     </div>

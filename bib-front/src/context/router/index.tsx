@@ -9,14 +9,11 @@ import ProfilePage from "@/pages/Profile";
 import QuestionAnswersPage from "@/pages/QuestionArchive";
 import QuestionsPage from "@/pages/Questions";
 import SaintDetailsPage from "@/pages/SaintDetails";
+import SettingsPage from "@/pages/Settings";
 import TeachingDetailsPage from "@/pages/TeachingDetails";
-import {
-  createBrowserRouter,
-  Navigate,
-  RouterProvider,
-} from "react-router-dom";
+import { createHashRouter, Navigate, RouterProvider } from "react-router-dom";
 
-const router = createBrowserRouter([
+const router = createHashRouter([
   {
     path: "/",
     element: <NavFrame />,
@@ -69,7 +66,15 @@ const router = createBrowserRouter([
         path: "/profile/achievements",
         element: <AllAchievementsPage />,
       },
+      {
+        path: "/profile/settings",
+        element: <SettingsPage />,
+      },
     ],
+  },
+  {
+    path: "*",
+    element: <h1>404</h1>,
   },
 ]);
 

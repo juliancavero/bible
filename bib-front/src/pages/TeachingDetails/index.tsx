@@ -9,6 +9,7 @@ import Markdown from "@/components/Text/Markdown";
 import StrongText from "@/components/Text/StrongText";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
+import ImageDetailsDialog from "./components/ImageDetailsDialog";
 import useTeachingDetails from "./useTeachingDetails";
 
 const TeachingDetailsPage = () => {
@@ -20,6 +21,8 @@ const TeachingDetailsPage = () => {
     todaysDate,
     onAnotherDay,
     contiguousDates,
+    imageOpen,
+    setImageOpen,
   } = useTeachingDetails();
   return (
     <MainContainer>
@@ -46,11 +49,18 @@ const TeachingDetailsPage = () => {
                         src={data.image}
                         alt={data.book || ""}
                         className="float-none md:float-right w-4/5 md:w-1/3 md:max-w-96"
-                        //onClick={() => setImageOpen(true)}
+                        onClick={() => setImageOpen(true)}
                       />
                     )}
                     <Markdown indent={false} children={data.text} />
                   </div>
+                  {data && (
+                    <ImageDetailsDialog
+                      open={imageOpen}
+                      setOpen={setImageOpen}
+                      teaching={data}
+                    />
+                  )}
                   <PaddingBox multiplier={2}>
                     <div className="flex flex-row items-center justify-between p-2">
                       {contiguousDates.previous && (
@@ -118,7 +128,8 @@ const Error = () => {
     <DividerBox>
       <PaddingBox>
         <StrongText className="text-center text-amber-300">
-          Hubo un error al cargar la cita de hoy. Inténtalo de nuevo más tarde.
+          Hubo un error al cargar el Sermón de hoy. Inténtalo de nuevo más
+          tarde.
         </StrongText>
       </PaddingBox>
     </DividerBox>

@@ -2,6 +2,7 @@ import BodyText from "@/components/Text/BodyText";
 import StrongText from "@/components/Text/StrongText";
 import { Saint } from "@/types/saints";
 import { renderDate } from "@/utils/calendar";
+import { useMemo } from "react";
 
 type RenderSaintProps = {
   saint: Saint;
@@ -9,6 +10,19 @@ type RenderSaintProps = {
 };
 
 const RenderSaint = ({ saint, inverted = false }: RenderSaintProps) => {
+  const fontSize = getComputedStyle(document.body).getPropertyValue(
+    "font-size"
+  );
+  const columnWidths = useMemo(() => {
+    const fontSizeNum = parseInt(fontSize);
+    const width = fontSizeNum > 16 ? "w-4/6" : "w-5/6";
+    const invertWidth = fontSizeNum > 16 ? "w-2/6" : "w-1/6";
+    return {
+      width,
+      invertWidth,
+    };
+  }, [fontSize]);
+
   const saintDate = new Date(
     new Date().getFullYear(),
     saint.month - 1,
@@ -22,20 +36,22 @@ const RenderSaint = ({ saint, inverted = false }: RenderSaintProps) => {
     >
       {inverted ? (
         <div className="flex flex-row w-full items-center gap-3">
-          <div className="w-5/6 flex flex-col gap-1 items-end">
+          <div
+            className={`${columnWidths.width} flex flex-col gap-1 text-right`}
+          >
             <StrongText>{saint.name}</StrongText>
             <BodyText>{renderDate(saintDate)}</BodyText>
           </div>
-          <div className="w-1/6">
+          <div className={`${columnWidths.invertWidth}`}>
             <Image src={saint.image} inverted />
           </div>
         </div>
       ) : (
         <div className="flex flex-row w-full items-center gap-3">
-          <div className="w-1/6">
+          <div className={`${columnWidths.invertWidth}`}>
             <Image src={saint.image} />
           </div>
-          <div className="w-5/6 flex flex-col gap-1">
+          <div className={`${columnWidths.width} flex flex-col gap-1`}>
             <StrongText>{saint.name}</StrongText>
             <BodyText>{renderDate(saintDate)}</BodyText>
           </div>

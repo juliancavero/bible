@@ -1,7 +1,7 @@
 export const checkDate = (
   inputDate: Date | undefined
-): "TODAY" | "YESTERDAY" | boolean => {
-  if (!inputDate) return false;
+): "TODAY" | "YESTERDAY" | "NONE" => {
+  if (!inputDate) return "NONE";
   const today = new Date();
   today.setHours(0, 0, 0, 0);
 
@@ -15,7 +15,7 @@ export const checkDate = (
   } else if (areSameDay(dateInput, yesterday)) {
     return "YESTERDAY";
   } else {
-    return false;
+    return "NONE";
   }
 };
 

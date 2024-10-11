@@ -71,7 +71,7 @@ const RenderContiguousDates = ({
           );
         })}
       {datesExist.yesterday && (
-        <Box className="bg-primary mt-5">
+        <Box className="bg-primary mt-2">
           <StrongText extra>Ayer {renderDate(dates.yesterday)}</StrongText>
         </Box>
       )}
@@ -90,7 +90,7 @@ const RenderContiguousDates = ({
         })}
 
       {datesExist.tomorrow && (
-        <Box className="bg-primary mt-5">
+        <Box className="bg-primary mt-2">
           <StrongText extra>Mañana {renderDate(dates.tomorrow)}</StrongText>
         </Box>
       )}
@@ -109,7 +109,7 @@ const RenderContiguousDates = ({
         })}
 
       {datesExist.afterTomorrow && (
-        <Box className="bg-primary mt-5">
+        <Box className="bg-primary mt-2">
           <StrongText extra>
             Pasado mañana {renderDate(dates.afterTomorrow)}
           </StrongText>

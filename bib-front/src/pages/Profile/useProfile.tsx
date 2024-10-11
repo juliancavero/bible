@@ -18,6 +18,18 @@ const useProfile = () => {
     goTo(AppRoutes.ACHIEVEMENTS);
   };
 
+  const onSettingsClick = () => {
+    goTo(AppRoutes.SETTINGS);
+  };
+
+  const onBibleSettingsClick = () => {
+    goTo(AppRoutes.BIBLE_SETTINGS);
+  };
+
+  const onSaintsSettingsClick = () => {
+    goTo(AppRoutes.SAINTS_SETTINGS);
+  };
+
   const changeTheme = () => {
     switch (theme) {
       case "system":
@@ -39,6 +51,9 @@ const useProfile = () => {
     changeTheme,
     deleteQuestions,
     onAllAchievementsClick,
+    onSettingsClick,
+    onBibleSettingsClick,
+    onSaintsSettingsClick,
   };
 };
 

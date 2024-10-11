@@ -1,12 +1,21 @@
 type DividerBoxProps = {
   children: React.ReactNode;
+  margin?: number;
+  top?: boolean;
+  bottom?: boolean;
 };
 
-const DividerBox = ({ children }: DividerBoxProps) => {
+const DividerBox = ({
+  margin = 4,
+  top = true,
+  bottom = true,
+  children,
+}: DividerBoxProps) => {
   return (
     <div
-      className="border-t border-b border-gray-300 dark:border-gray-700
-    my-4 py-2"
+      className={`${top && "border-t"} ${
+        bottom && "border-b"
+      } border-gray-300 dark:border-gray-700 my-${margin} py-2`}
     >
       {children}
     </div>

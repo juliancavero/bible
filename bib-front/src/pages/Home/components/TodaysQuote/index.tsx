@@ -22,7 +22,7 @@ const TodaysQuote = () => {
         <StrongText>
           {data?.book} {data?.chapter}
         </StrongText>
-        <StrongText>La cita de hoy</StrongText>
+        <StrongText>El sermón de hoy</StrongText>
       </SpaceBetween>
       {isLoading && <Loading />}
       {isError && <Error />}
@@ -47,18 +47,20 @@ const TodaysQuote = () => {
               </Link>
             </PaddingBox>
           </DividerBox>
-          <div className="flex flex-col items-center gap-1">
-            <Button className="w-full" onClick={goToTodaysQuote}>
-              <ButtonText>Lee la enseñanza de la cita de hoy</ButtonText>
-            </Button>
-            <BodyText>o bien...</BodyText>
-            <Button variant={"secondary"} className="" onClick={goToAllQuotes}>
-              <ButtonText>Todas las enseñanzas</ButtonText>
-            </Button>
-          </div>
+          <PaddingBox direction="y">
+            <div className="flex flex-col items-center gap-1">
+              <Button className="w-full" onClick={goToTodaysQuote}>
+                <ButtonText>Lee el Sermón de hoy</ButtonText>
+              </Button>
+              <BodyText>o bien...</BodyText>
+              <Button variant={"secondary"} onClick={goToAllQuotes}>
+                <ButtonText>Todos los Sermones</ButtonText>
+              </Button>
+            </div>
+          </PaddingBox>
         </>
       ) : (
-        <BodyText>No se encontró la cita de hoy.</BodyText>
+        <BodyText>No se encontró el Sermón de hoy.</BodyText>
       )}
     </Card>
   );
@@ -89,7 +91,8 @@ const Error = () => {
     <DividerBox>
       <PaddingBox>
         <StrongText className="text-center text-amber-300">
-          Hubo un error al cargar la cita de hoy. Inténtalo de nuevo más tarde.
+          Hubo un error al cargar el Sermón de hoy. Inténtalo de nuevo más
+          tarde.
         </StrongText>
       </PaddingBox>
     </DividerBox>

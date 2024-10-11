@@ -38,8 +38,8 @@ const MakeQuestion = ({ onSubmit, short = false }: MakeQuestionProps) => {
             rules={{
               required: "Debes escribir una pregunta",
               maxLength: {
-                value: 300,
-                message: "La pregunta no puede tener más de 300 caracteres",
+                value: 1000,
+                message: "La pregunta no puede tener más de 1000 caracteres",
               },
             }}
             render={({ field }) => (

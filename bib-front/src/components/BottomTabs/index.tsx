@@ -5,15 +5,15 @@ import {
   ChatBubbleLeftEllipsisIcon,
   Cog6ToothIcon,
   HomeIcon,
-  UserIcon,
 } from "@heroicons/react/24/outline";
 import {
   BookOpenIcon as BookOpenIconSolid,
   ChatBubbleLeftEllipsisIcon as ChatBubbleLeftEllipsisIconSolid,
   Cog6ToothIcon as Cog6ToothIconSolid,
   HomeIcon as HomeIconSolid,
-  UserIcon as UserIconSolid,
 } from "@heroicons/react/24/solid";
+import SaintIcon from "../Icons/SaintIcon";
+import SaintIconOutline from "../Icons/SaintIconOutline";
 import { Button } from "../ui/button";
 
 const iconClasses = "h-6 w-6";
@@ -28,8 +28,8 @@ const tabs = [
   {
     name: "Santoral",
     path: AppRoutes.SAINTS,
-    icon: <UserIcon className={iconClasses} />,
-    solidIcon: <UserIconSolid className={iconClasses} />,
+    icon: <SaintIconOutline className={iconClasses + " dark:fill-white"} />,
+    solidIcon: <SaintIcon className={iconClasses + " dark:fill-white"} />,
   },
   {
     name: "La Biblia",
@@ -52,43 +52,41 @@ const tabs = [
 ];
 
 export const BottomTabs = () => {
-  const { goTo, activeTab, location } = useNav();
+  const { goTo, location } = useNav();
 
   return (
     <BottomBox>
-      {tabs.map((tab) => (
-        <Tab
-          key={tab.name}
-          active={location.pathname.includes(tab.path)}
-          onClick={() => goTo(tab.path)}
-        >
-          <Button variant={"icon"} size={"icon"}>
-            {location.pathname.includes(tab.path) ? tab.solidIcon : tab.icon}
-          </Button>
-          <Span active={activeTab === tab.path}>{tab.name}</Span>
-        </Tab>
-      ))}
+      {tabs.map((tab) => {
+        const active = location.pathname.includes(tab.path);
+        return (
+          <Tab key={tab.name} active={active} onClick={() => goTo(tab.path)}>
+            <Button variant={"icon"} size={"icon"}>
+              {active ? tab.solidIcon : tab.icon}
+            </Button>
+            <Span active={active}>{tab.name}</Span>
+          </Tab>
+        );
+      })}
     </BottomBox>
   );
 };
 
 export const LeftTabs = () => {
-  const { goTo, activeTab } = useNav();
+  const { goTo, location } = useNav();
 
   return (
     <LeftMenu>
-      {tabs.map((tab) => (
-        <Tab
-          key={tab.name}
-          active={activeTab === tab.path}
-          onClick={() => goTo(tab.path)}
-        >
-          <Button variant={"icon"} size={"icon"}>
-            {tab.icon}
-          </Button>
-          <Span active={activeTab === tab.path}>{tab.name}</Span>
-        </Tab>
-      ))}
+      {tabs.map((tab, index) => {
+        const active = location.pathname.includes(tab.path);
+        return (
+          <Tab key={index} active={active} onClick={() => goTo(tab.path)}>
+            <Button variant={"icon"} size={"icon"}>
+              {tab.icon}
+            </Button>
+            <Span active={active}>{tab.name}</Span>
+          </Tab>
+        );
+      })}
     </LeftMenu>
   );
 };
@@ -99,12 +97,7 @@ type BottomBoxProps = {
 
 const BottomBox = ({ children }: BottomBoxProps) => {
   return (
-    <div
-      className="block md:hidden
-     flex flex-row justify-around items-center 
-     border-t-2 border-gray-300  dark:border-gray-600
-     sticky bottom-0 z-50"
-    >
+    <div className="block md:hidden bg-background flex flex-row justify-around items-center border-t-2 border-gray-300  dark:border-gray-600 sticky bottom-0 z-50">
       {children}
     </div>
   );
@@ -144,7 +137,9 @@ type SpanProps = {
 
 const Span = ({ children, active }: SpanProps) => {
   return (
-    <span className={`text-xs md:text-md ${active ? "font-bold" : ""}`}>
+    <span
+      className={`text-xs md:text-md ${active ? "font-bold" : "font-normal"}`}
+    >
       {children}
     </span>
   );
