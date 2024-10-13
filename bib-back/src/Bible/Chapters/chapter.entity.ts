@@ -15,5 +15,5 @@ export class Chapter {
   text: string;
 
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
-  createdAt: number;
+  createdAt: Date;
 }

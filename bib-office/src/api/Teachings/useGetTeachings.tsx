@@ -16,17 +16,20 @@ type Params = RequestParams & {
 
 const getTeachings = async (params: Params): Promise<TeachingsResponse> => {
   const { limit, order, order_by, page, search, book, chapter } = params;
-  const response = await axiosInstance.get<TeachingsResponse>("/teachings", {
-    params: {
-      ...(limit && { limit }),
-      ...(order && { order }),
-      ...(order_by && { order_by }),
-      ...(page && { page }),
-      ...(search && { search }),
-      ...(book && { book }),
-      ...(chapter && { chapter }),
-    },
-  });
+  const response = await axiosInstance.get<TeachingsResponse>(
+    "/teachings/uncensored",
+    {
+      params: {
+        ...(limit && { limit }),
+        ...(order && { order }),
+        ...(order_by && { order_by }),
+        ...(page && { page }),
+        ...(search && { search }),
+        ...(book && { book }),
+        ...(chapter && { chapter }),
+      },
+    }
+  );
   return ResponseMapper(response);
 };
 

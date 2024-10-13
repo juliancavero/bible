@@ -9,11 +9,11 @@ import {
   Put,
   Query,
 } from '@nestjs/common';
+import { MissingChaptersType } from '../types';
 import { Chapter } from './chapter.entity';
 import { ChapterService } from './chapter.service';
 import { AllChaptersParamsDTO } from './dto/allChaptersParams.dto';
 import { CreateChapterDTO } from './dto/createChapter.dto';
-import { MissingChaptersType } from './types';
 
 @Controller('chapters')
 export class ChapterController {

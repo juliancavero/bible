@@ -21,7 +21,7 @@ export class Saint {
   text: string;
 
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
-  createdAt: number;
+  createdAt: Date;
 
   @Column({ default: false })
   isMain: boolean;

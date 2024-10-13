@@ -9,6 +9,7 @@ import Markdown from "@/components/Text/Markdown";
 import StrongText from "@/components/Text/StrongText";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
+import { renderDate } from "@/utils/calendar";
 import ImageDetailsDialog from "./components/ImageDetailsDialog";
 import useTeachingDetails from "./useTeachingDetails";
 
@@ -16,9 +17,8 @@ const TeachingDetailsPage = () => {
   const {
     isLoading,
     isError,
-    data,
+    teaching,
     onBack,
-    todaysDate,
     onAnotherDay,
     contiguousDates,
     imageOpen,
@@ -33,63 +33,66 @@ const TeachingDetailsPage = () => {
             <Card>
               {isLoading && <Loading />}
               {isError && <Error />}
-              {data && (
+              {teaching && (
                 <div>
                   <PaddingBox multiplier={2} className="text-right">
                     <span className="capitalize italic font-extrabold text-2xl">
-                      {todaysDate}
+                      {renderDate(
+                        new Date(
+                          teaching.year,
+                          teaching.month - 1,
+                          teaching.day
+                        ),
+                        true
+                      )}
                     </span>
                   </PaddingBox>
                   <PaddingBox multiplier={2}>
                     <StrongText className="italic">{""}</StrongText>
                   </PaddingBox>
                   <div className="flex flex-col items-center md:block">
-                    {data.image && (
+                    {teaching.image && (
                       <Image
-                        src={data.image}
-                        alt={data.book || ""}
+                        src={teaching.image}
+                        alt={teaching.book || ""}
                         className="float-none md:float-right w-4/5 md:w-1/3 md:max-w-96"
                         onClick={() => setImageOpen(true)}
                       />
                     )}
-                    <Markdown indent={false} children={data.text} />
+                    <Markdown indent={false} children={teaching.text} />
                   </div>
-                  {data && (
+                  {teaching && (
                     <ImageDetailsDialog
                       open={imageOpen}
                       setOpen={setImageOpen}
-                      teaching={data}
+                      teaching={teaching}
                     />
                   )}
                   <PaddingBox multiplier={2}>
                     <div className="flex flex-row items-center justify-between p-2">
-                      {contiguousDates.previous && (
+                      {contiguousDates.previous ? (
                         <div className="flex flex-col gap-1">
-                          <span className="text-sm font-bold">
-                            {contiguousDates.previous.day}/
-                            {contiguousDates.previous.month}
-                          </span>
                           <Button
                             onClick={() => onAnotherDay("previous")}
-                            variant="outline"
+                            variant="default"
                           >
                             Anterior
                           </Button>
                         </div>
+                      ) : (
+                        <div />
                       )}
-                      {contiguousDates.next && (
+                      {contiguousDates.next ? (
                         <div className="flex flex-col gap-1 text-right">
-                          <span className="text-sm font-bold">
-                            {contiguousDates.next.day}/
-                            {contiguousDates.next.month}
-                          </span>
                           <Button
                             onClick={() => onAnotherDay("next")}
-                            variant="outline"
+                            variant="default"
                           >
                             Siguiente
                           </Button>
                         </div>
+                      ) : (
+                        <div />
                       )}
                     </div>
                   </PaddingBox>

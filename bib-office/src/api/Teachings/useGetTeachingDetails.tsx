@@ -2,8 +2,18 @@ import { Teaching } from "@/types/bible";
 import { useQuery } from "@tanstack/react-query";
 import axiosInstance from "..";
 
-const getTeaching = async (id: string): Promise<Teaching> => {
-  const response = await axiosInstance.get<Teaching>("/teachings/id/" + id);
+type TeachingDetailsResponse = {
+  data: Teaching;
+  links: {
+    prev: number | null;
+    next: number | null;
+  };
+};
+
+const getTeaching = async (id: string): Promise<TeachingDetailsResponse> => {
+  const response = await axiosInstance.get<TeachingDetailsResponse>(
+    "/teachings/id/" + id
+  );
   return response.data;
 };
 

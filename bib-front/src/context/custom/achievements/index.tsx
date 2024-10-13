@@ -21,6 +21,8 @@ const AchievementsProvider = ({ children }: ProviderProps) => {
       }
       addDay();
       updateLastEntered();
+    } else {
+      updateLastEntered();
     }
     /* switch (dateComparision) {
         case "TODAY":

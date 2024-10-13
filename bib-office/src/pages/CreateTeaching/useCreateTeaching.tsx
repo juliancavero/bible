@@ -1,10 +1,16 @@
 import usePostTeaching from "@/api/Teachings/usePostTeaching";
 import { BibleContext } from "@/context/custom/bible";
 import useNav from "@/hooks/useNav";
-import { useContext } from "react";
+import useRouteParams from "@/hooks/useRouteParams";
+import { getTemplate, TemplateType } from "@/utils/templates";
+import { useContext, useMemo } from "react";
 import { useForm } from "react-hook-form";
 
 const useCreateTeaching = () => {
+  const { book, chapter } = useRouteParams({
+    book: undefined,
+    chapter: undefined,
+  });
   const { bibleBooks } = useContext(BibleContext);
   const { refresh } = useNav();
   const { mutateAsync } = usePostTeaching();
@@ -20,8 +26,8 @@ const useCreateTeaching = () => {
     image?: FileList;
   }>({
     defaultValues: {
-      book: "",
-      chapter: 1,
+      book: book || "",
+      chapter: Number(chapter) || 1,
       text: "",
       image: undefined,
     },
@@ -39,6 +45,20 @@ const useCreateTeaching = () => {
     }
   };
 
+  const templates = useMemo(() => {
+    const bookName = bibleBooks.find((b) => b.path === watch("book"))?.name;
+    return {
+      createTeaching: getTemplate(TemplateType.CreateTeaching)
+        .replace("{{book}}", bookName || "")
+        .replace("{{chapter}}", watch("chapter").toString()),
+      image: getTemplate(TemplateType.TeachingImage),
+    };
+  }, [watch("book"), watch("chapter")]);
+
+  const onCopyTemplateClick = (template: string) => {
+    navigator.clipboard.writeText(template);
+  };
+
   return {
     bibleBooks,
     register,
@@ -46,6 +66,8 @@ const useCreateTeaching = () => {
     errors,
     onSubmit,
     text: watch("text"),
+    templates,
+    onCopyTemplateClick,
   };
 };
 

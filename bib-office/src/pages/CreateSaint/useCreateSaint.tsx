@@ -1,10 +1,13 @@
 import usePostSaint from "@/api/Saints/usePostSaint";
 import useNav from "@/hooks/useNav";
 import useRouteParams from "@/hooks/useRouteParams";
+import { months } from "@/utils/calendar";
+import { getTemplate, TemplateType } from "@/utils/templates";
 import {
   replaceNextLineForTwoSpaces,
   replaceNumbersForSuperscript,
 } from "@/utils/textFormatter";
+import { useMemo } from "react";
 import { useForm } from "react-hook-form";
 
 const useCreateSaint = () => {
@@ -49,12 +52,29 @@ const useCreateSaint = () => {
     }
   };
 
+  const templates = useMemo(() => {
+    const monthName = months.find(
+      (m) => m.value === watch("month").toString()
+    )?.label;
+    return {
+      createSaint: getTemplate(TemplateType.CreateSaint)
+        .replace("{{day}}", watch("day").toString())
+        .replace("{{month}}", monthName || "")
+        .replace("{{saintName}}", watch("name")),
+      image: getTemplate(TemplateType.SaintImage),
+    };
+  }, [watch("day"), watch("month"), watch("name")]);
+
   const onReplaceAllNumbersClick = () => {
     setValue("text", replaceNumbersForSuperscript(watch("text")));
   };
 
   const onReplaceAllNextLineClick = () => {
     setValue("text", replaceNextLineForTwoSpaces(watch("text")));
+  };
+
+  const onCopyTemplateClick = (template: string) => {
+    navigator.clipboard.writeText(template);
   };
 
   return {
@@ -65,6 +85,8 @@ const useCreateSaint = () => {
     text: watch("text"),
     onReplaceAllNumbersClick,
     onReplaceAllNextLineClick,
+    templates,
+    onCopyTemplateClick,
   };
 };
 

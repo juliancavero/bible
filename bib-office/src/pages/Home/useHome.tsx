@@ -1,6 +1,7 @@
-import useGetMissingChapterDates from "@/api/Chapters/useGetMissingSaintDates";
+import useGetMissingChapterDates from "@/api/Chapters/useGetMissingChapterDates";
 import useGetMissingSaintDates from "@/api/Saints/useGetMissingSaintDates";
 import useGetStats from "@/api/Stats/useGetStats";
+import useGetMissingTeachingDates from "@/api/Teachings/useGetMissingTeachingDates";
 import { BibleContext } from "@/context/custom/bible";
 import useNav from "@/hooks/useNav";
 import { daysPerMonth, months } from "@/utils/calendar";
@@ -11,10 +12,14 @@ const useHome = () => {
   const { bibleBooks } = useContext(BibleContext);
   const { data: saintDates } = useGetMissingSaintDates();
   const { data: chapterDates } = useGetMissingChapterDates();
+  const { data: teachingDates } = useGetMissingTeachingDates();
   const { data: stats } = useGetStats();
   const todaysMonth = new Date().getMonth() + 1;
   const [renderMonth, setRenderMonth] = useState(todaysMonth);
   const [renderBook, setRenderBook] = useState(bibleBooks[0].path);
+  const [renderTeachingsBook, setRenderTeachingsBook] = useState(
+    bibleBooks[0].path
+  );
 
   const handlePreviousMonth = () => {
     setRenderMonth((prev) => (prev === 1 ? 12 : prev - 1));
@@ -42,12 +47,38 @@ const useHome = () => {
     }
   };
 
+  const handlePreviousTeachingsBook = () => {
+    const index = bibleBooks.findIndex(
+      (book) => book.path === renderTeachingsBook
+    );
+    if (index <= 0) {
+      setRenderTeachingsBook(bibleBooks[bibleBooks.length - 1].path);
+    } else {
+      setRenderTeachingsBook(bibleBooks[index - 1].path);
+    }
+  };
+
+  const handleNextTeachingsBook = () => {
+    const index = bibleBooks.findIndex(
+      (book) => book.path === renderTeachingsBook
+    );
+    if (index >= bibleBooks.length - 1) {
+      setRenderTeachingsBook(bibleBooks[0].path);
+    } else {
+      setRenderTeachingsBook(bibleBooks[index + 1].path);
+    }
+  };
+
   const onSaintsDayClick = (day: number) => {
     navigate(`/create-saint?day=${day}&month=${renderMonth}`);
   };
 
   const onCalendarChapterClick = (numb: number) => {
     navigate(`/create-chapter?book=${renderBook}&chapter=${numb}`);
+  };
+
+  const onCalendarTeachingClick = (numb: number) => {
+    navigate(`/create-teaching?book=${renderTeachingsBook}&chapter=${numb}`);
   };
 
   const monthDays = useMemo(() => {
@@ -60,6 +91,13 @@ const useHome = () => {
   const bookChapters = useMemo(() => {
     return bibleBooks.find((book) => book.path === renderBook)?.chapters || 1;
   }, [renderBook]);
+
+  const teachingsBookChapters = useMemo(() => {
+    return (
+      bibleBooks.find((book) => book.path === renderTeachingsBook)?.chapters ||
+      1
+    );
+  }, [renderTeachingsBook]);
 
   const missingDates = useMemo(() => {
     if (!saintDates) return [];
@@ -75,6 +113,14 @@ const useHome = () => {
     );
   }, [renderBook, chapterDates]);
 
+  const missingTeachings = useMemo(() => {
+    if (!teachingDates) return [];
+    return (
+      teachingDates.find((date) => date.book === renderTeachingsBook)
+        ?.chapters || []
+    );
+  }, [renderTeachingsBook, teachingDates]);
+
   const todaysMonthName = useMemo(() => {
     return months.find((month) => Number(month.value) === renderMonth)?.label;
   }, [renderMonth]);
@@ -83,6 +129,10 @@ const useHome = () => {
     return bibleBooks.find((book) => book.path === renderBook)?.name;
   }, [renderBook]);
 
+  const teachingsBookName = useMemo(() => {
+    return bibleBooks.find((book) => book.path === renderTeachingsBook)?.name;
+  }, [renderTeachingsBook]);
+
   return {
     handlePreviousMonth,
     handleNextMonth,
@@ -90,14 +140,19 @@ const useHome = () => {
     monthDays,
     missingDates,
     todaysMonthName,
-    renderBook,
     bookChapters,
     bookName,
     stats,
     missingChapters,
+    missingTeachings,
     handlePreviousBook,
     handleNextBook,
     onCalendarChapterClick,
+    teachingsBookChapters,
+    teachingsBookName,
+    handlePreviousTeachingsBook,
+    handleNextTeachingsBook,
+    onCalendarTeachingClick,
   };
 };
 

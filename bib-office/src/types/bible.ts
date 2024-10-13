@@ -20,7 +20,7 @@ export type Chapter = {
   book: string;
   chapter: number;
   text: string;
-  createdAt: number;
+  createdAt: Date;
 };
 
 export type Teaching = {
@@ -28,7 +28,7 @@ export type Teaching = {
   book: string;
   chapter: number;
   text: string;
-  createdAt: number;
+  createdAt: Date;
   image?: string;
 };
 

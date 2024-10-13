@@ -11,6 +11,7 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { MissingChaptersType } from '../types';
 import { AllTeachingsParams } from './dto/allTeachingsParams.dto';
 import { CreateTeachingDTO } from './dto/createTeaching.dto';
 import { Teaching } from './teaching.entity';
@@ -27,6 +28,18 @@ export class TeachingsController {
     return this.teachingsService.getAll(params);
   }
 
+  @Get('uncensored')
+  getAllTeachings(
+    @Query() params: AllTeachingsParams,
+  ): Promise<PaginatedResponse<Teaching>> {
+    return this.teachingsService.getAllUncensored(params);
+  }
+
+  @Get('missing')
+  getMissingTeachings(): Promise<MissingChaptersType[]> {
+    return this.teachingsService.getMissingTeachings();
+  }
+
   @Get('id/:id')
   getById(@Param('id') id: number) {
     return this.teachingsService.getById(id);
@@ -40,6 +53,11 @@ export class TeachingsController {
   @Get('today')
   getTodays(): Promise<Teaching> {
     return this.teachingsService.getLastOne();
+  }
+
+  @Get('date-near')
+  getDateNear(): Promise<Teaching[]> {
+    return this.teachingsService.getDateNear();
   }
 
   @Get('date/:year/:month/:day')

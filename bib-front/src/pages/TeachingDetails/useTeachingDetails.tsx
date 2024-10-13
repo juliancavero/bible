@@ -1,7 +1,6 @@
 import useGetTeachingDetails from "@/api/useGetTeachingDetails";
 import AppRoutes from "@/context/router/routes";
 import useNav from "@/hooks/useNav";
-import { renderDate } from "@/utils/calendar";
 import { useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
 
@@ -12,40 +11,34 @@ const useTeachingDetails = () => {
 
   const [imageOpen, setImageOpen] = useState(false);
 
-  const contiguousDates = {
-    previous: {
-      year: "2024",
-      month: "7",
-      day: "20",
-    },
-    next: {
-      year: "2024",
-      month: "7",
-      day: "23",
-    },
-  };
-
-  const todaysDate = useMemo(() => {
-    return renderDate(new Date());
-  }, []);
+  const contiguousDates = useMemo(() => {
+    return {
+      previous: data?.links.prev ? data?.links.prev.toString() : undefined,
+      next: data?.links.next ? data?.links.next.toString() : undefined,
+    };
+  }, [data]);
 
   const onAnotherDay = (dir: "previous" | "next") => {
     const direction =
       dir === "previous" ? contiguousDates.previous : contiguousDates.next;
 
-    goTo(AppRoutes.TEACHINGS, direction.year, direction.month, direction.day);
+    goTo(AppRoutes.TEACHINGS, direction);
   };
 
   const onBack = () => {
     goTo(AppRoutes.HOME);
   };
 
+  const teaching = useMemo(() => {
+    if (!data) return null;
+    return data.data;
+  }, [data]);
+
   return {
     isLoading,
     isError,
-    data,
+    teaching,
     onBack,
-    todaysDate,
     onAnotherDay,
     contiguousDates,
     imageOpen,

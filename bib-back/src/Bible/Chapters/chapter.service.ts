@@ -2,10 +2,10 @@ import { PaginatedResponse } from '@/common/paginatedResponse';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Like, Repository } from 'typeorm';
+import { MissingChaptersType } from '../types';
 import { Chapter } from './chapter.entity';
 import { AllChaptersParamsDTO } from './dto/allChaptersParams.dto';
 import { CreateChapterDTO } from './dto/createChapter.dto';
-import { MissingChaptersType } from './types';
 
 @Injectable()
 export class ChapterService {

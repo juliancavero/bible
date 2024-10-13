@@ -49,11 +49,11 @@ const useEditTeaching = () => {
   };
 
   useEffect(() => {
-    if (data) {
-      setValue("book", data.book);
-      setValue("chapter", data.chapter);
-      setValue("text", data.text);
-      data.image && setImage(data.image);
+    if (data?.data) {
+      setValue("book", data.data.book);
+      setValue("chapter", data.data.chapter);
+      setValue("text", data.data.text);
+      data.data.image && setImage(data.data.image);
     }
   }, [data]);
 

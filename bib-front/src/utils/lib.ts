@@ -1,4 +1,4 @@
-const bibleBooks = [
+export const bibleBooks = [
   { label: "Génesis", value: "genesis" },
   { label: "Éxodo", value: "exodus" },
   { label: "Levítico", value: "leviticus" },

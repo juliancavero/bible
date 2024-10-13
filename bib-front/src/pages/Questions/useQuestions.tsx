@@ -54,7 +54,7 @@ const useQuestions = () => {
 
   const storedQuestions = useMemo(() => {
     return getStoredQuestions().sort((a, b) => {
-      return b.createdAt - a.createdAt;
+      return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
     });
   }, []);
 

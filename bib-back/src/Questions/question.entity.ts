@@ -12,5 +12,5 @@ export class Question {
   answer: string;
 
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
-  createdAt: number;
+  createdAt: Date;
 }
