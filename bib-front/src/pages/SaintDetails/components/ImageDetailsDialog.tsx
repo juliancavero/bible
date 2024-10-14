@@ -4,6 +4,7 @@ import {
   Dialog,
   DialogContent,
   DialogDescription,
+  DialogHeader,
 } from "@/components/ui/dialog";
 import useShare from "@/hooks/useShare";
 import { Saint } from "@/types/saints";
@@ -46,7 +47,9 @@ const ImageDetailsDialog = ({
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTitle hidden>{saint.name}</DialogTitle>
+      <DialogHeader>
+        <DialogTitle hidden>{saint.name}</DialogTitle>
+      </DialogHeader>
       <DialogContent
         className="w-screen h-dvh"
         onOpenAutoFocus={(e) => e.preventDefault()}

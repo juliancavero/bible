@@ -1,6 +1,21 @@
 import PaddingBox from "@/components/Containers/PaddingBox";
+import BodyText from "@/components/Text/BodyText";
 import ButtonText from "@/components/Text/ButtonText";
+import StrongText from "@/components/Text/StrongText";
 import { Button } from "@/components/ui/button";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import {
   Form,
   FormControl,
@@ -10,7 +25,10 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Textarea } from "@/components/ui/textarea";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
+import ExampleChatBox from "./ExampleChatBox";
+import { questionExamples } from "./examples";
 
 type MakeQuestionProps = {
   onSubmit: (question: string) => void;
@@ -18,6 +36,12 @@ type MakeQuestionProps = {
 };
 
 const MakeQuestion = ({ onSubmit, short = false }: MakeQuestionProps) => {
+  const [open, setOpen] = useState(false);
+
+  const onOpen = () => {
+    setOpen(true);
+  };
+
   const form = useForm<{ question: string }>({
     defaultValues: {
       question: "",
@@ -44,12 +68,22 @@ const MakeQuestion = ({ onSubmit, short = false }: MakeQuestionProps) => {
             }}
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Pregunta</FormLabel>
+                <div className="flex justify-between items-center">
+                  <FormLabel className="text-lg font-bold">Pregunta</FormLabel>
+                  <Button
+                    type="button"
+                    variant={"ghost"}
+                    className="underline underline-offset-4"
+                    onClick={onOpen}
+                  >
+                    ¿Cómo puedo preguntar?
+                  </Button>
+                </div>
                 <FormControl>
                   <Textarea
-                    placeholder="Escribe aquí tu consulta"
+                    placeholder="Escribe aquí tu consulta. Puedes ser todo lo específico que desees. Si proporcionas más detalles, podremos darte una respuesta más precisa."
                     className="resize-none"
-                    rows={short ? 3 : 6}
+                    rows={short ? 4 : 6}
                     {...field}
                   />
                 </FormControl>
@@ -57,6 +91,48 @@ const MakeQuestion = ({ onSubmit, short = false }: MakeQuestionProps) => {
               </FormItem>
             )}
           />
+          <Dialog open={open} onOpenChange={setOpen}>
+            <DialogContent
+              className="w-11/12 h-[90%]"
+              aria-describedby={undefined}
+            >
+              <DialogHeader>
+                <DialogTitle className="font-bold text-xl">
+                  ¿Cómo puedo preguntar?
+                </DialogTitle>
+              </DialogHeader>
+              <div className="flex flex-col gap-3">
+                <BodyText className="">
+                  En esta ventana de conversación podrás explicar con todo lujo
+                  de detalles cualquier tema para el que necesites ayuda. Desde
+                  problemas de fe, relaciones, trabajo o cualquier otro aspecto
+                  de tu vida, esta herramienta te guiará siempre fundamentándose
+                  en la Biblia y las enseñanzas de Jesucristo.
+                </BodyText>
+                <StrongText>Ejemplos</StrongText>
+
+                <div className="grid grid-cols-12">
+                  <div className="col-span-1" />
+                  <Carousel className="col-span-10">
+                    <CarouselContent>
+                      {questionExamples.map((example, index) => (
+                        <CarouselItem key={index}>
+                          <ExampleChatBox
+                            question={example.question}
+                            answer={example.answer}
+                          />
+                        </CarouselItem>
+                      ))}
+                    </CarouselContent>
+                    <CarouselPrevious variant={"default"} />
+                    <CarouselNext variant={"default"} />
+                  </Carousel>
+                  <div className="col-span-1" />
+                </div>
+              </div>
+              <Button onClick={() => setOpen(false)}>Cerrar</Button>
+            </DialogContent>
+          </Dialog>
         </PaddingBox>
         <PaddingBox>
           <Button className="w-full" type="submit">

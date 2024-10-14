@@ -35,7 +35,7 @@ const TodaysQuote = () => {
                   <Image
                     src={data.image}
                     alt="quote"
-                    className="float-left w-5/12 md:w-1/3 max-w-96"
+                    className="float-left w-5/12 md:w-1/3 max-w-96 mr-4 mb-4"
                   />
                 )}
                 <Markdown indent={false} serif>

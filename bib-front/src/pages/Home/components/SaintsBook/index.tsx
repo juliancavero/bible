@@ -30,7 +30,7 @@ const SaintsBook = () => {
                   <Image
                     src={renderSaint.image}
                     alt={renderSaint.name}
-                    className="float-right w-5/12 md:w-1/3 max-w-96"
+                    className="float-right w-5/12 md:w-1/3 max-w-96 ml-4 mb-4"
                   />
                 )}
                 <Markdown indent={false} children={renderSaint.text} />

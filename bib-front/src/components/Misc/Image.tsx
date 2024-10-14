@@ -3,13 +3,21 @@ type ImageProps = {
   alt?: string;
   className?: string;
   fit?: "contain" | "cover";
+  margin?: number;
   onClick?: () => void;
 };
 
-const Image = ({ src, alt, fit = "cover", onClick, className }: ImageProps) => {
+const Image = ({
+  src,
+  alt,
+  fit = "cover",
+  margin = 3,
+  onClick,
+  className,
+}: ImageProps) => {
   return (
     <img
-      className={`h-auto m-3 rounded-lg object-${fit} ${className}`}
+      className={`h-auto m-${margin} rounded-lg object-${fit} ${className}`}
       src={src}
       alt={alt}
       onClick={onClick}
