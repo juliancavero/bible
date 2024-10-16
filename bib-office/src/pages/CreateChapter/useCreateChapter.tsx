@@ -8,7 +8,7 @@ import {
   replaceNextLineForTwoSpaces,
   replaceNumbersForSuperscript,
 } from "@/utils/textFormatter";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
 const useCreateChapter = () => {
@@ -36,6 +36,8 @@ const useCreateChapter = () => {
       text: "",
     },
   });
+
+  const [numOfTitles, setNumOfTitles] = useState(0);
 
   const onSubmit = async (data: {
     book: string;
@@ -75,6 +77,25 @@ const useCreateChapter = () => {
     setValue("text", fourth);
   };
 
+  const removeBeginningTitle = () => {
+    const text = watch("text");
+    const newText = text.slice(4, text.length);
+    setValue("text", newText);
+    setNumOfTitles((newText.match(/###/g) || []).length);
+  };
+
+  const onPaste = async () => {
+    const text = await navigator.clipboard.readText();
+
+    const first = replaceNumbersForSuperscript(text);
+    const second = replaceNextLineForTwoSpaces(first);
+    const third = insertTitles(second);
+    const fourth = insertBeginingTitle(third);
+
+    setValue("text", fourth);
+    setNumOfTitles((fourth.match(/###/g) || []).length);
+  };
+
   useEffect(() => {
     if (book && chapter) {
       setValue("book", book);
@@ -94,6 +115,9 @@ const useCreateChapter = () => {
     onReplaceAllNextLineClick,
     onInsertBeginingTitleClick,
     allTextModifiersAtOnce,
+    onPaste,
+    numOfTitles,
+    removeBeginningTitle,
   };
 };
 

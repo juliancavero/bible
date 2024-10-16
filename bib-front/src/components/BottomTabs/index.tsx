@@ -57,7 +57,7 @@ export const BottomTabs = () => {
   return (
     <BottomBox>
       {tabs.map((tab) => {
-        const active = location.pathname.includes(tab.path);
+        const active = location.pathname.startsWith(tab.path);
         return (
           <Tab key={tab.name} active={active} onClick={() => goTo(tab.path)}>
             <Button variant={"icon"} size={"icon"}>
@@ -77,7 +77,7 @@ export const LeftTabs = () => {
   return (
     <LeftMenu>
       {tabs.map((tab, index) => {
-        const active = location.pathname.includes(tab.path);
+        const active = location.pathname.startsWith(tab.path);
         return (
           <Tab key={index} active={active} onClick={() => goTo(tab.path)}>
             <Button variant={"icon"} size={"icon"}>

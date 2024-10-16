@@ -21,7 +21,12 @@ const ProfilePage = () => {
     onSettingsClick,
     onBibleSettingsClick,
     onSaintsSettingsClick,
+    debugNotification5,
+    debugNotification60,
+    debugNotificationEveryMinute,
+    debugNotification30Random,
   } = useProfile();
+
   return (
     <MainContainer>
       <IndexBar sticky text="Perfil" />
@@ -34,6 +39,7 @@ const ProfilePage = () => {
                 onAllAchievementsClick={onAllAchievementsClick}
               />
             </Card>
+
             <Card className="flex flex-col gap-3">
               <div
                 className="py-3 border-b border-gray-200 cursor-pointer"
@@ -78,6 +84,18 @@ const ProfilePage = () => {
                 Delete localstorage questions
               </SettingsItem>
               <SettingsItem onClick={changeTheme}>Cambiar tema</SettingsItem>
+              <SettingsItem onClick={debugNotification5}>
+                Notificación en 5 segundos
+              </SettingsItem>
+              <SettingsItem onClick={debugNotification60}>
+                Notificación en 60 segundos
+              </SettingsItem>
+              <SettingsItem onClick={debugNotificationEveryMinute}>
+                Notificación cada minuto
+              </SettingsItem>
+              <SettingsItem onClick={debugNotification30Random}>
+                Notificación Random en 30 segundos
+              </SettingsItem>
             </Card>
           </PaddingBox>
         </MainContainer>

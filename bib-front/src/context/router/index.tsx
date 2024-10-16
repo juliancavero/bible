@@ -9,7 +9,9 @@ import ProfilePage from "@/pages/Profile";
 import QuestionAnswersPage from "@/pages/QuestionArchive";
 import QuestionsPage from "@/pages/Questions";
 import SaintDetailsPage from "@/pages/SaintDetails";
-import SettingsPage from "@/pages/Settings";
+import BibleSettingsPage from "@/pages/Settings/Bible";
+import PreferencesPage from "@/pages/Settings/Preferences";
+import SaintsSettingsPage from "@/pages/Settings/Saints";
 import TeachingDetailsPage from "@/pages/TeachingDetails";
 import { createHashRouter, Navigate, RouterProvider } from "react-router-dom";
 
@@ -67,8 +69,16 @@ const router = createHashRouter([
         element: <AllAchievementsPage />,
       },
       {
-        path: "/profile/settings",
-        element: <SettingsPage />,
+        path: "/profile/preferences",
+        element: <PreferencesPage />,
+      },
+      {
+        path: "/profile/bible",
+        element: <BibleSettingsPage />,
+      },
+      {
+        path: "/profile/saints",
+        element: <SaintsSettingsPage />,
       },
     ],
   },

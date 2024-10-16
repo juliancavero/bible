@@ -1,12 +1,14 @@
 import useGetSaintDetails from "@/api/useGetSaintDetails";
 import { useFavouriteContext } from "@/context/custom/favourites";
 import useNav from "@/hooks/useNav";
+import useNotifications from "@/hooks/useNotifications";
 import { useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
 
 const useSaintDetails = () => {
   const { id = "" } = useParams();
   const { goBack } = useNav();
+  const { scheduleNotification } = useNotifications();
   const { data, isLoading, isError } = useGetSaintDetails(id);
   const { favSaints, addToFavSaint, isSaintFav, removeFromFavSaint } =
     useFavouriteContext();
@@ -36,6 +38,21 @@ const useSaintDetails = () => {
     }
   };
 
+  const onNotificationRequest = async () => {
+    if (!data) return;
+    await scheduleNotification({
+      title: `Santoral`,
+      body: `Hoy es el día de ${data.name}. ¡No te olvides de felicitarlo!`,
+      id: data.id,
+      on: new Date(
+        new Date().getFullYear(),
+        Number(data.month) - 1,
+        Number(data.day),
+        9
+      ),
+    });
+  };
+
   const isFavourite = useMemo(() => {
     if (!data) return false;
     return isSaintFav(data);
@@ -51,6 +68,7 @@ const useSaintDetails = () => {
     isFavourite,
     setImageOpen,
     toggleFavourite,
+    onNotificationRequest,
   };
 };
 

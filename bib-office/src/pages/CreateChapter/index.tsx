@@ -18,6 +18,9 @@ const CreateChapterPage = () => {
     onReplaceAllNextLineClick,
     onInsertBeginingTitleClick,
     allTextModifiersAtOnce,
+    onPaste,
+    numOfTitles,
+    removeBeginningTitle,
   } = useCreateChapter();
 
   return (
@@ -25,6 +28,36 @@ const CreateChapterPage = () => {
       <Typography variant="h3" marginBottom={3}>
         Crear Capítulo
       </Typography>
+
+      <div
+        style={{
+          position: "absolute",
+          top: 80,
+          right: 16,
+          zIndex: 999999,
+          display: "flex",
+          flexDirection: "column",
+          gap: 8,
+          justifyContent: "center",
+          alignItems: "center",
+          backgroundColor: "whitesmoke",
+          padding: 8,
+          borderRadius: 8,
+          border: "1px solid lightgray",
+        }}
+      >
+        <Button style={{ fontSize: 24 }} variant="contained" onClick={onPaste}>
+          Pegar
+        </Button>
+        <Button
+          style={{ fontSize: 12 }}
+          variant="contained"
+          onClick={removeBeginningTitle}
+        >
+          Quitar ### Inicial
+        </Button>
+        <Typography variant="h5">{numOfTitles} títulos</Typography>
+      </div>
 
       <form onSubmit={handleSubmit(onSubmit)}>
         <StyledBox>
@@ -57,6 +90,7 @@ const CreateChapterPage = () => {
             </Grid>
             <Grid item xs={3}>
               <Button
+                id="formatall"
                 style={{ width: "50%" }}
                 variant="contained"
                 color="primary"
@@ -83,6 +117,7 @@ const CreateChapterPage = () => {
             </Grid>
           </Grid>
           <LongTextField
+            id="longtextfield"
             {...register("text", { required: "Este campo es requerido" })}
             error={!!errors.text}
             helperText={errors.text?.message}

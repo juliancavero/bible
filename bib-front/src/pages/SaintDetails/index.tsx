@@ -3,6 +3,7 @@ import Card from "@/components/Containers/Card";
 import IndexBar from "@/components/Containers/IndexBar";
 import MainContainer from "@/components/Containers/MainContainer";
 import PaddingBox from "@/components/Containers/PaddingBox";
+import CalendarIcon from "@/components/Icons/CalendarIcon";
 import Star from "@/components/Icons/Star";
 import Image from "@/components/Misc/Image";
 import Markdown from "@/components/Text/Markdown";
@@ -23,8 +24,9 @@ const SaintDetailsPage = () => {
     isFavourite,
     setImageOpen,
     toggleFavourite,
+    onNotificationRequest,
   } = useSaintDetails();
-  console.log(data);
+
   return (
     <MainContainer>
       <IndexBar sticky text={data ? data.name : "Santoral"} onClick={onBack} />
@@ -52,6 +54,9 @@ const SaintDetailsPage = () => {
                     <div>
                       <Button variant={"link"} onClick={toggleFavourite}>
                         <Star filled={isFavourite} />
+                      </Button>
+                      <Button variant={"link"} onClick={onNotificationRequest}>
+                        <CalendarIcon filled={true} />
                       </Button>
                     </div>
                   </div>

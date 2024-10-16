@@ -3,9 +3,11 @@ import { useTheme } from "@/context/theme";
 import useAchievements from "@/hooks/useAchievements";
 import useLocalStorage, { LocalStorageKeys } from "@/hooks/useLocalStorage";
 import useNav from "@/hooks/useNav";
+import useNotifications from "@/hooks/useNotifications";
 
 const useProfile = () => {
   const { achievements } = useAchievements();
+  const { scheduleNotification } = useNotifications();
   const { deleteItem } = useLocalStorage();
   const { setTheme, theme } = useTheme();
   const { goTo } = useNav();
@@ -19,7 +21,7 @@ const useProfile = () => {
   };
 
   const onSettingsClick = () => {
-    goTo(AppRoutes.SETTINGS);
+    goTo(AppRoutes.PREFERENCES);
   };
 
   const onBibleSettingsClick = () => {
@@ -45,6 +47,42 @@ const useProfile = () => {
     }
   };
 
+  const debugNotification5 = async () => {
+    await scheduleNotification({
+      title: "Test Notification",
+      body: "This is a test notification",
+      id: 5,
+      at: new Date(Date.now() + 5000),
+    });
+  };
+
+  const debugNotification60 = async () => {
+    await scheduleNotification({
+      title: "Test Notification",
+      body: "This is a test notification",
+      id: 60,
+      at: new Date(Date.now() + 60000),
+    });
+  };
+
+  const debugNotificationEveryMinute = async () => {
+    await scheduleNotification({
+      title: "Test Notification",
+      body: "This is a test notification",
+      id: 123,
+      every: "minute",
+    });
+  };
+
+  const debugNotification30Random = async () => {
+    await scheduleNotification({
+      title: "Test Notification",
+      body: "This is a test notification",
+      id: Math.floor(Math.random() * 1000),
+      at: new Date(Date.now() + 30000),
+    });
+  };
+
   return {
     achievements,
     theme,
@@ -54,6 +92,10 @@ const useProfile = () => {
     onSettingsClick,
     onBibleSettingsClick,
     onSaintsSettingsClick,
+    debugNotification5,
+    debugNotification60,
+    debugNotificationEveryMinute,
+    debugNotification30Random,
   };
 };
 

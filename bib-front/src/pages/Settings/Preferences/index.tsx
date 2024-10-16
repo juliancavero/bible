@@ -11,11 +11,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import useSettings from "./useSettings";
+import usePreferencesPage from "./usePreferences";
 
-const SettingsPage = () => {
+const PreferencesPage = () => {
   const { preferences, goBack, onChangeTheme, theme, onFontSizeChange } =
-    useSettings();
+    usePreferencesPage();
   return (
     <MainContainer>
       <IndexBar text="Preferencias" onClick={goBack} />
@@ -72,7 +72,7 @@ const SettingsPage = () => {
   );
 };
 
-export default SettingsPage;
+export default PreferencesPage;
 
 type SettingsItemProps = {
   children: React.ReactNode;
