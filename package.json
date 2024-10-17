@@ -8,8 +8,5 @@
     "prepare": "husky install"
   },
   "author": "",
-  "license": "ISC",
-  "devDependencies": {
-    "husky": "^9.1.6"
-  }
+  "license": "ISC"
 }
