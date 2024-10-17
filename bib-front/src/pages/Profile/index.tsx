@@ -91,7 +91,7 @@ const ProfilePage = () => {
                 Notificación en 60 segundos
               </SettingsItem>
               <SettingsItem onClick={debugNotificationEveryMinute}>
-                Notificación cada minuto
+                Notificación testitng
               </SettingsItem>
               <SettingsItem onClick={debugNotification30Random}>
                 Notificación Random en 30 segundos

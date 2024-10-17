@@ -14,9 +14,11 @@ type ScheduleNotificationProps = {
 };
 
 type SaintNotificationData = {
+  type: "saint";
   name: string;
   day: number;
   month: number;
+  id: number;
 };
 
 const useNotifications = () => {

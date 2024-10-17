@@ -67,10 +67,23 @@ const useProfile = () => {
 
   const debugNotificationEveryMinute = async () => {
     await scheduleNotification({
-      title: "Test Notification",
-      body: "This is a test notification",
-      id: 123,
-      every: "minute",
+      title: `Santoral`,
+      body: `Hoy es el día de San Pancracio. ¡No te olvides de felicitarlo!`,
+      id: 39,
+      on: new Date(
+        new Date().getFullYear(),
+        new Date().getMonth(),
+        new Date().getDate(),
+        new Date().getHours(),
+        new Date().getMinutes() + 1
+      ),
+      extra: {
+        type: "saint",
+        name: "san-pancracio",
+        day: 17,
+        month: 10,
+        id: 39,
+      },
     });
   };
 

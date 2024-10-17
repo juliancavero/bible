@@ -52,9 +52,11 @@ const useSaintDetails = () => {
         9
       ),
       extra: {
+        type: "saint",
         name: data.name,
         day: Number(data.day),
         month: Number(data.month),
+        id: data.id,
       },
     });
 
