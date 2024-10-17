@@ -38,7 +38,7 @@ const FavouriteProvider = ({ children }: ProviderProps) => {
   const removeFromFavChapters = (chapter: FavouriteChapterType) => {
     const foundIndex = favouriteChapters.findIndex(
       (prev) =>
-        prev.bibleBook.path === chapter.bibleBook.path &&
+        prev.bibleBook.value === chapter.bibleBook.value &&
         prev.chapter === chapter.chapter
     );
 
@@ -53,7 +53,7 @@ const FavouriteProvider = ({ children }: ProviderProps) => {
 
   const isChapterFavourite = (book: BibleBookType, chapter: number) => {
     return !!favouriteChapters.find(
-      (fav) => fav.bibleBook.path === book.path && fav.chapter === chapter
+      (fav) => fav.bibleBook.value === book.value && fav.chapter === chapter
     );
   };
 

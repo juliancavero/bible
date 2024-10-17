@@ -27,7 +27,7 @@ const BibleReadPage = () => {
     toggleFavourite,
   } = useBibleRead();
 
-  const bookName = thisBook ? thisBook.name : book;
+  const bookName = thisBook ? thisBook.label : book;
   return (
     <MainContainer key={String(book) + String(chapter)}>
       <IndexBar
@@ -68,7 +68,7 @@ const BibleReadPage = () => {
                 {previous && (
                   <div className="flex flex-col gap-1">
                     <span className="text-sm font-bold">
-                      {previous.book.name} {previous.chapter}
+                      {previous.book.label} {previous.chapter}
                     </span>
                     <Button onClick={onPrevious} variant="outline">
                       Anterior
@@ -78,7 +78,7 @@ const BibleReadPage = () => {
                 {next && (
                   <div className="flex flex-col gap-1 text-right">
                     <span className="text-sm font-bold">
-                      {next.book.name} {next.chapter}
+                      {next.book.label} {next.chapter}
                     </span>
                     <Button onClick={onNext} variant="outline">
                       Siguiente

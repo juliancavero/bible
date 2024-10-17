@@ -1,3 +1,4 @@
+import { Segments } from "@/lib/Segments";
 import { Saint } from "./saints";
 
 export type BibleContextType = {
@@ -19,17 +20,12 @@ export type FavouriteChapterContextType = {
 };
 
 export type BibleBookType = {
-  name: string;
+  label: string;
   chapters: number;
   order: number;
   segment: Segments;
-  path: string;
+  value: string;
 };
-
-export enum Segments {
-  Old = "old",
-  New = "new",
-}
 
 export type FavouriteChapterType = {
   bibleBook: BibleBookType;

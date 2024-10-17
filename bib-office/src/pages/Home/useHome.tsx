@@ -16,9 +16,9 @@ const useHome = () => {
   const { data: stats } = useGetStats();
   const todaysMonth = new Date().getMonth() + 1;
   const [renderMonth, setRenderMonth] = useState(todaysMonth);
-  const [renderBook, setRenderBook] = useState(bibleBooks[0].path);
+  const [renderBook, setRenderBook] = useState(bibleBooks[0].value);
   const [renderTeachingsBook, setRenderTeachingsBook] = useState(
-    bibleBooks[0].path
+    bibleBooks[0].value
   );
 
   const handlePreviousMonth = () => {
@@ -30,42 +30,42 @@ const useHome = () => {
   };
 
   const handlePreviousBook = () => {
-    const index = bibleBooks.findIndex((book) => book.path === renderBook);
+    const index = bibleBooks.findIndex((book) => book.value === renderBook);
     if (index <= 0) {
-      setRenderBook(bibleBooks[bibleBooks.length - 1].path);
+      setRenderBook(bibleBooks[bibleBooks.length - 1].value);
     } else {
-      setRenderBook(bibleBooks[index - 1].path);
+      setRenderBook(bibleBooks[index - 1].value);
     }
   };
 
   const handleNextBook = () => {
-    const index = bibleBooks.findIndex((book) => book.path === renderBook);
+    const index = bibleBooks.findIndex((book) => book.value === renderBook);
     if (index >= bibleBooks.length - 1) {
-      setRenderBook(bibleBooks[0].path);
+      setRenderBook(bibleBooks[0].value);
     } else {
-      setRenderBook(bibleBooks[index + 1].path);
+      setRenderBook(bibleBooks[index + 1].value);
     }
   };
 
   const handlePreviousTeachingsBook = () => {
     const index = bibleBooks.findIndex(
-      (book) => book.path === renderTeachingsBook
+      (book) => book.value === renderTeachingsBook
     );
     if (index <= 0) {
-      setRenderTeachingsBook(bibleBooks[bibleBooks.length - 1].path);
+      setRenderTeachingsBook(bibleBooks[bibleBooks.length - 1].value);
     } else {
-      setRenderTeachingsBook(bibleBooks[index - 1].path);
+      setRenderTeachingsBook(bibleBooks[index - 1].value);
     }
   };
 
   const handleNextTeachingsBook = () => {
     const index = bibleBooks.findIndex(
-      (book) => book.path === renderTeachingsBook
+      (book) => book.value === renderTeachingsBook
     );
     if (index >= bibleBooks.length - 1) {
-      setRenderTeachingsBook(bibleBooks[0].path);
+      setRenderTeachingsBook(bibleBooks[0].value);
     } else {
-      setRenderTeachingsBook(bibleBooks[index + 1].path);
+      setRenderTeachingsBook(bibleBooks[index + 1].value);
     }
   };
 
@@ -89,12 +89,12 @@ const useHome = () => {
   }, [renderMonth]);
 
   const bookChapters = useMemo(() => {
-    return bibleBooks.find((book) => book.path === renderBook)?.chapters || 1;
+    return bibleBooks.find((book) => book.value === renderBook)?.chapters || 1;
   }, [renderBook]);
 
   const teachingsBookChapters = useMemo(() => {
     return (
-      bibleBooks.find((book) => book.path === renderTeachingsBook)?.chapters ||
+      bibleBooks.find((book) => book.value === renderTeachingsBook)?.chapters ||
       1
     );
   }, [renderTeachingsBook]);
@@ -126,11 +126,11 @@ const useHome = () => {
   }, [renderMonth]);
 
   const bookName = useMemo(() => {
-    return bibleBooks.find((book) => book.path === renderBook)?.name;
+    return bibleBooks.find((book) => book.value === renderBook)?.label;
   }, [renderBook]);
 
   const teachingsBookName = useMemo(() => {
-    return bibleBooks.find((book) => book.path === renderTeachingsBook)?.name;
+    return bibleBooks.find((book) => book.value === renderTeachingsBook)?.label;
   }, [renderTeachingsBook]);
 
   return {

@@ -29,8 +29,8 @@ const CreateTeachingPage = () => {
             <StyledBox>
               <ForwardSelect
                 options={bibleBooks.map((book) => ({
-                  value: book.path,
-                  label: book.name,
+                  value: book.value,
+                  label: book.label,
                 }))}
                 {...register("book", { required: "Este campo es requerido" })}
                 error={!!errors.book}

@@ -4,6 +4,7 @@ import { FavouriteProvider } from "./custom/favourites";
 import QueryProv from "./query";
 import RouterProv from "./router";
 import { ThemeProvider } from "./theme";
+import ToasterProvider from "./toaster";
 
 const MainProvider = () => {
   return (
@@ -12,7 +13,9 @@ const MainProvider = () => {
         <BibleProvider>
           <FavouriteProvider>
             <AchievementsProvider>
-              <RouterProv />
+              <ToasterProvider>
+                <RouterProv />
+              </ToasterProvider>
             </AchievementsProvider>
           </FavouriteProvider>
         </BibleProvider>

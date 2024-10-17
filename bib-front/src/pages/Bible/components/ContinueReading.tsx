@@ -20,7 +20,8 @@ const ContinueReading = ({
         <BodyText>Continúa por donde te quedaste: </BodyText>
       </div>
       <Button onClick={onContinueReadingClick} className="grow-1">
-        {continueReadingChapter.bibleBook.name} {continueReadingChapter.chapter}
+        {continueReadingChapter.bibleBook.label}{" "}
+        {continueReadingChapter.chapter}
       </Button>
     </div>
   );

@@ -1,19 +1,16 @@
+import { Segments } from "@/lib/Segments";
+
 export type BibleContextType = {
   bibleBooks: BibleBook[];
 };
 
 export type BibleBook = {
-  name: string;
+  label: string;
   chapters: number;
   order: number;
   segment: Segments;
-  path: string;
+  value: string;
 };
-
-export enum Segments {
-  Old = "Old",
-  New = "New",
-}
 
 export type Chapter = {
   id: number;

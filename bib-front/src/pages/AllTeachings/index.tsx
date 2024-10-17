@@ -13,7 +13,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { bibleBooks } from "@/utils/lib";
+import { BibleBooks } from "@/lib/BibleBooks";
 import { BookOpenIcon, MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import { AnimatePresence, motion } from "framer-motion";
 import RenderRecentTeachings from "./components/RenderRecentTeachings";
@@ -163,7 +163,7 @@ const AnimatedFilterBar = ({
                     <SelectValue>{book}</SelectValue>
                   </SelectTrigger>
                   <SelectContent>
-                    {bibleBooks.map((book) => (
+                    {BibleBooks.map((book) => (
                       <SelectItem key={book.value} value={book.value}>
                         {book.label}
                       </SelectItem>

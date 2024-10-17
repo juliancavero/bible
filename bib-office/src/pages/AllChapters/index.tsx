@@ -2,7 +2,7 @@ import MainPaper from "@/components/Containers/MainPaper";
 import { Select } from "@/components/Inputs/Select";
 import PaginationTable from "@/components/Table/TablePagination";
 import Row from "@/components/Table/TableRow";
-import { bibleBooks } from "@/utils/lib";
+import { BibleBooks } from "@/lib/BibleBooks";
 import {
   ArrowDownward,
   ArrowUpward,
@@ -67,7 +67,7 @@ const AllChaptersPage = () => {
         <Grid item xs={6}>
           <Select
             includeEmpty
-            options={bibleBooks}
+            options={BibleBooks}
             onChange={(e) => setBook(e.target.value)}
             value={book}
           />

@@ -48,11 +48,11 @@ const FavouriteBibleBooks = ({
         {favouriteChapters.map((fav, index) => {
           return (
             <BiColorListItem
-              onClick={() => onFavClick(fav.bibleBook.path, fav.chapter)}
+              onClick={() => onFavClick(fav.bibleBook.value, fav.chapter)}
               colored={index % 2 !== 0}
               key={index}
             >
-              {fav.bibleBook.name} {fav.chapter}
+              {fav.bibleBook.label} {fav.chapter}
             </BiColorListItem>
           );
         })}

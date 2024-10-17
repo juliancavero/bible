@@ -26,7 +26,7 @@ const useBibleRead = () => {
   const getNext = () => {
     if (!book || !chapter) return null;
 
-    const thisBookIndex = bibleBooks.findIndex((b) => b.path === book);
+    const thisBookIndex = bibleBooks.findIndex((b) => b.value === book);
 
     if (thisBookIndex < 0 || thisBookIndex >= bibleBooks.length) return null;
 
@@ -55,7 +55,7 @@ const useBibleRead = () => {
   const getPrevious = () => {
     if (!book || !chapter) return null;
 
-    const thisBookIndex = bibleBooks.findIndex((b) => b.path === book);
+    const thisBookIndex = bibleBooks.findIndex((b) => b.value === book);
     if (thisBookIndex < 0) return null;
 
     const previousChapter = Number(chapter) !== 1 ? Number(chapter) - 1 : 0;
@@ -78,18 +78,18 @@ const useBibleRead = () => {
     };
   };
 
-  const thisBook = bibleBooks.find((b) => b.path === book);
+  const thisBook = bibleBooks.find((b) => b.value === book);
   const next = getNext();
   const previous = getPrevious();
 
   const onNext = () => {
     if (!next) return;
-    goToBook(next.book.path, next.chapter);
+    goToBook(next.book.value, next.chapter);
   };
 
   const onPrevious = () => {
     if (!previous) return;
-    goToBook(previous.book.path, previous.chapter);
+    goToBook(previous.book.value, previous.chapter);
   };
 
   const onBack = () => {

@@ -29,7 +29,7 @@ const Book = ({ book, colored, onChapterSelect }: BookType) => {
         <span
           className={`duration-300 ease-in-out ${open && "text-xl font-bold"}`}
         >
-          {book.name}
+          {book.label}
         </span>
         {open ? <VerticalArrow dir="up" /> : <VerticalArrow dir="down" />}
       </CollapsibleTrigger>
@@ -38,7 +38,7 @@ const Book = ({ book, colored, onChapterSelect }: BookType) => {
           {Array.from({ length: book.chapters }, (_, index) => (
             <div
               key={index}
-              onClick={() => onChapterSelect(book.path, index + 1)}
+              onClick={() => onChapterSelect(book.value, index + 1)}
               className="p-2 text-center cursor-pointer rounded-lg
                 bg-background-alternate"
             >

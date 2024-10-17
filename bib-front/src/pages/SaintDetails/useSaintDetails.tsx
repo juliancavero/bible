@@ -4,11 +4,12 @@ import useNav from "@/hooks/useNav";
 import useNotifications from "@/hooks/useNotifications";
 import { useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
+import { toast } from "sonner";
 
 const useSaintDetails = () => {
   const { id = "" } = useParams();
   const { goBack } = useNav();
-  const { scheduleNotification } = useNotifications();
+  const { scheduleNotification, cancelNotification } = useNotifications();
   const { data, isLoading, isError } = useGetSaintDetails(id);
   const { favSaints, addToFavSaint, isSaintFav, removeFromFavSaint } =
     useFavouriteContext();
@@ -50,6 +51,21 @@ const useSaintDetails = () => {
         Number(data.day),
         9
       ),
+      extra: {
+        name: data.name,
+        day: Number(data.day),
+        month: Number(data.month),
+      },
+    });
+
+    toast("Notificación programada", {
+      position: "top-center",
+      action: {
+        label: "Cancelar",
+        onClick: () => {
+          cancelNotification(data.id);
+        },
+      },
     });
   };
 

@@ -47,11 +47,11 @@ const SaintDetailsPage = () => {
               {isError && <Error />}
               {data ? (
                 <div key={data.id} className="px-2">
-                  <div className="flex flex-row items-center justify-between md:mb-3">
-                    <StrongText extra className="italic capitalize">
+                  <div className="grid grid-cols-12 items-center md:mb-3">
+                    <StrongText extra className="italic capitalize col-span-8">
                       {data.name}
                     </StrongText>
-                    <div>
+                    <div className="flex flex-row gap-3 col-span-4 justify-end">
                       <Button variant={"link"} onClick={toggleFavourite}>
                         <Star filled={isFavourite} />
                       </Button>

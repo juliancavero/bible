@@ -46,7 +46,7 @@ const useCreateTeaching = () => {
   };
 
   const templates = useMemo(() => {
-    const bookName = bibleBooks.find((b) => b.path === watch("book"))?.name;
+    const bookName = bibleBooks.find((b) => b.value === watch("book"))?.label;
     return {
       createTeaching: getTemplate(TemplateType.CreateTeaching)
         .replace("{{book}}", bookName || "")

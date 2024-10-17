@@ -16,7 +16,7 @@ const useBible = () => {
   const onContinueReadingClick = () => {
     if (!continueReadingChapter) return;
     const { bibleBook, chapter } = continueReadingChapter;
-    goToBook(bibleBook.path, Number(chapter));
+    goToBook(bibleBook.value, Number(chapter));
   };
 
   const continueReadingChapter = continueReading();

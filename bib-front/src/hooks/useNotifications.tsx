@@ -10,6 +10,13 @@ type ScheduleNotificationProps = {
   on?: Date;
   at?: Date;
   every?: ScheduleEvery;
+  extra?: SaintNotificationData;
+};
+
+type SaintNotificationData = {
+  name: string;
+  day: number;
+  month: number;
 };
 
 const useNotifications = () => {
@@ -45,10 +52,17 @@ const useNotifications = () => {
     on,
     at,
     every,
+    extra,
   }: ScheduleNotificationProps) => {
     await checkPermissions();
 
     const channelId = await createChannelOrNull();
+
+    const exists = await checkIfNotificationExists(id);
+
+    if (exists) {
+      await cancelNotification(id);
+    }
 
     await LocalNotifications.schedule({
       notifications: [
@@ -73,6 +87,7 @@ const useNotifications = () => {
 
             allowWhileIdle: true,
           },
+          extra,
         },
       ],
     });
@@ -84,6 +99,11 @@ const useNotifications = () => {
 
   const listNotifications = async () => {
     return await LocalNotifications.getPending();
+  };
+
+  const checkIfNotificationExists = async (id: number) => {
+    const notifications = await listNotifications();
+    return notifications.notifications.some((n) => n.id === id);
   };
 
   return {
