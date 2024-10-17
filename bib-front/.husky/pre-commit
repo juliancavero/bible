@@ -1,0 +1,3 @@
+npm run build-dev
+cp android/app/build/outputs/apk/debug/app-debug.apk ../
+git add .
