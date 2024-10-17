@@ -8,6 +8,8 @@
 *.njsproj
 *.sln
 *.sw?
+node_modules
+.husky
 
 images
 database
