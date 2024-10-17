@@ -81,7 +81,7 @@ const ProfilePage = () => {
             <Card>
               <StrongText>DEBUG DEBUG DEBUG DEBUG </StrongText>
               <SettingsItem onClick={deleteQuestions}>
-                Delete localstorage questions
+                Delete localstorage qestions
               </SettingsItem>
               <SettingsItem onClick={changeTheme}>Cambiar tema</SettingsItem>
               <SettingsItem onClick={debugNotification5}>
