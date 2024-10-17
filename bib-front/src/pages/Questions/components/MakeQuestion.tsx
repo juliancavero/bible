@@ -93,7 +93,7 @@ const MakeQuestion = ({ onSubmit, short = false }: MakeQuestionProps) => {
           />
           <Dialog open={open} onOpenChange={setOpen}>
             <DialogContent
-              className="w-11/12 h-[90%]"
+              className="w-11/12 h-[90%] overflow-y-scroll max-h-screen"
               aria-describedby={undefined}
             >
               <DialogHeader>

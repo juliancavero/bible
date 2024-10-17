@@ -6,9 +6,18 @@ type CreateQuestionDTO = {
   text: string;
 };
 
-const postQuestion = async (body: CreateQuestionDTO): Promise<Question> => {
-  const response = await axiosInstance.post<Question>("/questions", body);
-  return response.data;
+const postQuestion = async (
+  body: CreateQuestionDTO
+): Promise<Question | null> => {
+  try {
+    const response = await axiosInstance.post<Question>("/questions", body, {
+      timeout: 5000,
+    });
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
 };
 
 const usePostQuestion = () => {

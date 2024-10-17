@@ -42,6 +42,16 @@ const useQuestions = () => {
       });
       handleClose();
       goTo(AppRoutes.QUESTIONS, id);
+    } else {
+      const id = Math.floor(Math.random() * 9000) + 1000;
+      storeQuestion({
+        id: id,
+        text: question,
+        answer: Math.random() > 0.5 ? "Sí" : "No",
+        createdAt: new Date().toISOString(),
+      });
+      handleClose();
+      goTo(AppRoutes.QUESTIONS, id);
     }
   };
 

@@ -11,6 +11,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { FontSizes, Themes } from "./translations";
 import usePreferencesPage from "./usePreferences";
 
 const PreferencesPage = () => {
@@ -23,28 +24,16 @@ const PreferencesPage = () => {
         <MainContainer>
           <PaddingBox className="flex flex-col gap-3">
             <Card>
-              <SettingsItem first>
-                <BodyText>Idioma</BodyText>
-                <Select>
-                  <SelectTrigger className="w-1/2 text-end">
-                    <SelectValue>{theme}</SelectValue>
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="es">Español</SelectItem>
-                    <SelectItem value="en">Inglés</SelectItem>
-                  </SelectContent>
-                </Select>
-              </SettingsItem>
               <SettingsItem>
                 <BodyText>Tema seleccionado</BodyText>
                 <Select onValueChange={onChangeTheme} value={theme}>
                   <SelectTrigger className="w-1/2 text-end">
-                    <SelectValue>{theme}</SelectValue>
+                    <SelectValue>{Themes[theme]}</SelectValue>
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="light">Claro</SelectItem>
-                    <SelectItem value="dark">Oscuro</SelectItem>
-                    <SelectItem value="system">Automático</SelectItem>
+                    <SelectItem value="light">{Themes.light}</SelectItem>
+                    <SelectItem value="dark">{Themes.dark}</SelectItem>
+                    <SelectItem value="system">{Themes.system}</SelectItem>
                   </SelectContent>
                 </Select>
               </SettingsItem>
@@ -55,12 +44,12 @@ const PreferencesPage = () => {
                   value={preferences.fontSize}
                 >
                   <SelectTrigger className="w-1/2 text-end">
-                    <SelectValue>{preferences.fontSize}</SelectValue>
+                    <SelectValue>{FontSizes[preferences.fontSize]}</SelectValue>
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="default">Normal</SelectItem>
-                    <SelectItem value="medium">Mediano</SelectItem>
-                    <SelectItem value="large">Grande</SelectItem>
+                    <SelectItem value="default">{FontSizes.default}</SelectItem>
+                    <SelectItem value="medium">{FontSizes.medium}</SelectItem>
+                    <SelectItem value="large">{FontSizes.large}</SelectItem>
                   </SelectContent>
                 </Select>
               </SettingsItem>
@@ -77,20 +66,13 @@ export default PreferencesPage;
 type SettingsItemProps = {
   children: React.ReactNode;
   onClick?: () => void;
-  first?: boolean;
 };
 
-const SettingsItem = ({
-  first = false,
-  children,
-  onClick,
-}: SettingsItemProps) => {
+const SettingsItem = ({ children, onClick }: SettingsItemProps) => {
   return (
     <div
       onClick={onClick}
-      className={`flex justify-between items-center gap-3 ${
-        first ? "pb-3 px-3" : "p-3"
-      } border-b border-gray-200`}
+      className={`flex justify-between items-center gap-3 px-1 py-3 border-b border-gray-200`}
     >
       {children}
     </div>

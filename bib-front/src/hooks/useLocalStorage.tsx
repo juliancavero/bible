@@ -5,6 +5,7 @@ export enum LocalStorageKeys {
   STORED_QUESTIONS = "stored_questions",
   ACHIEVEMENTS = "achievements",
   PREFERENCES = "preferences",
+  BIBLE_VERSION = "bible_version",
 }
 
 const useLocalStorage = () => {

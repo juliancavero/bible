@@ -8,6 +8,7 @@ import Markdown from "@/components/Text/Markdown";
 import StrongText from "@/components/Text/StrongText";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
+import { BiblePadding } from "@/types/preferences";
 import useBibleRead from "./useBibleRead";
 
 const BibleReadPage = () => {
@@ -19,6 +20,7 @@ const BibleReadPage = () => {
     onNext,
     chapter,
     isError,
+    padding,
     thisBook,
     previous,
     isLoading,
@@ -28,6 +30,7 @@ const BibleReadPage = () => {
   } = useBibleRead();
 
   const bookName = thisBook ? thisBook.label : book;
+  const paddingDefault = padding === BiblePadding.default;
   return (
     <MainContainer key={String(book) + String(chapter)}>
       <IndexBar
@@ -38,7 +41,7 @@ const BibleReadPage = () => {
 
       <AnimatedLayout>
         <MainContainer>
-          <PaddingBox multiplier={3}>
+          <PaddingBox multiplier={paddingDefault ? 3 : 0}>
             <Card>
               <div className="flex flex-row items-center justify-between p-2">
                 <h1 className="text-2xl italic font-bold">
@@ -49,7 +52,7 @@ const BibleReadPage = () => {
                 </Button>
               </div>
 
-              <div className="p-2 mb-3">
+              <div className={`mb-5 ${paddingDefault ? "p-2" : "p-0"}`}>
                 {data && data?.text ? (
                   <Markdown children={data.text} />
                 ) : isLoading ? (

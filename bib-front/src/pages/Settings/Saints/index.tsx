@@ -14,7 +14,7 @@ const SaintsSettingsPage = () => {
   const { goBack, notifications, onCancelNotification } = useSaintsSettings();
   return (
     <MainContainer>
-      <IndexBar text="Preferencias" onClick={goBack} />
+      <IndexBar text="Ajustes - Santoral" onClick={goBack} />
       <AnimatedLayout>
         <MainContainer>
           <PaddingBox className="flex flex-col gap-3">
@@ -36,7 +36,7 @@ const SaintsSettingsPage = () => {
                       />
                     ))
                   ) : (
-                    <SettingsItem first>
+                    <SettingsItem>
                       <BodyText>No hay recordatorios programados</BodyText>
                     </SettingsItem>
                   )}
@@ -58,17 +58,11 @@ type SettingsItemProps = {
   first?: boolean;
 };
 
-const SettingsItem = ({
-  first = false,
-  children,
-  onClick,
-}: SettingsItemProps) => {
+const SettingsItem = ({ children, onClick }: SettingsItemProps) => {
   return (
     <div
       onClick={onClick}
-      className={`flex justify-between items-center gap-3 ${
-        first ? "pb-3 px-3" : "p-3"
-      } border-b border-gray-200`}
+      className={`flex justify-between items-center gap-3 px-1 py-3 border-b border-gray-200`}
     >
       {children}
     </div>

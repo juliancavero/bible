@@ -5,12 +5,14 @@ import AppRoutes from "@/context/router/routes";
 import useAchievements from "@/hooks/useAchievements";
 import useContinueReading from "@/hooks/useContinueReading";
 import useNav from "@/hooks/useNav";
+import usePreferences from "@/hooks/usePreferences";
 import useTimer from "@/hooks/useTimer";
 import { useEffect, useMemo } from "react";
 import { useParams } from "react-router-dom";
 
 const useBibleRead = () => {
   const { addChapter, addTime } = useAchievements();
+  const { preferences } = usePreferences();
   const timer = useTimer(60000, addTime);
   const { book, chapter } = useParams();
   const { goToBook, goTo } = useNav();
@@ -151,6 +153,7 @@ const useBibleRead = () => {
     onPrevious,
     isFavourite,
     toggleFavourite,
+    padding: preferences.biblePadding,
 
     timer,
   };

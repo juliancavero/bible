@@ -6,7 +6,6 @@ import PaddingBox from "@/components/Containers/PaddingBox";
 import Book from "@/components/Icons/Book";
 import SaintIcon from "@/components/Icons/SaintIcon";
 import Settings from "@/components/Icons/Settings";
-import Star from "@/components/Icons/Star";
 import BodyText from "@/components/Text/BodyText";
 import StrongText from "@/components/Text/StrongText";
 import AchievementsDemo from "./components/AchievementsDemo";
@@ -59,15 +58,7 @@ const ProfilePage = () => {
                   <BodyText className="text-xl">Santoral</BodyText>
                 </div>
               </div>
-              <div
-                className="py-3 border-b border-gray-200 cursor-pointer"
-                onClick={onSettingsClick}
-              >
-                <div className="flex flex-row items-center gap-2">
-                  <Star filled size={9} />
-                  <BodyText className="text-xl">Favoritos</BodyText>
-                </div>
-              </div>
+
               <div
                 className="py-3 border-b border-gray-200 cursor-pointer"
                 onClick={onSettingsClick}

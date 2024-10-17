@@ -51,7 +51,7 @@
     --chart-5: 27 87% 67%;
     --radius: 0.5rem;
   }
-  .dark {
+  .dark2 {
     --background: 215 28% 17%;
     --wallpaper: 221 39% 11%;
     --background-alternate: 217 19% 27%;
@@ -80,7 +80,7 @@
     --chart-5: 340 75% 55%;
   }
 
-  .dark2 {
+  .dark {
     --background: 240 6% 10%;
     --wallpaper: 240 4% 16%;
     --background-alternate: 217 19% 15%;
