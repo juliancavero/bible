@@ -70,13 +70,7 @@ const useProfile = () => {
       title: `Santoral`,
       body: `Hoy es el día de San Pancracio. ¡No te olvides de felicitarlo!`,
       id: 39,
-      on: new Date(
-        new Date().getFullYear(),
-        new Date().getMonth(),
-        new Date().getDate(),
-        new Date().getHours(),
-        new Date().getMinutes() + 1
-      ),
+      at: new Date(Date.now() + 10000),
       extra: {
         type: "saint",
         name: "san-pancracio",
