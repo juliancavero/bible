@@ -2,7 +2,7 @@ import { PaginatedResponse } from '@/common/paginatedResponse';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Like, Repository } from 'typeorm';
-import { MissingChaptersType } from '../types';
+import { BibleVersions, MissingChaptersType } from '../types';
 import { Chapter } from './chapter.entity';
 import { AllChaptersParamsDTO } from './dto/allChaptersParams.dto';
 import { CreateChapterDTO } from './dto/createChapter.dto';
@@ -24,6 +24,7 @@ export class ChapterService {
       order_by = 'book',
       order = 'desc',
       book = '',
+      version = '',
     } = params;
 
     const [result, total] = await this.chapterRepository.findAndCount({
@@ -32,6 +33,7 @@ export class ChapterService {
       where: {
         ...(book && { book }),
         ...(search && { text: Like(`%${search}%`) }),
+        ...(version && { version }),
       },
       order: { [order_by]: order },
     });
@@ -46,9 +48,10 @@ export class ChapterService {
     };
   }
 
-  async getMissingChapters(): Promise<MissingChaptersType[]> {
+  async getMissingChapters(version?: string): Promise<MissingChaptersType[]> {
     const existingChapters = await this.chapterRepository.find({
       select: ['book', 'chapter'],
+      ...(version && { where: { version } }),
     });
     const result: MissingChaptersType[] = [];
     for (let i = 0; i < existingChapters.length; i++) {
@@ -77,7 +80,17 @@ export class ChapterService {
     });
   }
 
-  async getByBookAndChapter(book: string, chapter: number): Promise<Chapter> {
+  async getByBookAndChapter(
+    book: string,
+    chapter: number,
+    version: BibleVersions,
+  ): Promise<Chapter> {
+    const withVersion = await this.chapterRepository.findOne({
+      where: { book, chapter, version },
+    });
+    if (withVersion) {
+      return withVersion;
+    }
     return await this.chapterRepository.findOne({
       where: { book, chapter },
     });
@@ -88,6 +101,7 @@ export class ChapterService {
     chapter.book = body.book;
     chapter.chapter = body.chapter;
     chapter.text = body.text;
+    chapter.version = body.version;
     return await this.chapterRepository.save(chapter);
   }
 

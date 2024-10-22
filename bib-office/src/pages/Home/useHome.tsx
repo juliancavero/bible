@@ -11,7 +11,12 @@ const useHome = () => {
   const { navigate } = useNav();
   const { bibleBooks } = useContext(BibleContext);
   const { data: saintDates } = useGetMissingSaintDates();
-  const { data: chapterDates } = useGetMissingChapterDates();
+  const { data: chapterDatesNVI } = useGetMissingChapterDates("nvi");
+  const { data: chapterDatesTorresAmat } =
+    useGetMissingChapterDates("torresAmat");
+  const { data: chapterDatesRV1909 } = useGetMissingChapterDates("rv1909");
+  const { data: chapterDatesFreeWorld } =
+    useGetMissingChapterDates("freeWorld");
   const { data: teachingDates } = useGetMissingTeachingDates();
   const { data: stats } = useGetStats();
   const todaysMonth = new Date().getMonth() + 1;
@@ -73,8 +78,10 @@ const useHome = () => {
     navigate(`/create-saint?day=${day}&month=${renderMonth}`);
   };
 
-  const onCalendarChapterClick = (numb: number) => {
-    navigate(`/create-chapter?book=${renderBook}&chapter=${numb}`);
+  const onCalendarChapterClick = (numb: number, version: string) => {
+    navigate(
+      `/create-chapter?book=${renderBook}&chapter=${numb}&version=${version}`
+    );
   };
 
   const onCalendarTeachingClick = (numb: number) => {
@@ -106,12 +113,36 @@ const useHome = () => {
       .map((date) => date.day);
   }, [renderMonth, saintDates]);
 
-  const missingChapters = useMemo(() => {
-    if (!chapterDates) return [];
+  const missingChaptersNVI = useMemo(() => {
+    if (!chapterDatesNVI) return [];
     return (
-      chapterDates.find((date) => date.book === renderBook)?.chapters || []
+      chapterDatesNVI.find((date) => date.book === renderBook)?.chapters || []
     );
-  }, [renderBook, chapterDates]);
+  }, [renderBook, chapterDatesNVI]);
+
+  const missingChaptersTorresAmat = useMemo(() => {
+    if (!chapterDatesTorresAmat) return [];
+    return (
+      chapterDatesTorresAmat.find((date) => date.book === renderBook)
+        ?.chapters || []
+    );
+  }, [renderBook, chapterDatesTorresAmat]);
+
+  const missingChaptersRV1909 = useMemo(() => {
+    if (!chapterDatesRV1909) return [];
+    return (
+      chapterDatesRV1909.find((date) => date.book === renderBook)?.chapters ||
+      []
+    );
+  }, [renderBook, chapterDatesRV1909]);
+
+  const missingChaptersFreeWorld = useMemo(() => {
+    if (!chapterDatesFreeWorld) return [];
+    return (
+      chapterDatesFreeWorld.find((date) => date.book === renderBook)
+        ?.chapters || []
+    );
+  }, [renderBook, chapterDatesFreeWorld]);
 
   const missingTeachings = useMemo(() => {
     if (!teachingDates) return [];
@@ -143,7 +174,10 @@ const useHome = () => {
     bookChapters,
     bookName,
     stats,
-    missingChapters,
+    missingChaptersNVI,
+    missingChaptersTorresAmat,
+    missingChaptersRV1909,
+    missingChaptersFreeWorld,
     missingTeachings,
     handlePreviousBook,
     handleNextBook,

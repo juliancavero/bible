@@ -1,10 +1,10 @@
 export type AppFontSizes = "default" | "medium" | "large";
 
 export enum BibleVersions {
-  nvi = "Nueva Versión Internacional",
-  rv1909 = "Reina Valera 1909",
-  torresAmat = "Biblia Torres Amat",
-  freeWorld = "Santa Biblia Libre para el Mundo",
+  nvi = "nvi",
+  rv1909 = "rv1909",
+  torresAmat = "torresAmat",
+  freeWorld = "freeWorld",
 }
 
 export enum BiblePadding {

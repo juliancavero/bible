@@ -19,7 +19,8 @@ const useBibleRead = () => {
   const { bibleBooks } = useBibleContext();
   const { data, isLoading, isError } = useGetChapterDetails(
     book || "",
-    chapter || ""
+    chapter || "",
+    preferences.bibleVersion
   );
   const { addToFav, favChapters, isChapterFav, removeFromFav } =
     useFavouriteContext();

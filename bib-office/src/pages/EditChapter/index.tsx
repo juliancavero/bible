@@ -8,6 +8,7 @@ import useEditChapter from "./useEditChapter";
 const EditChapterPage = () => {
   const {
     bibleBooks,
+    bibleVersions,
     text,
     register,
     handleSubmit,
@@ -25,15 +26,32 @@ const EditChapterPage = () => {
 
       <form onSubmit={handleSubmit(onSubmit)}>
         <StyledBox>
-          <ForwardSelect
-            options={bibleBooks.map((book) => ({
-              value: book.value,
-              label: book.label,
-            }))}
-            {...register("book", { required: "Este campo es requerido" })}
-            error={!!errors.book}
-            helperText={errors.book?.message}
-          />
+          <Grid container spacing={2}>
+            <Grid item xs={6}>
+              <ForwardSelect
+                options={bibleBooks.map((book) => ({
+                  value: book.value,
+                  label: book.label,
+                }))}
+                {...register("book", { required: "Este campo es requerido" })}
+                error={!!errors.book}
+                helperText={errors.book?.message}
+              />
+            </Grid>
+            <Grid item xs={6}>
+              <ForwardSelect
+                options={bibleVersions.map((version) => ({
+                  value: version.value,
+                  label: version.label,
+                }))}
+                {...register("version", {
+                  required: "Este campo es requerido",
+                })}
+                error={!!errors.version}
+                helperText={errors.version?.message}
+              />
+            </Grid>
+          </Grid>
           <Grid
             container
             spacing={2}

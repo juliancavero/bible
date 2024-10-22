@@ -5,6 +5,7 @@ type Chapter = {
   book: string;
   chapter: number;
   text: string;
+  version: string;
 };
 
 const postChapter = async (chapter: Chapter) => {

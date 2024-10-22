@@ -9,7 +9,7 @@ import {
   Put,
   Query,
 } from '@nestjs/common';
-import { MissingChaptersType } from '../types';
+import { BibleVersions, MissingChaptersType } from '../types';
 import { Chapter } from './chapter.entity';
 import { ChapterService } from './chapter.service';
 import { AllChaptersParamsDTO } from './dto/allChaptersParams.dto';
@@ -32,16 +32,19 @@ export class ChapterController {
   }
 
   @Get('missing')
-  getMissingChapters(): Promise<MissingChaptersType[]> {
-    return this.chapterService.getMissingChapters();
+  getMissingChapters(
+    @Query('version') version?: string,
+  ): Promise<MissingChaptersType[]> {
+    return this.chapterService.getMissingChapters(version);
   }
 
   @Get('book-chapter/:book/:chapter')
   getChapterByBookAndChapter(
     @Param('book') book: string,
     @Param('chapter') chapter: number,
+    @Query('v') version: BibleVersions = BibleVersions.nvi,
   ): Promise<Chapter> {
-    return this.chapterService.getByBookAndChapter(book, chapter);
+    return this.chapterService.getByBookAndChapter(book, chapter, version);
   }
 
   @Post('/')

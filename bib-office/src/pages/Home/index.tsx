@@ -24,7 +24,10 @@ const HomePage = () => {
     bookChapters,
     bookName,
     stats,
-    missingChapters,
+    missingChaptersNVI,
+    missingChaptersTorresAmat,
+    missingChaptersRV1909,
+    missingChaptersFreeWorld,
     missingTeachings,
     handlePreviousBook,
     handleNextBook,
@@ -134,6 +137,9 @@ const HomePage = () => {
         <CardContent>
           <Grid container spacing={2}>
             <Grid item md={4} xs={12} container spacing={1}>
+              <Grid item xs={12} container justifyContent={"center"}>
+                <Typography variant="h6">NVI</Typography>
+              </Grid>
               <Grid item xs={12} container>
                 <HorizontalFlexBox>
                   <Button variant="outlined" onClick={handlePreviousBook}>
@@ -148,42 +154,80 @@ const HomePage = () => {
               <Grid item xs={12}>
                 <CustomCalendar
                   totalDays={bookChapters}
-                  completedDays={missingChapters}
-                  onDayClick={onCalendarChapterClick}
+                  completedDays={missingChaptersNVI}
+                  onDayClick={(day) => onCalendarChapterClick(day, "nvi")}
                 />
               </Grid>
             </Grid>
-
-            <Grid item md={4} xs={12} container spacing={3}>
-              <Grid item xs={12}>
-                <CenteredCard>
-                  <CardContent>
-                    <VerticalFlexBox>
-                      <VerticalFlexBox>
-                        <Typography variant="h5">
-                          {stats?.chapters.total}
-                        </Typography>
-                        <Typography variant="body1">
-                          Total de capítulos registrados
-                        </Typography>
-                      </VerticalFlexBox>
-                    </VerticalFlexBox>
-                  </CardContent>
-                </CenteredCard>
+            <Grid item md={4} xs={12} container spacing={1}>
+              <Grid item xs={12} container justifyContent={"center"}>
+                <Typography variant="h6">TORRES AMAT</Typography>
+              </Grid>
+              <Grid item xs={12} container>
+                <HorizontalFlexBox>
+                  <Button variant="outlined" onClick={handlePreviousBook}>
+                    <ArrowLeft />
+                  </Button>
+                  <Typography variant="h6">{bookName}</Typography>
+                  <Button variant="outlined" onClick={handleNextBook}>
+                    <ArrowRight />
+                  </Button>
+                </HorizontalFlexBox>
               </Grid>
               <Grid item xs={12}>
-                <CenteredCard>
-                  <CardContent>
-                    <VerticalFlexBox>
-                      <Typography variant="h5">
-                        {stats?.chapters.completed.toFixed(2)}%
-                      </Typography>
-                      <Typography variant="body1">
-                        Porcentaje del libro completo
-                      </Typography>
-                    </VerticalFlexBox>
-                  </CardContent>
-                </CenteredCard>
+                <CustomCalendar
+                  totalDays={bookChapters}
+                  completedDays={missingChaptersTorresAmat}
+                  onDayClick={(day) =>
+                    onCalendarChapterClick(day, "torresAmat")
+                  }
+                />
+              </Grid>
+            </Grid>
+            <Grid item md={4} xs={12} container spacing={1}>
+              <Grid item xs={12} container justifyContent={"center"}>
+                <Typography variant="h6">REINA VALERA 1909</Typography>
+              </Grid>
+              <Grid item xs={12} container>
+                <HorizontalFlexBox>
+                  <Button variant="outlined" onClick={handlePreviousBook}>
+                    <ArrowLeft />
+                  </Button>
+                  <Typography variant="h6">{bookName}</Typography>
+                  <Button variant="outlined" onClick={handleNextBook}>
+                    <ArrowRight />
+                  </Button>
+                </HorizontalFlexBox>
+              </Grid>
+              <Grid item xs={12}>
+                <CustomCalendar
+                  totalDays={bookChapters}
+                  completedDays={missingChaptersRV1909}
+                  onDayClick={(day) => onCalendarChapterClick(day, "rv1909")}
+                />
+              </Grid>
+            </Grid>
+            <Grid item md={4} xs={12} container spacing={1}>
+              <Grid item xs={12} container justifyContent={"center"}>
+                <Typography variant="h6">FREE WORLD</Typography>
+              </Grid>
+              <Grid item xs={12} container>
+                <HorizontalFlexBox>
+                  <Button variant="outlined" onClick={handlePreviousBook}>
+                    <ArrowLeft />
+                  </Button>
+                  <Typography variant="h6">{bookName}</Typography>
+                  <Button variant="outlined" onClick={handleNextBook}>
+                    <ArrowRight />
+                  </Button>
+                </HorizontalFlexBox>
+              </Grid>
+              <Grid item xs={12}>
+                <CustomCalendar
+                  totalDays={bookChapters}
+                  completedDays={missingChaptersFreeWorld}
+                  onDayClick={(day) => onCalendarChapterClick(day, "freeWorld")}
+                />
               </Grid>
             </Grid>
           </Grid>
@@ -216,39 +260,6 @@ const HomePage = () => {
                 />
               </Grid>
             </Grid>
-
-            {/* <Grid item md={4} xs={12} container spacing={3}>
-              <Grid item xs={12}>
-                <CenteredCard>
-                  <CardContent>
-                    <VerticalFlexBox>
-                      <VerticalFlexBox>
-                        <Typography variant="h5">
-                          {stats?.chapters.total}
-                        </Typography>
-                        <Typography variant="body1">
-                          Total de capítulos registrados
-                        </Typography>
-                      </VerticalFlexBox>
-                    </VerticalFlexBox>
-                  </CardContent>
-                </CenteredCard>
-              </Grid>
-              <Grid item xs={12}>
-                <CenteredCard>
-                  <CardContent>
-                    <VerticalFlexBox>
-                      <Typography variant="h5">
-                        {stats?.chapters.completed.toFixed(2)}%
-                      </Typography>
-                      <Typography variant="body1">
-                        Porcentaje del libro completo
-                      </Typography>
-                    </VerticalFlexBox>
-                  </CardContent>
-                </CenteredCard>
-              </Grid>
-            </Grid> */}
           </Grid>
         </CardContent>
       </Card>

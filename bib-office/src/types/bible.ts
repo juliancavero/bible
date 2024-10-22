@@ -18,6 +18,7 @@ export type Chapter = {
   chapter: number;
   text: string;
   createdAt: Date;
+  version: string;
 };
 
 export type Teaching = {

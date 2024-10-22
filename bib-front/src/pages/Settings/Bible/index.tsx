@@ -22,6 +22,7 @@ const BibleSettingsPage = () => {
     biblePadding,
     changeBiblePadding,
     changeBibleVersion,
+    renderBibleVersion,
   } = useBibleSettings();
   return (
     <MainContainer>
@@ -34,7 +35,7 @@ const BibleSettingsPage = () => {
                 <BodyText>Versión</BodyText>
                 <Select value={version} onValueChange={changeBibleVersion}>
                   <SelectTrigger className="w-2/3 text-end">
-                    <SelectValue>{version.valueOf()}</SelectValue>
+                    <SelectValue>{renderBibleVersion}</SelectValue>
                   </SelectTrigger>
                   <SelectContent>
                     {bibleVersions.map((version) => (

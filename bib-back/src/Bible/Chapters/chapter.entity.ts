@@ -1,4 +1,5 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { BibleVersions } from '../types';
 
 @Entity()
 export class Chapter {
@@ -16,4 +17,7 @@ export class Chapter {
 
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   createdAt: Date;
+
+  @Column({ default: BibleVersions.nvi })
+  version: string;
 }

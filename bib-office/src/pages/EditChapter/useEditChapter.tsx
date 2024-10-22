@@ -12,6 +12,13 @@ import { useContext, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useParams } from "react-router-dom";
 
+const bibleVersions = [
+  { value: "torresAmat", label: "Torres Amat" },
+  { value: "nvi", label: "NVI" },
+  { value: "rv1909", label: "Reina Valera 1909" },
+  { value: "freeWorld", label: "Santa Biblia Libre para el Mundo" },
+];
+
 const useEditChapter = () => {
   const { id } = useParams<{ id: string }>();
   const { bibleBooks } = useContext(BibleContext);
@@ -28,11 +35,13 @@ const useEditChapter = () => {
     book: string;
     chapter: number;
     text: string;
+    version: string;
   }>({
     defaultValues: {
       book: "",
       chapter: 1,
       text: "",
+      version: "",
     },
   });
 
@@ -40,6 +49,7 @@ const useEditChapter = () => {
     book: string;
     chapter: number;
     text: string;
+    version: string;
   }) => {
     const response = await mutateAsync({
       id: Number(id),
@@ -82,11 +92,13 @@ const useEditChapter = () => {
       setValue("book", data.book);
       setValue("chapter", data.chapter);
       setValue("text", data.text);
+      setValue("version", data.version);
     }
   }, [data]);
 
   return {
     bibleBooks,
+    bibleVersions,
     register,
     handleSubmit,
     errors,

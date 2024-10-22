@@ -1,6 +1,7 @@
 import useNav from "@/hooks/useNav";
 import usePreferences from "@/hooks/usePreferences";
 import { BiblePadding, BibleVersions } from "@/types/preferences";
+import { useMemo } from "react";
 
 const bibleVersions = [
   {
@@ -37,6 +38,11 @@ const useBibleSettings = () => {
   const { preferences, changeBibleVersion, changeBiblePadding } =
     usePreferences();
 
+  const renderBibleVersion = useMemo(() => {
+    return bibleVersions.find((v) => v.value === preferences.bibleVersion)
+      ?.label;
+  }, [preferences.bibleVersion]);
+
   return {
     goBack,
     bibleVersions,
@@ -45,6 +51,7 @@ const useBibleSettings = () => {
     biblePadding: preferences.biblePadding,
     changeBibleVersion,
     changeBiblePadding,
+    renderBibleVersion,
   };
 };
 

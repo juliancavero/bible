@@ -42,7 +42,7 @@ const BibleReadPage = () => {
       <AnimatedLayout>
         <MainContainer>
           <PaddingBox multiplier={paddingDefault ? 3 : 0}>
-            <Card>
+            <Card rounded={false}>
               <div className="flex flex-row items-center justify-between p-2">
                 <h1 className="text-2xl italic font-bold">
                   {bookName} {chapter}
