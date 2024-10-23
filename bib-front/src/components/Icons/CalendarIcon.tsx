@@ -15,8 +15,8 @@ const CalendarIcon = ({
   const Icon = filled ? Solid : Outlined;
   return (
     <Icon
-      className={`h-${size} w-${size} stroke-3 stroke-slate-300 dark:stroke-slate-600 ${
-        filled && "stroke-1 fill-slate-200 dark:fill-slate-400"
+      className={`h-${size} w-${size} stroke-3 stroke-gray-500 dark:stroke-gray-800 ${
+        filled && "stroke-1 fill-gray-500 dark:fill-gray-600"
       } ${className}`}
     />
   );

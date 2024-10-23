@@ -52,13 +52,13 @@ const RenderContiguousDates = ({
 
   return (
     <PaddingBox multiplier={1} className="flex flex-col gap-2">
-      {datesExist.today && (
-        <Box className="bg-primary">
-          <StrongText extra>Hoy {renderDate(dates.today)}</StrongText>
+      {/* {datesExist.yesterday && (
+        <Box className="bg-primary mt-2">
+          <StrongText extra>Ayer {renderDate(dates.yesterday)}</StrongText>
         </Box>
       )}
       {orderedSaints
-        ?.filter((saint) => saint.day === dates.today.getDate())
+        ?.filter((saint) => saint.day === dates.yesterday.getDate())
         .map((saint, index) => {
           return (
             <div
@@ -69,14 +69,14 @@ const RenderContiguousDates = ({
               <RenderSaint saint={saint} inverted={isSaintInverted(saint)} />
             </div>
           );
-        })}
-      {datesExist.yesterday && (
-        <Box className="bg-primary mt-2">
-          <StrongText extra>Ayer {renderDate(dates.yesterday)}</StrongText>
+        })} */}
+      {datesExist.today && (
+        <Box className="bg-secondary">
+          <StrongText extra>Hoy {renderDate(dates.today)}</StrongText>
         </Box>
       )}
       {orderedSaints
-        ?.filter((saint) => saint.day === dates.yesterday.getDate())
+        ?.filter((saint) => saint.day === dates.today.getDate())
         .map((saint, index) => {
           return (
             <div

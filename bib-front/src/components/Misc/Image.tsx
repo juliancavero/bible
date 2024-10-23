@@ -17,7 +17,9 @@ const Image = ({
 }: ImageProps) => {
   return (
     <img
-      className={`h-auto m-${margin} rounded-lg object-${fit} ${className}`}
+      className={`h-auto m-${margin} rounded-lg object-${fit} ${
+        !!onClick && "cursor-pointer"
+      } ${className}`}
       src={src}
       alt={alt}
       onClick={onClick}

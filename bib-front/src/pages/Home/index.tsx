@@ -25,12 +25,6 @@ const HomePage = () => {
 
   return (
     <MainContainer>
-      {/* <IndexBar sticky>
-        <SpaceBetween>
-          <StrongText>¡Bienvenido!</StrongText>
-          <TodaysDate />
-        </SpaceBetween>
-      </IndexBar> */}
       <AnimatedLayout>
         <MainContainer>
           <PaddingBox>

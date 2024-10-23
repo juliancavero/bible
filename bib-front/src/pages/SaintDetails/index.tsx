@@ -51,11 +51,19 @@ const SaintDetailsPage = () => {
                     <StrongText extra className="italic capitalize col-span-8">
                       {data.name}
                     </StrongText>
-                    <div className="flex flex-row gap-3 col-span-4 justify-end">
-                      <Button variant={"link"} onClick={toggleFavourite}>
+                    <div className="flex flex-row gap-1 col-span-4 justify-end">
+                      <Button
+                        className="px-1"
+                        variant={"link"}
+                        onClick={toggleFavourite}
+                      >
                         <Star filled={isFavourite} />
                       </Button>
-                      <Button variant={"link"} onClick={onNotificationRequest}>
+                      <Button
+                        className="px-1"
+                        variant={"link"}
+                        onClick={onNotificationRequest}
+                      >
                         <CalendarIcon filled={true} />
                       </Button>
                     </div>
@@ -65,7 +73,7 @@ const SaintDetailsPage = () => {
                       <Image
                         src={data.image}
                         alt={data.name}
-                        className="float-none md:float-right w-4/5 md:w-1/3 md:max-w-96"
+                        className="float-none md:float-right w-4/5 md:w-1/3 md:max-w-96 mb-3 mt-2 md:ml-4"
                         onClick={() => setImageOpen(true)}
                       />
                     )}

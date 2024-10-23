@@ -11,16 +11,23 @@ import Markdown from "@/components/Text/Markdown";
 import StrongText from "@/components/Text/StrongText";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
+import { translateBook } from "@/lib/BibleBooks";
+import { useMemo } from "react";
 import useTodaysQuote from "./useTodaysQuote";
 
 const TodaysQuote = () => {
   const { data, isLoading, isError, goToTodaysQuote, goToAllQuotes } =
     useTodaysQuote();
+
+  const renderBookName = useMemo(() => {
+    return translateBook(data?.book);
+  }, [data?.book]);
+
   return (
     <Card>
       <SpaceBetween>
         <StrongText>
-          {data?.book} {data?.chapter}
+          {renderBookName} {data?.chapter}
         </StrongText>
         <StrongText>El sermón de hoy</StrongText>
       </SpaceBetween>
@@ -36,6 +43,7 @@ const TodaysQuote = () => {
                     src={data.image}
                     alt="quote"
                     className="float-left w-5/12 md:w-1/3 max-w-96 mr-4 mb-4"
+                    onClick={goToTodaysQuote}
                   />
                 )}
                 <Markdown indent={false} serif>

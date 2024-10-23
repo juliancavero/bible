@@ -463,3 +463,7 @@ export const BibleBooks = [
     chapters: 22,
   },
 ];
+
+export const translateBook = (book: string | undefined) => {
+  return BibleBooks.find((b) => b.value === book)?.label ?? book;
+};

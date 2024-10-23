@@ -33,7 +33,7 @@ const ImageDetailsDialog = ({
     }
   };
 
-  const isShareable = !!navigator.share;
+  const isShareable = navigator.share !== undefined;
   const bookTitle = `${teaching.book} ${teaching.chapter}`;
 
   return (

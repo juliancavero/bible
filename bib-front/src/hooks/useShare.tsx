@@ -11,6 +11,8 @@ const useShare = () => {
       } catch (error) {
         console.error("Error sharing:", error);
       }
+    } else {
+      window.alert("Tu navegador no soporta la API de Web Share.");
     }
   };
 
@@ -31,6 +33,8 @@ const useShare = () => {
       } catch (error) {
         console.error("Error sharing:", error);
       }
+    } else {
+      window.alert("Tu navegador no soporta la API de Web Share.");
     }
   };
 
@@ -45,6 +49,8 @@ const useShare = () => {
       } catch (error) {
         console.error("Error sharing:", error);
       }
+    } else {
+      window.alert("Tu navegador no soporta la API de Web Share.");
     }
   };
 

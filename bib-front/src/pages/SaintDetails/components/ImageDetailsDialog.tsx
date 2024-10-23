@@ -43,7 +43,7 @@ const ImageDetailsDialog = ({
     }
   };
 
-  const isShareable = !!navigator.share;
+  const isShareable = navigator.share !== undefined;
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>

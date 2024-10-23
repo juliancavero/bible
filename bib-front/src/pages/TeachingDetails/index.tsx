@@ -9,7 +9,9 @@ import Markdown from "@/components/Text/Markdown";
 import StrongText from "@/components/Text/StrongText";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
+import { translateBook } from "@/lib/BibleBooks";
 import { renderDate } from "@/utils/calendar";
+import { useMemo } from "react";
 import ImageDetailsDialog from "./components/ImageDetailsDialog";
 import useTeachingDetails from "./useTeachingDetails";
 
@@ -24,6 +26,11 @@ const TeachingDetailsPage = () => {
     imageOpen,
     setImageOpen,
   } = useTeachingDetails();
+
+  const renderBookName = useMemo(() => {
+    return translateBook(teaching?.book);
+  }, [teaching]);
+
   return (
     <MainContainer>
       <IndexBar sticky text="Enseñanzas" onClick={onBack} />
@@ -48,14 +55,16 @@ const TeachingDetailsPage = () => {
                     </span>
                   </PaddingBox>
                   <PaddingBox multiplier={2}>
-                    <StrongText className="italic">{""}</StrongText>
+                    <StrongText className="italic">
+                      {renderBookName} {teaching.chapter}
+                    </StrongText>
                   </PaddingBox>
                   <div className="flex flex-col items-center md:block">
                     {teaching.image && (
                       <Image
                         src={teaching.image}
                         alt={teaching.book || ""}
-                        className="float-none md:float-right w-4/5 md:w-1/3 md:max-w-96"
+                        className="float-none md:float-right w-4/5 md:w-1/3 md:max-w-96 mb-3 mt-2 md:ml-4"
                         onClick={() => setImageOpen(true)}
                       />
                     )}
